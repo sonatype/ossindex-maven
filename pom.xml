@@ -26,7 +26,7 @@
   <groupId>org.sonatype.ossindex.maven</groupId>
   <artifactId>ossindex-maven</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <version>1-SNAPSHOT</version>
 
@@ -91,6 +91,13 @@
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
   </properties>
+
+  <modules>
+    <module>common</module>
+    <module>enforcer-rules</module>
+    <module>maven-extension</module>
+    <module>maven-plugin</module>
+  </modules>
 
   <dependencies>
     <dependency>
