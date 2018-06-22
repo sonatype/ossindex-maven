@@ -155,6 +155,14 @@
         <artifactId>goodies-testsupport</artifactId>
         <version>2.2.4</version>
       </dependency>
+
+      <!-- INTERNAL -->
+
+      <dependency>
+        <groupId>org.sonatype.ossindex.maven</groupId>
+        <artifactId>ossindex-maven-common</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -166,7 +174,7 @@
           <artifactId>license-maven-plugin</artifactId>
           <configuration>
             <excludes combine.children="append">
-              <exclude>src/test/projects/**</exclude>
+              <exclude>*/src/test/projects/**</exclude>
             </excludes>
           </configuration>
         </plugin>

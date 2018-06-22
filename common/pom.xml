@@ -32,6 +32,11 @@
       <groupId>org.sonatype.ossindex</groupId>
       <artifactId>ossindex-service-client</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+    </dependency>
   </dependencies>
 
 </project>
