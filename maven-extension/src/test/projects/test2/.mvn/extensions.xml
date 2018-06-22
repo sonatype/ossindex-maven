@@ -1,0 +1,11 @@
+<extensions xmlns="http://maven.apache.org/EXTENSIONS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/EXTENSIONS/1.0.0 http://maven.apache.org/xsd/core-extensions-1.0.0.xsd">
+  <extension>
+    <groupId>org.sonatype.ossindex.maven</groupId>
+    <artifactId>ossindex-maven-extension</artifactId>
+    <!-- FIXME: maven-invoker-plugin does not filter this file -->
+    <!--<version>@{project.version}</version>-->
+    <!--<version>${project.version}</version>-->
+    <version>1-SNAPSHOT</version>
+  </extension>
+</extensions>

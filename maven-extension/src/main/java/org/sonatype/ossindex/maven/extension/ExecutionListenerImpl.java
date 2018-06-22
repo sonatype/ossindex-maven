@@ -17,14 +17,19 @@ import javax.inject.Singleton;
 
 import org.apache.maven.execution.AbstractExecutionListener;
 import org.apache.maven.execution.ExecutionEvent;
+import org.apache.maven.execution.ExecutionListener;
+import org.codehaus.plexus.component.annotations.Component;
+
+// FIXME: this does not appear to actually work or get picked up; not sure why (with inject or component)
 
 /**
  * ???
  *
  * @since ???
  */
-@Named
-@Singleton
+//@Named
+//@Singleton
+//@Component(role = ExecutionListener.class, hint = "ossindex")
 public class ExecutionListenerImpl
     extends AbstractExecutionListener
 {

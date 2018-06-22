@@ -12,12 +12,14 @@
  */
 package org.sonatype.ossindex.maven.extension;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.apache.maven.AbstractMavenLifecycleParticipant;
 import org.apache.maven.MavenExecutionException;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 
 /**
  * ???
@@ -29,14 +31,18 @@ import org.apache.maven.execution.MavenSession;
 public class MavenLifecycleParticipantImpl
     extends AbstractMavenLifecycleParticipant
 {
-  @Override
-  public void afterProjectsRead(final MavenSession session) throws MavenExecutionException {
-    System.out.println("afterProjectsRead: " + session);
-  }
+  @Inject
+  private DependencyGraphBuilder dependencyGraphBuilder;
 
   @Override
   public void afterSessionStart(final MavenSession session) throws MavenExecutionException {
     System.out.println("afterSessionStart: " + session);
+  }
+
+  @Override
+  public void afterProjectsRead(final MavenSession session) throws MavenExecutionException {
+    System.out.println("afterProjectsRead: " + session);
+    System.out.println("dependencyGraphBuilder: " + dependencyGraphBuilder);
   }
 
   @Override
