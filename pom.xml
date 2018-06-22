@@ -96,67 +96,67 @@
     <module>common</module>
     <module>enforcer-rules</module>
     <module>maven-extension</module>
-    <module>maven-plugin</module>
+    <!--<module>maven-plugin</module>-->
   </modules>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.2</version>
-      <optional>true</optional>
-    </dependency>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>3.0.2</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.sonatype.ossindex</groupId>
-      <artifactId>ossindex-service-client</artifactId>
-      <version>1-SNAPSHOT</version>
-    </dependency>
+      <dependency>
+        <groupId>org.sonatype.ossindex</groupId>
+        <artifactId>ossindex-service-client</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.maven.enforcer</groupId>
-      <artifactId>enforcer-api</artifactId>
-      <version>3.0.0-M1</version>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.maven.enforcer</groupId>
+        <artifactId>enforcer-api</artifactId>
+        <version>3.0.0-M1</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-api</artifactId>
-      <version>${apache-maven.version}</version>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-plugin-api</artifactId>
+        <version>${apache-maven.version}</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-core</artifactId>
-      <version>${apache-maven.version}</version>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-core</artifactId>
+        <version>${apache-maven.version}</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-compat</artifactId>
-      <version>${apache-maven.version}</version>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-compat</artifactId>
+        <version>${apache-maven.version}</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-artifact</artifactId>
-      <version>${apache-maven.version}</version>
-    </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-artifact</artifactId>
+        <version>${apache-maven.version}</version>
+      </dependency>
 
-    <!-- maven-enforcer-plugin uses older maven-dependency-tree 2.x API and is not compatible with latest 3.x -->
-    <dependency>
-      <groupId>org.apache.maven.shared</groupId>
-      <artifactId>maven-dependency-tree</artifactId>
-      <version>2.2</version>
-    </dependency>
+      <!-- maven-enforcer-plugin uses older maven-dependency-tree 2.x API and is not compatible with latest 3.x -->
+      <dependency>
+        <groupId>org.apache.maven.shared</groupId>
+        <artifactId>maven-dependency-tree</artifactId>
+        <version>2.2</version>
+      </dependency>
 
-    <dependency>
-      <groupId>org.sonatype.goodies</groupId>
-      <artifactId>goodies-testsupport</artifactId>
-      <version>2.2.4</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+      <dependency>
+        <groupId>org.sonatype.goodies</groupId>
+        <artifactId>goodies-testsupport</artifactId>
+        <version>2.2.4</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <pluginManagement>
