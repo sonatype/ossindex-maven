@@ -27,4 +27,17 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.sonatype.ossindex.maven</groupId>
+      <artifactId>ossindex-maven-common</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.sonatype.goodies</groupId>
+      <artifactId>goodies-testsupport</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
 </project>
