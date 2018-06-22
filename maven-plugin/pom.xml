@@ -50,4 +50,49 @@
     </dependency>
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>it</id>
+      <activation>
+        <property>
+          <name>it</name>
+          <value>true</value>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>integration-test</id>
+                <goals>
+                  <goal>install</goal>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <failIfNoProjects>true</failIfNoProjects>
+                  <projectsDirectory>${project.basedir}/src/test/projects</projectsDirectory>
+                  <cloneProjectsTo>${project.build.directory}/test-projects</cloneProjectsTo>
+                  <pomIncludes>
+                    <pomInclude>*/pom.xml</pomInclude>
+                  </pomIncludes>
+                  <settingsFile>${project.basedir}/src/test/projects/settings.xml</settingsFile>
+                  <localRepositoryPath>${project.build.directory}/test-repo</localRepositoryPath>
+                  <filterProperties>
+                    <ossindex.baseUrl>${ossindex.baseUrl}</ossindex.baseUrl>
+                  </filterProperties>
+                  <preBuildHookScript>setup</preBuildHookScript>
+                  <postBuildHookScript>verify</postBuildHookScript>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>

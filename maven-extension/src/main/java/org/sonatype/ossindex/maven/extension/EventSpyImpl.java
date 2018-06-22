@@ -34,7 +34,7 @@ public class EventSpyImpl
 
   @Override
   public void onEvent(final Object event) throws Exception {
-    System.out.println("event: " + event);
+    System.out.println("event (" + event.getClass().getSimpleName() + "): " + event);
   }
 
   @Override
