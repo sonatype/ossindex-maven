@@ -95,16 +95,12 @@ public class BanVulnerableDependencies
 
     private final ComponentReportAssistant reportAssistant;
 
-    //private final OssindexClient client;
-
     public Task(final EnforcerRuleHelper helper) {
       this.log = helper.getLog();
       this.session = lookup(helper, "${session}", MavenSession.class);
       this.project = lookup(helper, "${project}", MavenProject.class);
       this.graphBuilder = lookup(helper, DependencyGraphBuilder.class);
       this.reportAssistant = lookup(helper, ComponentReportAssistant.class);
-
-      checkState(clientConfiguration != null, "Missing configuration");
     }
 
     public void run() throws EnforcerRuleException {

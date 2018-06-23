@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * ???
@@ -50,6 +51,8 @@ public class ComponentReportAssistant
 
   public ComponentReportResult request(final ComponentReportRequest request) {
     checkNotNull(request);
+    checkState(request.getComponents() != null, "Missing: components");
+    checkState(request.getClientConfiguration() != null, "Missing: client-configuration");
 
     log.info("Checking for vulnerabilities:");
 
