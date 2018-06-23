@@ -17,8 +17,13 @@ import org.sonatype.goodies.testsupport.TestSupport
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability
 
+import org.apache.maven.artifact.DefaultArtifact
+import org.apache.maven.artifact.handler.ArtifactHandler
 import org.junit.Before
 import org.junit.Test
+
+import static org.mockito.Mockito.mock
+import static org.mockito.Mockito.when
 
 /**
  * Tests for {@link ComponentReportAssistant}.
@@ -31,6 +36,22 @@ class ComponentReportAssistantTest
   @Before
   void setUp() {
     underTest = new ComponentReportAssistant()
+  }
+
+  @Test
+  void 'artifact to package-url'() {
+    def handler = mock(ArtifactHandler.class)
+    when(handler.getClassifier()).thenReturn(null)
+
+    def artifact = new DefaultArtifact(
+        'a.b.c', 'test', '1', null, 'jar', null,
+        handler
+    )
+
+    def purl = ComponentReportAssistant.packageUrl(artifact)
+    assert purl.namespaceAsString == 'a.b.c'
+    assert purl.name == 'test'
+    assert purl.version == '1'
   }
 
   @Test

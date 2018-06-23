@@ -100,7 +100,8 @@ public class ComponentReportAssistant
   /**
    * Convert {@link Artifact} to {@link PackageUrl}.
    */
-  private PackageUrl packageUrl(final Artifact artifact) {
+  @VisibleForTesting
+  static PackageUrl packageUrl(final Artifact artifact) {
     return new PackageUrl.Builder()
         .type("maven")
         .namespace(artifact.getGroupId())
