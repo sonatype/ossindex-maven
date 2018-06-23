@@ -44,7 +44,7 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 import static org.apache.maven.plugins.annotations.ResolutionScope.RUNTIME;
 
 /**
- * ???
+ * Component-report {@code audit} goal.
  *
  * @since ???
  */
