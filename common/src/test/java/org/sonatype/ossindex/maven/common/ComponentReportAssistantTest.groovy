@@ -16,14 +16,14 @@ import org.sonatype.goodies.packageurl.PackageUrl
 import org.sonatype.goodies.testsupport.TestSupport
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability
+import org.sonatype.ossindex.service.client.OssindexClient
+import org.sonatype.ossindex.service.client.OssindexClientConfiguration
 
-import org.apache.maven.artifact.DefaultArtifact
-import org.apache.maven.artifact.handler.ArtifactHandler
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mock
 
-import static org.mockito.Mockito.mock
-import static org.mockito.Mockito.when
+import static org.junit.Assert.fail
 
 /**
  * Tests for {@link ComponentReportAssistant}.
@@ -33,26 +33,60 @@ class ComponentReportAssistantTest
 {
   private ComponentReportAssistant underTest
 
+  @Mock
+  private OssindexClient client
+
   @Before
   void setUp() {
-    underTest = new ComponentReportAssistant()
+    // sub-class to override client creation to use mock
+    underTest = new ComponentReportAssistant() {
+      @Override
+      OssindexClient createClient(final OssindexClientConfiguration config) {
+        return client
+      }
+    }
   }
 
   @Test
-  void 'artifact to package-url'() {
-    def handler = mock(ArtifactHandler.class)
-    when(handler.getClassifier()).thenReturn(null)
+  void 'basic preconditions'() {
+    try {
+      underTest.request(new ComponentReportRequest())
+      fail()
+    }
+    catch (e) {
+      // expected
+    }
 
-    def artifact = new DefaultArtifact(
-        'a.b.c', 'test', '1', null, 'jar', null,
-        handler
-    )
+    try {
+      underTest.request(new ComponentReportRequest(
+          components: [
+              TestArtifactFactory.create('a', 'b', '1')
+          ]
+      ))
+      fail()
+    }
+    catch (e) {
+      // expected
+    }
 
-    def purl = ComponentReportAssistant.packageUrl(artifact)
-    assert purl.namespaceAsString == 'a.b.c'
-    assert purl.name == 'test'
-    assert purl.version == '1'
+    try {
+      underTest.request(new ComponentReportRequest(
+          clientConfiguration: new OssindexClientConfiguration()
+      ))
+      fail()
+    }
+    catch (e) {
+      // expected
+    }
   }
+
+  // TODO: add happy-path tests
+
+  // TODO: add client-failure tests
+
+  //
+  // Exclusion matching
+  //
 
   @Test
   void 'inclusion matching'() {
@@ -155,5 +189,18 @@ class ComponentReportAssistantTest
 
     request.getExcludeCoordinates().add(new MavenCoordinates('foo', 'bar', '1'))
     assert !underTest.match(request, report)
+  }
+
+  //
+  // Helpers
+  //
+
+  @Test
+  void 'artifact to package-url'() {
+    def artifact = TestArtifactFactory.create('a.b.c', 'test', '1')
+    def purl = ComponentReportAssistant.packageUrl(artifact)
+    assert purl.namespaceAsString == 'a.b.c'
+    assert purl.name == 'test'
+    assert purl.version == '1'
   }
 }

@@ -113,7 +113,8 @@ public class ComponentReportAssistant
   /**
    * Create client to communicate with OSS Index.
    */
-  private OssindexClient createClient(final OssindexClientConfiguration config) {
+  @VisibleForTesting
+  OssindexClient createClient(final OssindexClientConfiguration config) {
     UserAgentSupplier userAgent = new UserAgentSupplier(new VersionSupplier().get());
     Transport transport = new HttpClientTransport(userAgent);
     Marshaller marshaller = new GsonMarshaller();

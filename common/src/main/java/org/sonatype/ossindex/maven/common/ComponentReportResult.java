@@ -28,8 +28,14 @@ import org.apache.maven.artifact.Artifact;
  */
 public class ComponentReportResult
 {
+  /**
+   * All component-reports.
+   */
   private Map<PackageUrl, ComponentReport> reports;
 
+  /**
+   * Component-reports which have matching vulnerabilities.
+   */
   private Map<Artifact, ComponentReport> vulnerable;
 
   public Map<PackageUrl, ComponentReport> getReports() {
@@ -52,6 +58,9 @@ public class ComponentReportResult
     return !vulnerable.isEmpty();
   }
 
+  /**
+   * Render a multi-line string explaining the vulnerabilities.
+   */
   public String explain() {
     StringBuilder buff = new StringBuilder();
 
