@@ -13,6 +13,8 @@
 package org.sonatype.ossindex.maven.common;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
@@ -20,8 +22,11 @@ import org.sonatype.goodies.packageurl.PackageUrl;
 
 import com.google.common.base.MoreObjects;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
- * Maven coordinates for exclusion matching.
+ * Maven coordinates.
  *
  * @since ???
  */
@@ -33,11 +38,11 @@ public class MavenCoordinates
   @Nullable
   private String artifactId;
 
-  // TODO: for now we can skip these, but probably should add these one day when supported
+  @Nullable
+  private String type;
 
-  //private String classifier;
-
-  //private String type;
+  @Nullable
+  private String classifier;
 
   @Nullable
   private String version;
@@ -46,8 +51,19 @@ public class MavenCoordinates
                           @Nullable final String artifactId,
                           @Nullable final String version)
   {
+    this(groupId, artifactId, null, null, version);
+  }
+
+  public MavenCoordinates(@Nullable final String groupId,
+                          @Nullable final String artifactId,
+                          @Nullable final String type,
+                          @Nullable final String classifier,
+                          @Nullable final String version)
+  {
     this.groupId = groupId;
     this.artifactId = artifactId;
+    this.classifier = classifier;
+    this.type = type;
     this.version = version;
   }
 
@@ -74,19 +90,30 @@ public class MavenCoordinates
   }
 
   @Nullable
+  public String getType() {
+    return type;
+  }
+
+  public void setType(@Nullable final String type) {
+    this.type = type;
+  }
+
+  @Nullable
+  public String getClassifier() {
+    return classifier;
+  }
+
+  public void setClassifier(@Nullable final String classifier) {
+    this.classifier = classifier;
+  }
+
+  @Nullable
   public String getVersion() {
     return version;
   }
 
   public void setVersion(@Nullable final String version) {
     this.version = version;
-  }
-
-  /**
-   * Convert {@link PackageUrl} to {@link MavenCoordinates}.
-   */
-  static MavenCoordinates from(final PackageUrl purl) {
-    return new MavenCoordinates(purl.getNamespaceAsString(), purl.getName(), purl.getVersion());
   }
 
   @Override
@@ -100,12 +127,14 @@ public class MavenCoordinates
     MavenCoordinates that = (MavenCoordinates) o;
     return Objects.equals(groupId, that.groupId) &&
         Objects.equals(artifactId, that.artifactId) &&
+        Objects.equals(type, that.type) &&
+        Objects.equals(classifier, that.classifier) &&
         Objects.equals(version, that.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupId, artifactId, version);
+    return Objects.hash(groupId, artifactId, type, classifier, version);
   }
 
   @Override
@@ -113,7 +142,47 @@ public class MavenCoordinates
     return MoreObjects.toStringHelper(this)
         .add("groupId", groupId)
         .add("artifactId", artifactId)
+        .add("type", type)
+        .add("classifier", classifier)
         .add("version", version)
         .toString();
+  }
+
+  //
+  // Conversion
+  //
+
+  /**
+   * Convert {@link PackageUrl} to {@link MavenCoordinates}.
+   */
+  static MavenCoordinates from(final PackageUrl purl) {
+    return new MavenCoordinates(purl.getNamespaceAsString(), purl.getName(), purl.getVersion());
+  }
+
+  //
+  // Parsing
+  //
+
+  // SEE: https://github.com/apache/maven-resolver/blob/maven-resolver-1.1.1/maven-resolver-api/src/main/java/org/eclipse/aether/artifact/DefaultArtifact.java#L56
+
+  private static final Pattern PATTERN = Pattern.compile("([^: ]+):([^: ]+)(:([^: ]*)(:([^: ]+))?)?:([^: ]+)");
+
+  /**
+   * Parse coordinates from string value.
+   */
+  public static MavenCoordinates parse(final String value) {
+    checkNotNull(value);
+
+    Matcher m = PATTERN.matcher(value);
+    checkArgument(m.matches(),
+        "Invalid coordinates %s; expected format: <groupId>:<artifactId>[:<type>[:<classifier>]]:<version>",
+        value);
+
+    String groupId = m.group(1);
+    String artifactId = m.group(2);
+    String type = m.group(4);
+    String classifier = m.group(6);
+    String version = m.group(7);
+    return new MavenCoordinates(groupId, artifactId, type, classifier, version);
   }
 }
