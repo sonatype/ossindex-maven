@@ -13,6 +13,8 @@
 package org.sonatype.ossindex.maven.common;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 
@@ -27,7 +29,25 @@ public class ComponentReportRequest
 {
   private OssindexClientConfiguration clientConfiguration;
 
+  /**
+   * Artifact (components) to analyze.
+   */
   private Collection<Artifact> components;
+
+  /**
+   * Maven coordinates to exclude from matching.
+   */
+  private Set<MavenCoordinates> excludeCoordinates;
+
+  /**
+   * CVSS-score threshold.  Vulnerabilities with scores greater-than or equal will match.
+   */
+  private float cvssScoreThreshold = 0;
+
+  /**
+   * Vulnerability identifiers to exclude from matching.
+   */
+  private Set<String> excludeVulnerabilityIds;
 
   public OssindexClientConfiguration getClientConfiguration() {
     return clientConfiguration;
@@ -43,5 +63,35 @@ public class ComponentReportRequest
 
   public void setComponents(final Collection<Artifact> components) {
     this.components = components;
+  }
+
+  public Set<MavenCoordinates> getExcludeCoordinates() {
+    if (excludeCoordinates == null) {
+      excludeCoordinates = new HashSet<>();
+    }
+    return excludeCoordinates;
+  }
+
+  public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
+    this.excludeCoordinates = excludeCoordinates;
+  }
+
+  public float getCvssScoreThreshold() {
+    return cvssScoreThreshold;
+  }
+
+  public void setCvssScoreThreshold(final float cvssScoreThreshold) {
+    this.cvssScoreThreshold = cvssScoreThreshold;
+  }
+
+  public Set<String> getExcludeVulnerabilityIds() {
+    if (excludeVulnerabilityIds == null) {
+      excludeVulnerabilityIds = new HashSet<>();
+    }
+    return excludeVulnerabilityIds;
+  }
+
+  public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
+    this.excludeVulnerabilityIds = excludeVulnerabilityIds;
   }
 }

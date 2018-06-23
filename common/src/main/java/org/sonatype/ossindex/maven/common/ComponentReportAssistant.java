@@ -14,13 +14,16 @@ package org.sonatype.ossindex.maven.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
+import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 import org.sonatype.ossindex.service.client.OssindexClient;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
@@ -31,6 +34,7 @@ import org.sonatype.ossindex.service.client.transport.Marshaller;
 import org.sonatype.ossindex.service.client.transport.Transport;
 import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.artifact.Artifact;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +53,9 @@ public class ComponentReportAssistant
 {
   private static final Logger log = LoggerFactory.getLogger(ComponentReportAssistant.class);
 
+  /**
+   * Request component-report and apply exclusion matching.
+   */
   public ComponentReportResult request(final ComponentReportRequest request) {
     checkNotNull(request);
     checkState(request.getComponents() != null, "Missing: components");
@@ -57,35 +64,27 @@ public class ComponentReportAssistant
     log.info("Checking for vulnerabilities:");
 
     // generate package-url and map back to artifacts for result handling
-    Map<PackageUrl, Artifact> requests = new HashMap<>();
+    Map<PackageUrl, Artifact> purlArtifacts = new HashMap<>();
     for (Artifact artifact : request.getComponents()) {
       log.info("  " + artifact);
-      PackageUrl purl = new PackageUrl.Builder()
-          .type("maven")
-          .namespace(artifact.getGroupId())
-          .name(artifact.getArtifactId())
-          .version(artifact.getVersion())
-          .build();
-      requests.put(purl, artifact);
+      purlArtifacts.put(packageUrl(artifact), artifact);
     }
 
     OssindexClient client = createClient(request.getClientConfiguration());
     ComponentReportResult result = new ComponentReportResult();
     Map<Artifact, ComponentReport> vulnerable = new HashMap<>();
     try {
-      Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(requests.keySet()));
+      Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(purlArtifacts.keySet()));
       log.trace("Fetched {} component-reports", reports.size());
       result.setReports(reports);
 
-      // TODO: filter vulnerabilities from request
-
       for (Map.Entry<PackageUrl, ComponentReport> entry : reports.entrySet()) {
         PackageUrl purl = entry.getKey();
-        Artifact artifact = requests.get(purl);
+        Artifact artifact = purlArtifacts.get(purl);
         ComponentReport report = entry.getValue();
 
-        // if report contains any vulnerabilities then record artifact mapping
-        if (!report.getVulnerabilities().isEmpty()) {
+        // filter and maybe record vulnerable mapping
+        if (match(request, report)) {
           vulnerable.put(artifact, report);
         }
       }
@@ -98,10 +97,66 @@ public class ComponentReportAssistant
     return result;
   }
 
+  /**
+   * Convert {@link Artifact} to {@link PackageUrl}.
+   */
+  private PackageUrl packageUrl(final Artifact artifact) {
+    return new PackageUrl.Builder()
+        .type("maven")
+        .namespace(artifact.getGroupId())
+        .name(artifact.getArtifactId())
+        .version(artifact.getVersion())
+        .build();
+  }
+
+  /**
+   * Create client to communicate with OSS Index.
+   */
   private OssindexClient createClient(final OssindexClientConfiguration config) {
     UserAgentSupplier userAgent = new UserAgentSupplier(new VersionSupplier().get());
     Transport transport = new HttpClientTransport(userAgent);
     Marshaller marshaller = new GsonMarshaller();
     return new OssindexClientImpl(config, transport, marshaller);
+  }
+
+  /**
+   * Apply exclusion matching rules.
+   */
+  @VisibleForTesting
+  boolean match(final ComponentReportRequest request, final ComponentReport report) {
+    List<ComponentReportVulnerability> vulnerabilities = report.getVulnerabilities();
+
+    // do not include if there were no vulnerabilities detected
+    if (vulnerabilities.isEmpty()) {
+      return false;
+    }
+
+    // do not include if component coordinates are excluded
+    MavenCoordinates coordinates = MavenCoordinates.from(report.getCoordinates());
+    if (request.getExcludeCoordinates().contains(coordinates)) {
+      return false;
+    }
+
+    // else check each vulnerability for matches
+    int matched = 0;
+    float cvssScoreThreshold = request.getCvssScoreThreshold();
+    Set<String> excludeVulnerabilityIds = request.getExcludeVulnerabilityIds();
+
+    for (ComponentReportVulnerability vulnerability : vulnerabilities) {
+      boolean include = false;
+      Float cvssScore = vulnerability.getCvssScore();
+      if (cvssScore != null && cvssScore >= cvssScoreThreshold) {
+        include = true;
+      }
+      if (excludeVulnerabilityIds.contains(vulnerability.getId())) {
+        include = false;
+      }
+      if (include) {
+        matched++;
+      }
+    }
+
+    // if any match was found, then include
+    return matched != 0;
   }
 }
