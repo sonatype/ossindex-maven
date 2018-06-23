@@ -75,6 +75,8 @@ public class BanVulnerableDependencies
     this.clientConfiguration = clientConfiguration;
   }
 
+  // TODO: bridge exclusion configuration
+
   @Override
   public void execute(@Nonnull final EnforcerRuleHelper helper) throws EnforcerRuleException {
     new Task(helper).run();

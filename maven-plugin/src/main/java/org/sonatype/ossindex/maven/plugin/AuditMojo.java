@@ -68,6 +68,8 @@ public class AuditMojo
   @Parameter(property = "ossindex.transitive", defaultValue = "true")
   private boolean transitive = true;
 
+  // TODO: bridge exclusion configuration
+
   @Component
   private DependencyGraphBuilder dependencyGraphBuilder;
 
