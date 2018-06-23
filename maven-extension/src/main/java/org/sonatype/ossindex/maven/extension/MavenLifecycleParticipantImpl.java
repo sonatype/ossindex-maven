@@ -26,8 +26,8 @@ import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
  *
  * @since ???
  */
-@Named
-@Singleton
+//@Named
+//@Singleton
 public class MavenLifecycleParticipantImpl
     extends AbstractMavenLifecycleParticipant
 {

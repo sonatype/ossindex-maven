@@ -107,7 +107,8 @@
                   <projectsDirectory>${project.basedir}/src/test/projects</projectsDirectory>
                   <cloneProjectsTo>${project.build.directory}/test-projects</cloneProjectsTo>
                   <pomIncludes>
-                    <pomInclude>*/pom.xml</pomInclude>
+                    <pomInclude>test1/pom.xml</pomInclude>
+                    <!--<pomInclude>*/pom.xml</pomInclude>-->
                   </pomIncludes>
                   <settingsFile>${project.basedir}/src/test/projects/settings.xml</settingsFile>
                   <localRepositoryPath>${project.build.directory}/test-repo</localRepositoryPath>

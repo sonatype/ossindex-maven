@@ -22,7 +22,7 @@
     <extensions>
       <extension>
         <groupId>org.sonatype.ossindex.maven</groupId>
-        <artifactId>ossindex-maven-extentsion</artifactId>
+        <artifactId>ossindex-maven-extension</artifactId>
         <version>@project.version@</version>
       </extension>
     </extensions>

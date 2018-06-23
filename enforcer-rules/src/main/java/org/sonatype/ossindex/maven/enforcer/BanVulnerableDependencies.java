@@ -12,28 +12,16 @@
  */
 package org.sonatype.ossindex.maven.enforcer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.sonatype.goodies.packageurl.PackageUrl;
-import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
-import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
-import org.sonatype.ossindex.service.client.OssindexClient;
+import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
+import org.sonatype.ossindex.maven.common.ComponentReportRequest;
+import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
-import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
-import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
-import org.sonatype.ossindex.service.client.internal.VersionSupplier;
-import org.sonatype.ossindex.service.client.transport.HttpClientTransport;
-import org.sonatype.ossindex.service.client.transport.Marshaller;
-import org.sonatype.ossindex.service.client.transport.Transport;
-import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
@@ -105,26 +93,24 @@ public class BanVulnerableDependencies
 
     private final DependencyGraphBuilder graphBuilder;
 
-    private final OssindexClient client;
+    private final ComponentReportAssistant reportAssistant;
+
+    //private final OssindexClient client;
 
     public Task(final EnforcerRuleHelper helper) {
       this.log = helper.getLog();
       this.session = lookup(helper, "${session}", MavenSession.class);
       this.project = lookup(helper, "${project}", MavenProject.class);
       this.graphBuilder = lookup(helper, DependencyGraphBuilder.class);
+      this.reportAssistant = lookup(helper, ComponentReportAssistant.class);
 
       checkState(clientConfiguration != null, "Missing configuration");
-
-      UserAgentSupplier userAgent = new UserAgentSupplier(new VersionSupplier().get());
-      Transport transport = new HttpClientTransport(userAgent);
-      Marshaller marshaller = new GsonMarshaller();
-      client = new OssindexClientImpl(clientConfiguration, transport, marshaller);
     }
 
     public void run() throws EnforcerRuleException {
       // skip if maven is in offline mode
       if (session.isOffline()) {
-        log.warn("Skipping " + BanVulnerableDependencies.class.getSimpleName() + " evaluation; Offline mode detected");
+        log.warn("Skipping " + BanVulnerableDependencies.class.getSimpleName() + " evaluation; offline");
         return;
       }
 
@@ -149,69 +135,14 @@ public class BanVulnerableDependencies
         return;
       }
 
-      log.info("Checking for vulnerabilities:");
+      ComponentReportRequest reportRequest = new ComponentReportRequest();
+      reportRequest.setClientConfiguration(clientConfiguration);
+      reportRequest.setComponents(dependencies);
 
-      // generate package-url and map back to artifacts for result handling
-      Map<PackageUrl, Artifact> requests = new HashMap<>();
-      for (Artifact artifact : dependencies) {
-        log.info("  " + artifact);
-        PackageUrl purl = new PackageUrl.Builder()
-            .type("maven")
-            .namespace(artifact.getGroupId())
-            .name(artifact.getArtifactId())
-            .version(artifact.getVersion())
-            .build();
-        requests.put(purl, artifact);
-      }
+      ComponentReportResult reportResult = reportAssistant.request(reportRequest);
 
-      Map<Artifact, ComponentReport> vulnerableDependencies = new HashMap<>();
-      try {
-        Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(requests.keySet()));
-        for (Map.Entry<PackageUrl, ComponentReport> entry : reports.entrySet()) {
-          PackageUrl purl = entry.getKey();
-          Artifact artifact = requests.get(purl);
-          ComponentReport report = entry.getValue();
-
-          // if report contains any vulnerabilities then record artifact mapping
-          if (!report.getVulnerabilities().isEmpty()) {
-            vulnerableDependencies.put(artifact, report);
-          }
-        }
-      }
-      catch (Exception e) {
-        log.warn("Failed to fetch component-reports", e);
-      }
-
-      // if any vulnerabilities were detected, generate a report and complain
-      if (!vulnerableDependencies.isEmpty()) {
-        StringBuilder buff = new StringBuilder();
-        buff.append("Detected ").append(vulnerableDependencies.size()).append(" vulnerable dependencies:\n");
-
-        // include details about each vulnerable dependency
-        for (Map.Entry<Artifact, ComponentReport> entry : vulnerableDependencies.entrySet()) {
-          Artifact artifact = entry.getKey();
-          ComponentReport report = entry.getValue();
-
-          // describe artifact and link to component information
-          buff.append("  ")
-              .append(artifact).append("; ")
-              .append(report.getReference())
-              .append("\n");
-
-          // include terse details about vulnerability and link to more detailed information
-          Iterator<ComponentReportVulnerability> iter = report.getVulnerabilities().iterator();
-          while (iter.hasNext()) {
-            ComponentReportVulnerability vulnerability = iter.next();
-            buff.append("    * ")
-                .append(vulnerability.getTitle())
-                .append("; ").append(vulnerability.getReference());
-            if (iter.hasNext()) {
-              buff.append("\n");
-            }
-          }
-        }
-
-        throw new EnforcerRuleException(buff.toString());
+      if (reportResult.hasVulnerable()) {
+        throw new EnforcerRuleException(reportResult.explain());
       }
     }
 

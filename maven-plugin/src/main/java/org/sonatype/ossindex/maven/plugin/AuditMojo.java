@@ -12,9 +12,16 @@
  */
 package org.sonatype.ossindex.maven.plugin;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nullable;
+
+import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
+import org.sonatype.ossindex.maven.common.ComponentReportRequest;
+import org.sonatype.ossindex.maven.common.ComponentReportResult;
+import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 
 import com.google.common.base.Splitter;
 import org.apache.maven.artifact.Artifact;
@@ -31,6 +38,7 @@ import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
+import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 import static org.apache.maven.plugins.annotations.ResolutionScope.RUNTIME;
@@ -57,24 +65,64 @@ public class AuditMojo
   @Parameter(property = "ossindex.scope")
   private String scope;
 
+  @Parameter(property = "ossindex.transitive", defaultValue = "true")
+  private boolean transitive = true;
+
   @Component
   private DependencyGraphBuilder dependencyGraphBuilder;
 
+  @Parameter
+  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+
+  @Component
+  private ComponentReportAssistant reportAssistant;
+
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
-    try {
-      doExecute();
+    if (skip) {
+      getLog().info("Skipping; configured");
+      return;
     }
-    catch (Exception e) {
-      throw new MojoExecutionException("Error", e);
+    if (session.isOffline()) {
+      getLog().info("Skipping; offline");
+      return;
+    }
+    if ("pom".equals(project.getPackaging())) {
+      getLog().debug("Skipping; POM module");
+      return;
+    }
+
+    // determine dependencies
+    Set<Artifact> dependencies;
+    try {
+      dependencies = resolveDependencies(session);
+    }
+    catch (DependencyGraphBuilderException e) {
+      throw new MojoExecutionException("Failed to resolve dependencies", e);
+    }
+
+    // skip if project has no dependencies
+    if (dependencies.isEmpty()) {
+      getLog().info("Skipping; no dependencies found");
+      return;
+    }
+
+    ComponentReportRequest reportRequest = new ComponentReportRequest();
+    reportRequest.setClientConfiguration(clientConfiguration);
+    reportRequest.setComponents(dependencies);
+
+    ComponentReportResult reportResult = reportAssistant.request(reportRequest);
+
+    if (reportResult.hasVulnerable()) {
+      throw new MojoFailureException(reportResult.explain());
     }
   }
 
-  private void doExecute() throws Exception {
-    if (skip) {
-      getLog().info("Skipping");
-      return;
-    }
+  /**
+   * Resolve dependencies to inspect for vulnerabilities.
+   */
+  private Set<Artifact> resolveDependencies(final MavenSession session) throws DependencyGraphBuilderException {
+    Set<Artifact> dependencies = new HashSet<>();
 
     ProjectBuildingRequest request = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
     request.setProject(project);
@@ -82,19 +130,29 @@ public class AuditMojo
     ArtifactFilter artifactFilter = null;
     if (scope != null) {
       List<String> scopes = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(scope);
-      getLog().info("Scopes: " + scopes);
       artifactFilter = new CumulativeScopeArtifactFilter(scopes);
     }
 
     DependencyNode root = dependencyGraphBuilder.buildDependencyGraph(request, artifactFilter);
-    List<DependencyNode> children = root.getChildren();
+    collectArtifacts(dependencies, root);
 
-    getLog().info("Dependencies: " + children.size());
-    for (DependencyNode child : children) {
-      Artifact artifact = child.getArtifact();
-      getLog().info("Dependency: " + artifact);
+    return dependencies;
+  }
+
+  /**
+   * Collect artifacts from dependency.
+   *
+   * Optionally including transitive dependencies if {@link #transitive} is {@code true}.
+   */
+  private void collectArtifacts(final Set<Artifact> artifacts, final DependencyNode node) {
+    if (node.getChildren() != null) {
+      for (DependencyNode child : node.getChildren()) {
+        artifacts.add(child.getArtifact());
+
+        if (transitive) {
+          collectArtifacts(artifacts, child);
+        }
+      }
     }
-
-    // TODO: analyze and report
   }
 }

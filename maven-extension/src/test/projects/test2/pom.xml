@@ -18,14 +18,4 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <extensions>
-      <extension>
-        <groupId>org.sonatype.ossindex.maven</groupId>
-        <artifactId>ossindex-maven-extentsion</artifactId>
-        <version>@project.version@</version>
-      </extension>
-    </extensions>
-  </build>
-
 </project>

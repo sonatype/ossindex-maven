@@ -1,3 +1,3 @@
 File buildLog = new File(basedir, 'build.log')
-// FIXME: adjust assertion
-assert buildLog.text.contains('org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies failed with message')
+assert buildLog.text.contains('Failed to execute goal org.sonatype.ossindex.maven:ossindex-maven-plugin')
+assert buildLog.text.contains('Detected 1 vulnerable components')
