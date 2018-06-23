@@ -163,6 +163,7 @@ public class BanVulnerableDependencies
      *
      * Optionally including transitive dependencies if {@link #transitive} is {@code true}.
      */
+    @SuppressWarnings("Duplicates")
     private void collectArtifacts(final Set<Artifact> artifacts, final DependencyNode node) {
       if (node.getChildren() != null) {
         for (DependencyNode child : node.getChildren()) {
