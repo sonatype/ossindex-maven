@@ -49,14 +49,25 @@ class ComponentReportAssistantTest
 
   @Test
   void 'basic preconditions'() {
+    // null request is not allowed
+    try {
+      underTest.request(null)
+      fail()
+    }
+    catch (NullPointerException e) {
+      // expected
+    }
+
+    // request required fields
     try {
       underTest.request(new ComponentReportRequest())
       fail()
     }
-    catch (e) {
+    catch (IllegalStateException e) {
       // expected
     }
 
+    // request requires client-configuration
     try {
       underTest.request(new ComponentReportRequest(
           components: [
@@ -65,17 +76,18 @@ class ComponentReportAssistantTest
       ))
       fail()
     }
-    catch (e) {
+    catch (IllegalStateException e) {
       // expected
     }
 
+    // request requires components
     try {
       underTest.request(new ComponentReportRequest(
           clientConfiguration: new OssindexClientConfiguration()
       ))
       fail()
     }
-    catch (e) {
+    catch (IllegalStateException e) {
       // expected
     }
   }
