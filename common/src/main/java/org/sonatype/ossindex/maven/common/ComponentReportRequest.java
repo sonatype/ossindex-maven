@@ -19,7 +19,7 @@ import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.apache.maven.artifact.Artifact;
 
 /**
- * ???
+ * Component-report request.
  *
  * @since ???
  */

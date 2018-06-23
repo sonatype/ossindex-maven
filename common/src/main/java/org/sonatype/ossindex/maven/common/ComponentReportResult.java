@@ -22,7 +22,7 @@ import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerab
 import org.apache.maven.artifact.Artifact;
 
 /**
- * ???
+ * Component-report result.
  *
  * @since ???
  */
