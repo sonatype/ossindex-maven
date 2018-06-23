@@ -41,14 +41,14 @@ import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
-import static org.apache.maven.plugins.annotations.ResolutionScope.RUNTIME;
+import static org.apache.maven.plugins.annotations.ResolutionScope.TEST;
 
 /**
  * Component-report {@code audit} goal.
  *
  * @since ???
  */
-@Mojo(name = "audit", requiresDependencyResolution = RUNTIME)
+@Mojo(name = "audit", requiresDependencyResolution = TEST)
 public class AuditMojo
     extends AbstractMojo
 {
