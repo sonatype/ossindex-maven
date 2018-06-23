@@ -74,7 +74,10 @@ public class ComponentReportAssistant
     Map<Artifact, ComponentReport> vulnerable = new HashMap<>();
     try {
       Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(requests.keySet()));
+      log.trace("Fetched {} component-reports", reports.size());
       result.setReports(reports);
+
+      // TODO: filter vulnerabilities from request
 
       for (Map.Entry<PackageUrl, ComponentReport> entry : reports.entrySet()) {
         PackageUrl purl = entry.getKey();
