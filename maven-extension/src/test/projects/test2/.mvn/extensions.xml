@@ -3,7 +3,7 @@
   <extension>
     <groupId>org.sonatype.ossindex.maven</groupId>
     <artifactId>ossindex-maven-extension</artifactId>
-    <!-- FIXME: maven-invoker-plugin does not filter this file -->
+    <!-- FIXME: maven-invoker-plugin does not filter this file? looks like there is some hacked support though? -->
     <!--<version>@{project.version}</version>-->
     <!--<version>${project.version}</version>-->
     <version>1-SNAPSHOT</version>
