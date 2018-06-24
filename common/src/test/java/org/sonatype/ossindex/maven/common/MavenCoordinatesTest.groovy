@@ -51,8 +51,8 @@ class MavenCoordinatesTest
 
   @Test
   void 'parse list'() {
-    def list = MavenCoordinates.parseList('foo:bar:1,foo:bar:2')
-    assert list.size() == 2
+    def list = MavenCoordinates.parseList('foo:bar:1, foo:bar:2   ,,foo:bar:3')
+    assert list.size() == 3
     list.get(0).with {
       assert groupId == 'foo'
       assert artifactId == 'bar'
@@ -62,6 +62,11 @@ class MavenCoordinatesTest
       assert groupId == 'foo'
       assert artifactId == 'bar'
       assert version == '2'
+    }
+    list.get(2).with {
+      assert groupId == 'foo'
+      assert artifactId == 'bar'
+      assert version == '3'
     }
   }
 }
