@@ -12,6 +12,8 @@
  */
 package org.sonatype.ossindex.maven.common;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +23,7 @@ import javax.annotation.Nullable;
 import org.sonatype.goodies.packageurl.PackageUrl;
 
 import com.google.common.base.MoreObjects;
+import com.google.common.base.Splitter;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -184,5 +187,17 @@ public class MavenCoordinates
     String classifier = m.group(6);
     String version = m.group(7);
     return new MavenCoordinates(groupId, artifactId, type, classifier, version);
+  }
+
+  /**
+   * Parse coordinates (comma-separated) list from string value.
+   */
+  public static List<MavenCoordinates> parseList(final String value) {
+    checkNotNull(value);
+    List<MavenCoordinates> result = new LinkedList<>();
+    for (String coordinates : Splitter.on(',').trimResults().omitEmptyStrings().split(value)) {
+      result.add(parse(coordinates));
+    }
+    return result;
   }
 }
