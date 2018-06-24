@@ -27,8 +27,8 @@ import org.codehaus.plexus.component.annotations.Component;
  *
  * @since ???
  */
-//@Named
-//@Singleton
+@Named
+@Singleton
 //@Component(role = ExecutionListener.class, hint = "ossindex")
 public class ExecutionListenerImpl
     extends AbstractExecutionListener

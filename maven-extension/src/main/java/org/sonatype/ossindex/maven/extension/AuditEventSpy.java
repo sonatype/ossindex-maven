@@ -12,10 +12,14 @@
  */
 package org.sonatype.ossindex.maven.extension;
 
+import java.util.Map;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.apache.maven.eventspy.AbstractEventSpy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ???
@@ -24,21 +28,26 @@ import org.apache.maven.eventspy.AbstractEventSpy;
  */
 @Named
 @Singleton
-public class EventSpyImpl
+public class AuditEventSpy
     extends AbstractEventSpy
 {
+  private static final Logger log = LoggerFactory.getLogger(AuditEventSpy.class);
+
   @Override
   public void init(final Context context) throws Exception {
-    System.out.println("init: " + context);
+    log.info("INIT: {}", context);
+    for (Map.Entry<String,Object> entry : context.getData().entrySet()) {
+      log.info("  {}={}", entry.getKey(), entry.getValue());
+    }
   }
 
   @Override
   public void onEvent(final Object event) throws Exception {
-    System.out.println("event (" + event.getClass().getSimpleName() + "): " + event);
+    log.info("EVENT {}: {}", event.getClass().getSimpleName(), event);
   }
 
   @Override
   public void close() throws Exception {
-    System.out.println("close");
+    log.info("CLOSE");
   }
 }
