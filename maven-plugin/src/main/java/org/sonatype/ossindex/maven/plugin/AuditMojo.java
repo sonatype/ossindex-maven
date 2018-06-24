@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
+import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 
 import com.google.common.base.Splitter;
@@ -68,7 +69,21 @@ public class AuditMojo
   @Parameter(property = "ossindex.transitive", defaultValue = "true")
   private boolean transitive = true;
 
+  @Parameter(property = "ossindex.fail", defaultValue = "true")
+  private boolean fail = true;
+
   // TODO: bridge exclusion configuration
+
+  // FIXME: if the use-case for this goal is for direct usage, then complex configuration here isn't going to work
+
+  @Parameter
+  private Set<MavenCoordinates> excludeCoordinates;
+
+  @Parameter(property = "ossindex.cvssScoreThreshold", defaultValue = "0")
+  private float cvssScoreThreshold = 0;
+
+  @Parameter
+  private Set<String> excludeVulnerabilityIds;
 
   @Component
   private DependencyGraphBuilder dependencyGraphBuilder;
@@ -116,7 +131,12 @@ public class AuditMojo
     ComponentReportResult reportResult = reportAssistant.request(reportRequest);
 
     if (reportResult.hasVulnerable()) {
-      throw new MojoFailureException(reportResult.explain());
+      if (fail) {
+        throw new MojoFailureException(reportResult.explain());
+      }
+      else {
+        getLog().warn(reportResult.explain());
+      }
     }
   }
 

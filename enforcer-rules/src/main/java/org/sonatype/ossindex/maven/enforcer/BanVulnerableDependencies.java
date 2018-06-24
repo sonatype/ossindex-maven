@@ -13,18 +13,21 @@
 package org.sonatype.ossindex.maven.enforcer;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
+import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 
+import com.google.common.base.Splitter;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
+import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleException;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.execution.MavenSession;
@@ -34,8 +37,6 @@ import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
-import static com.google.common.base.Preconditions.checkState;
-
 /**
  * Enforcer rule to ban vulnerable dependencies.
  *
@@ -44,19 +45,24 @@ import static com.google.common.base.Preconditions.checkState;
 public class BanVulnerableDependencies
     extends EnforcerRuleSupport
 {
-  private ArtifactFilter filter;
+  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
   private boolean transitive = true;
 
-  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+  private String scope;
 
-  @Nullable
-  public ArtifactFilter getFilter() {
-    return filter;
+  private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
+
+  private float cvssScoreThreshold = 0;
+
+  private Set<String> excludeVulnerabilityIds = new HashSet<>();
+
+  public OssindexClientConfiguration getClientConfiguration() {
+    return clientConfiguration;
   }
 
-  public void setFilter(@Nullable final ArtifactFilter filter) {
-    this.filter = filter;
+  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
+    this.clientConfiguration = clientConfiguration;
   }
 
   public boolean isTransitive() {
@@ -67,15 +73,39 @@ public class BanVulnerableDependencies
     this.transitive = transitive;
   }
 
-  public OssindexClientConfiguration getClientConfiguration() {
-    return clientConfiguration;
+  public String getScope() {
+    return scope;
   }
 
-  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
-    this.clientConfiguration = clientConfiguration;
+  public void setScope(final String scope) {
+    this.scope = scope;
   }
 
-  // TODO: bridge exclusion configuration
+  public Set<MavenCoordinates> getExcludeCoordinates() {
+    return excludeCoordinates;
+  }
+
+  // TODO: allow setting coordinates from List<String>
+
+  public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
+    this.excludeCoordinates = excludeCoordinates;
+  }
+
+  public float getCvssScoreThreshold() {
+    return cvssScoreThreshold;
+  }
+
+  public void setCvssScoreThreshold(final float cvssScoreThreshold) {
+    this.cvssScoreThreshold = cvssScoreThreshold;
+  }
+
+  public Set<String> getExcludeVulnerabilityIds() {
+    return excludeVulnerabilityIds;
+  }
+
+  public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
+    this.excludeVulnerabilityIds = excludeVulnerabilityIds;
+  }
 
   @Override
   public void execute(@Nonnull final EnforcerRuleHelper helper) throws EnforcerRuleException {
@@ -135,6 +165,9 @@ public class BanVulnerableDependencies
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
       reportRequest.setClientConfiguration(clientConfiguration);
+      reportRequest.setExcludeCoordinates(excludeCoordinates);
+      reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
+      reportRequest.setExcludeVulnerabilityIds(excludeVulnerabilityIds);
       reportRequest.setComponents(dependencies);
 
       ComponentReportResult reportResult = reportAssistant.request(reportRequest);
@@ -150,7 +183,13 @@ public class BanVulnerableDependencies
     private Set<Artifact> resolveDependencies() throws DependencyGraphBuilderException {
       Set<Artifact> result = new HashSet<>();
 
-      DependencyNode node = graphBuilder.buildDependencyGraph(project, filter);
+      ArtifactFilter artifactFilter = null;
+      if (scope != null) {
+        List<String> scopes = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(scope);
+        artifactFilter = new CumulativeScopeArtifactFilter(scopes);
+      }
+
+      DependencyNode node = graphBuilder.buildDependencyGraph(project, artifactFilter);
       collectArtifacts(result, node);
 
       return result;
