@@ -14,12 +14,15 @@ package org.sonatype.ossindex.maven.extension;
 
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * ???
@@ -32,6 +35,13 @@ public class AuditEventSpy
     extends AbstractEventSpy
 {
   private static final Logger log = LoggerFactory.getLogger(AuditEventSpy.class);
+
+  private final Auditor auditor;
+
+  @Inject
+  public AuditEventSpy(final Auditor auditor) {
+    this.auditor = checkNotNull(auditor);
+  }
 
   @Override
   public void init(final Context context) throws Exception {

@@ -12,6 +12,7 @@
  */
 package org.sonatype.ossindex.maven.extension;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -20,6 +21,8 @@ import org.apache.maven.MavenExecutionException;
 import org.apache.maven.execution.MavenSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * ???
@@ -33,13 +36,12 @@ public class AuditLifecycleParticipant
 {
   private static final Logger log = LoggerFactory.getLogger(AuditLifecycleParticipant.class);
 
-  //@Inject
-  //private DependencyGraphBuilder dependencyGraphBuilder;
+  private final Auditor auditor;
 
-  //private String scope;
-
-  //private boolean transitive = true;
-
+  @Inject
+  public AuditLifecycleParticipant(final Auditor auditor) {
+    this.auditor = checkNotNull(auditor);
+  }
 
   @Override
   public void afterSessionStart(final MavenSession session) throws MavenExecutionException {
@@ -49,52 +51,10 @@ public class AuditLifecycleParticipant
   @Override
   public void afterProjectsRead(final MavenSession session) throws MavenExecutionException {
     log.info("AFTER PROJECTS-READ: {}", session);
-
-    //try {
-    //  Set<Artifact> dependencies = resolveDependencies(session);
-    //  log.info("Dependencies: {}", dependencies.size());
-    //  for (Artifact artifact : dependencies) {
-    //    log.info("Dependency: {}", artifact);
-    //  }
-    //}
-    //catch (Exception e) {
-    //  throw new MavenExecutionException("Error", e);
-    //}
   }
 
   @Override
   public void afterSessionEnd(final MavenSession session) throws MavenExecutionException {
     log.info("AFTER SESSION-END: {}", session);
   }
-
-  //private Set<Artifact> resolveDependencies(final MavenSession session) throws DependencyGraphBuilderException {
-  //  Set<Artifact> result = new HashSet<>();
-  //
-  //  ProjectBuildingRequest request = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
-  //  request.setProject(session.getCurrentProject());
-  //
-  //  ArtifactFilter artifactFilter = null;
-  //  if (scope != null) {
-  //    List<String> scopes = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(scope);
-  //    log.info("Scopes: {}", scopes);
-  //    artifactFilter = new CumulativeScopeArtifactFilter(scopes);
-  //  }
-  //
-  //  //DependencyNode root = dependencyGraphBuilder.buildDependencyGraph(request, artifactFilter);
-  //  //collectArtifacts(result, root);
-  //
-  //  return result;
-  //}
-  //
-  //private void collectArtifacts(final Set<Artifact> artifacts, final DependencyNode node) {
-  //  if (node.getChildren() != null) {
-  //    for (DependencyNode child : node.getChildren()) {
-  //      artifacts.add(child.getArtifact());
-  //
-  //      if (transitive) {
-  //        collectArtifacts(artifacts, child);
-  //      }
-  //    }
-  //  }
-  //}
 }
