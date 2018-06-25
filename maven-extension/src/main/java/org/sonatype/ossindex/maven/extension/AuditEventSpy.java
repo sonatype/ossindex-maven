@@ -21,7 +21,6 @@ import javax.inject.Singleton;
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.execution.ExecutionEvent;
 import org.eclipse.aether.RepositoryEvent;
-import org.eclipse.aether.RepositoryEvent.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +59,7 @@ public class AuditEventSpy
 
     if (event instanceof RepositoryEvent) {
       RepositoryEvent target = (RepositoryEvent) event;
-      if (target.getType() == EventType.ARTIFACT_RESOLVED) {
+      if (target.getType() == RepositoryEvent.EventType.ARTIFACT_RESOLVED) {
         auditor.track(target.getArtifact());
       }
     }
