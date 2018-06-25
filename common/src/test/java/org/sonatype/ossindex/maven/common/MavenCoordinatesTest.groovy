@@ -24,29 +24,32 @@ class MavenCoordinatesTest
 {
   @Test
   void 'parse GAV'() {
-    def coordinates = MavenCoordinates.parse('foo:bar:1')
-    assert coordinates.groupId == 'foo'
-    assert coordinates.artifactId == 'bar'
-    assert coordinates.version == '1'
+    MavenCoordinates.parse('foo:bar:1').with {
+      assert groupId == 'foo'
+      assert artifactId == 'bar'
+      assert version == '1'
+    }
   }
 
   @Test
   void 'parse GAV with type'() {
-    def coordinates = MavenCoordinates.parse('foo:bar:zip:1')
-    assert coordinates.groupId == 'foo'
-    assert coordinates.artifactId == 'bar'
-    assert coordinates.version == '1'
-    assert coordinates.type == 'zip'
+    MavenCoordinates.parse('foo:bar:zip:1').with {
+      assert groupId == 'foo'
+      assert artifactId == 'bar'
+      assert version == '1'
+      assert type == 'zip'
+    }
   }
 
   @Test
   void 'parse GAV with type and classifier'() {
-    def coordinates = MavenCoordinates.parse('foo:bar:zip:baz:1')
-    assert coordinates.groupId == 'foo'
-    assert coordinates.artifactId == 'bar'
-    assert coordinates.version == '1'
-    assert coordinates.type == 'zip'
-    assert coordinates.classifier == 'baz'
+    MavenCoordinates.parse('foo:bar:zip:baz:1').with {
+      assert groupId == 'foo'
+      assert artifactId == 'bar'
+      assert version == '1'
+      assert type == 'zip'
+      assert classifier == 'baz'
+    }
   }
 
   @Test
