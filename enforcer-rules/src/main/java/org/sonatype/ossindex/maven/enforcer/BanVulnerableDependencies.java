@@ -135,6 +135,8 @@ public class BanVulnerableDependencies
       this.reportAssistant = lookup(helper, ComponentReportAssistant.class);
     }
 
+    // FIXME: adjust all logging to include rule-simple-name; what does this show up as by default?
+
     public void run() throws EnforcerRuleException {
       // skip if maven is in offline mode
       if (session.isOffline()) {
