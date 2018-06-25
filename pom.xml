@@ -95,7 +95,7 @@
   <modules>
     <module>common</module>
     <module>enforcer-rules</module>
-    <!--<module>maven-extension</module>-->
+    <module>maven-extension</module>
     <module>maven-plugin</module>
   </modules>
 
@@ -160,6 +160,18 @@
         <artifactId>maven-dependency-tree</artifactId>
         <version>3.0.1</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven.shared</groupId>
+        <artifactId>maven-verifier</artifactId>
+        <version>3.0.1</version>
+      </dependency>
+
+      <!--<dependency>-->
+        <!--<groupId>org.codehaus.plexus</groupId>-->
+        <!--<artifactId>plexus-component-annotations</artifactId>-->
+        <!--<version>1.7.1</version>-->
+      <!--</dependency>-->
 
       <dependency>
         <groupId>org.apache.maven.shared</groupId>
@@ -343,13 +355,6 @@
   </build>
 
   <profiles>
-    <profile>
-      <id>maven-extension</id>
-      <modules>
-        <module>maven-extension</module>
-      </modules>
-    </profile>
-
     <profile>
       <id>it</id>
       <activation>
