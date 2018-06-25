@@ -87,7 +87,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 
-    <apache-maven.version>3.0</apache-maven.version>
+    <apache-maven.version>3.5.2</apache-maven.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
   </properties>
@@ -95,8 +95,7 @@
   <modules>
     <module>common</module>
     <module>enforcer-rules</module>
-    <module>maven-extension</module>
-    <!--<module>maven-plugin</module>-->
+    <module>maven-plugin</module>
   </modules>
 
   <dependencyManagement>
@@ -114,14 +113,14 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.maven.enforcer</groupId>
-        <artifactId>enforcer-api</artifactId>
-        <version>3.0.0-M1</version>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-plugin-api</artifactId>
+        <version>${apache-maven.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-plugin-api</artifactId>
+        <groupId>org.apache.maven.plugin-tools</groupId>
+        <artifactId>maven-plugin-annotations</artifactId>
         <version>${apache-maven.version}</version>
       </dependency>
 
@@ -133,7 +132,19 @@
 
       <dependency>
         <groupId>org.apache.maven</groupId>
+        <artifactId>maven-embedder</artifactId>
+        <version>${apache-maven.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven</groupId>
         <artifactId>maven-compat</artifactId>
+        <version>${apache-maven.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-settings</artifactId>
         <version>${apache-maven.version}</version>
       </dependency>
 
@@ -143,17 +154,34 @@
         <version>${apache-maven.version}</version>
       </dependency>
 
-      <!-- maven-enforcer-plugin uses older maven-dependency-tree 2.x API and is not compatible with latest 3.x -->
       <dependency>
         <groupId>org.apache.maven.shared</groupId>
         <artifactId>maven-dependency-tree</artifactId>
-        <version>2.2</version>
+        <version>3.0.1</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven.shared</groupId>
+        <artifactId>maven-verifier</artifactId>
+        <version>3.0.1</version>
+      </dependency>
+
+      <!--<dependency>-->
+        <!--<groupId>org.codehaus.plexus</groupId>-->
+        <!--<artifactId>plexus-component-annotations</artifactId>-->
+        <!--<version>1.7.1</version>-->
+      <!--</dependency>-->
 
       <dependency>
         <groupId>org.sonatype.goodies</groupId>
         <artifactId>goodies-testsupport</artifactId>
         <version>2.2.4</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId>
+        <artifactId>groovy-all</artifactId>
+        <version>2.4.11</version>
       </dependency>
 
       <!-- INTERNAL -->
@@ -170,19 +198,31 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>com.mycila</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <configuration>
-            <excludes combine.children="append">
-              <exclude>*/src/test/projects/**</exclude>
-            </excludes>
-          </configuration>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>3.5.2</version>
         </plugin>
+
+        <!--<plugin>-->
+          <!--<groupId>org.codehaus.plexus</groupId>-->
+          <!--<artifactId>plexus-component-metadata</artifactId>-->
+          <!--<version>1.7.1</version>-->
+        <!--</plugin>-->
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-invoker-plugin</artifactId>
           <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>com.mycila</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <configuration>
+            <excludes combine.children="append">
+              <exclude>*/src/it/projects/**</exclude>
+            </excludes>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -247,6 +287,39 @@
             <phase>test</phase>
             <goals>
               <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-eclipse-compiler</artifactId>
+            <version>2.9.2-01</version>
+          </dependency>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-eclipse-batch</artifactId>
+            <version>2.4.3-01</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <compilerId>groovy-eclipse-compiler</compilerId>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.eclipse.sisu</groupId>
+        <artifactId>sisu-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>main-index</goal>
+              <goal>test-index</goal>
             </goals>
           </execution>
         </executions>

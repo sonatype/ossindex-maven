@@ -12,31 +12,22 @@
  */
 package org.sonatype.ossindex.maven.enforcer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.sonatype.goodies.packageurl.PackageUrl;
-import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
-import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
-import org.sonatype.ossindex.service.client.OssindexClient;
+import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
+import org.sonatype.ossindex.maven.common.ComponentReportRequest;
+import org.sonatype.ossindex.maven.common.ComponentReportResult;
+import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
-import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
-import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
-import org.sonatype.ossindex.service.client.internal.VersionSupplier;
-import org.sonatype.ossindex.service.client.transport.HttpClientTransport;
-import org.sonatype.ossindex.service.client.transport.Marshaller;
-import org.sonatype.ossindex.service.client.transport.Transport;
-import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 
+import com.google.common.base.Splitter;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
+import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleException;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.execution.MavenSession;
@@ -46,8 +37,6 @@ import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
 
-import static com.google.common.base.Preconditions.checkState;
-
 /**
  * Enforcer rule to ban vulnerable dependencies.
  *
@@ -56,19 +45,32 @@ import static com.google.common.base.Preconditions.checkState;
 public class BanVulnerableDependencies
     extends EnforcerRuleSupport
 {
-  private ArtifactFilter filter;
+  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+
+  private String scope;
 
   private boolean transitive = true;
 
-  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+  private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
 
-  @Nullable
-  public ArtifactFilter getFilter() {
-    return filter;
+  private float cvssScoreThreshold = 0;
+
+  private Set<String> excludeVulnerabilityIds = new HashSet<>();
+
+  public OssindexClientConfiguration getClientConfiguration() {
+    return clientConfiguration;
   }
 
-  public void setFilter(@Nullable final ArtifactFilter filter) {
-    this.filter = filter;
+  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
+    this.clientConfiguration = clientConfiguration;
+  }
+
+  public String getScope() {
+    return scope;
+  }
+
+  public void setScope(final String scope) {
+    this.scope = scope;
   }
 
   public boolean isTransitive() {
@@ -79,12 +81,30 @@ public class BanVulnerableDependencies
     this.transitive = transitive;
   }
 
-  public OssindexClientConfiguration getClientConfiguration() {
-    return clientConfiguration;
+  public Set<MavenCoordinates> getExcludeCoordinates() {
+    return excludeCoordinates;
   }
 
-  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
-    this.clientConfiguration = clientConfiguration;
+  // TODO: allow setting coordinates from List<String>
+
+  public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
+    this.excludeCoordinates = excludeCoordinates;
+  }
+
+  public float getCvssScoreThreshold() {
+    return cvssScoreThreshold;
+  }
+
+  public void setCvssScoreThreshold(final float cvssScoreThreshold) {
+    this.cvssScoreThreshold = cvssScoreThreshold;
+  }
+
+  public Set<String> getExcludeVulnerabilityIds() {
+    return excludeVulnerabilityIds;
+  }
+
+  public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
+    this.excludeVulnerabilityIds = excludeVulnerabilityIds;
   }
 
   @Override
@@ -105,32 +125,28 @@ public class BanVulnerableDependencies
 
     private final DependencyGraphBuilder graphBuilder;
 
-    private final OssindexClient client;
+    private final ComponentReportAssistant reportAssistant;
 
     public Task(final EnforcerRuleHelper helper) {
       this.log = helper.getLog();
       this.session = lookup(helper, "${session}", MavenSession.class);
       this.project = lookup(helper, "${project}", MavenProject.class);
       this.graphBuilder = lookup(helper, DependencyGraphBuilder.class);
-
-      checkState(clientConfiguration != null, "Missing configuration");
-
-      UserAgentSupplier userAgent = new UserAgentSupplier(new VersionSupplier().get());
-      Transport transport = new HttpClientTransport(userAgent);
-      Marshaller marshaller = new GsonMarshaller();
-      client = new OssindexClientImpl(clientConfiguration, transport, marshaller);
+      this.reportAssistant = lookup(helper, ComponentReportAssistant.class);
     }
+
+    // FIXME: adjust all logging to include rule-simple-name; what does this show up as by default?
 
     public void run() throws EnforcerRuleException {
       // skip if maven is in offline mode
       if (session.isOffline()) {
-        log.warn("Skipping " + BanVulnerableDependencies.class.getSimpleName() + " evaluation; Offline mode detected");
+        log.warn("Skipping " + BanVulnerableDependencies.class.getSimpleName() + "; offline");
         return;
       }
 
       // skip if packaging is pom
       if ("pom".equals(project.getPackaging())) {
-        log.debug("Skipping POM module");
+        log.debug("Skipping; POM module");
         return;
       }
 
@@ -145,73 +161,21 @@ public class BanVulnerableDependencies
 
       // skip if project has no dependencies
       if (dependencies.isEmpty()) {
-        log.debug("Skipping; no dependencies found");
+        log.debug("Skipping; zero dependencies");
         return;
       }
 
-      log.info("Checking for vulnerabilities:");
+      ComponentReportRequest reportRequest = new ComponentReportRequest();
+      reportRequest.setClientConfiguration(clientConfiguration);
+      reportRequest.setExcludeCoordinates(excludeCoordinates);
+      reportRequest.setExcludeVulnerabilityIds(excludeVulnerabilityIds);
+      reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
+      reportRequest.setComponents(dependencies);
 
-      // generate package-url and map back to artifacts for result handling
-      Map<PackageUrl, Artifact> requests = new HashMap<>();
-      for (Artifact artifact : dependencies) {
-        log.info("  " + artifact);
-        PackageUrl purl = new PackageUrl.Builder()
-            .type("maven")
-            .namespace(artifact.getGroupId())
-            .name(artifact.getArtifactId())
-            .version(artifact.getVersion())
-            .build();
-        requests.put(purl, artifact);
-      }
+      ComponentReportResult reportResult = reportAssistant.request(reportRequest);
 
-      Map<Artifact, ComponentReport> vulnerableDependencies = new HashMap<>();
-      try {
-        Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(requests.keySet()));
-        for (Map.Entry<PackageUrl, ComponentReport> entry : reports.entrySet()) {
-          PackageUrl purl = entry.getKey();
-          Artifact artifact = requests.get(purl);
-          ComponentReport report = entry.getValue();
-
-          // if report contains any vulnerabilities then record artifact mapping
-          if (!report.getVulnerabilities().isEmpty()) {
-            vulnerableDependencies.put(artifact, report);
-          }
-        }
-      }
-      catch (Exception e) {
-        log.warn("Failed to fetch component-reports", e);
-      }
-
-      // if any vulnerabilities were detected, generate a report and complain
-      if (!vulnerableDependencies.isEmpty()) {
-        StringBuilder buff = new StringBuilder();
-        buff.append("Detected ").append(vulnerableDependencies.size()).append(" vulnerable dependencies:\n");
-
-        // include details about each vulnerable dependency
-        for (Map.Entry<Artifact, ComponentReport> entry : vulnerableDependencies.entrySet()) {
-          Artifact artifact = entry.getKey();
-          ComponentReport report = entry.getValue();
-
-          // describe artifact and link to component information
-          buff.append("  ")
-              .append(artifact).append("; ")
-              .append(report.getReference())
-              .append("\n");
-
-          // include terse details about vulnerability and link to more detailed information
-          Iterator<ComponentReportVulnerability> iter = report.getVulnerabilities().iterator();
-          while (iter.hasNext()) {
-            ComponentReportVulnerability vulnerability = iter.next();
-            buff.append("    * ")
-                .append(vulnerability.getTitle())
-                .append("; ").append(vulnerability.getReference());
-            if (iter.hasNext()) {
-              buff.append("\n");
-            }
-          }
-        }
-
-        throw new EnforcerRuleException(buff.toString());
+      if (reportResult.hasVulnerable()) {
+        throw new EnforcerRuleException(reportResult.explain());
       }
     }
 
@@ -221,7 +185,13 @@ public class BanVulnerableDependencies
     private Set<Artifact> resolveDependencies() throws DependencyGraphBuilderException {
       Set<Artifact> result = new HashSet<>();
 
-      DependencyNode node = graphBuilder.buildDependencyGraph(project, filter);
+      ArtifactFilter artifactFilter = null;
+      if (scope != null) {
+        List<String> scopes = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(scope);
+        artifactFilter = new CumulativeScopeArtifactFilter(scopes);
+      }
+
+      DependencyNode node = graphBuilder.buildDependencyGraph(project, artifactFilter);
       collectArtifacts(result, node);
 
       return result;
@@ -232,6 +202,7 @@ public class BanVulnerableDependencies
      *
      * Optionally including transitive dependencies if {@link #transitive} is {@code true}.
      */
+    @SuppressWarnings("Duplicates")
     private void collectArtifacts(final Set<Artifact> artifacts, final DependencyNode node) {
       if (node.getChildren() != null) {
         for (DependencyNode child : node.getChildren()) {
