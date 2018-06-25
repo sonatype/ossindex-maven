@@ -12,8 +12,10 @@
  */
 package org.sonatype.ossindex.maven.common;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
@@ -38,7 +40,15 @@ public class ComponentReportResult
    */
   private Map<Artifact, ComponentReport> vulnerable;
 
-  // TODO: expose the set of excluded bits?
+  /**
+   * Excluded components which had vulnerabilities.
+   */
+  private Set<PackageUrl> excludedCoordinates;
+
+  /**
+   * Excluded vulnerabilities (by vuln-id or by cvss-score threshold).
+   */
+  private Set<String> excludedVulnerabilityIds;
 
   public Map<PackageUrl, ComponentReport> getReports() {
     return reports;
@@ -60,6 +70,32 @@ public class ComponentReportResult
     return !vulnerable.isEmpty();
   }
 
+  public Set<PackageUrl> getExcludedCoordinates() {
+    if (excludedCoordinates == null) {
+      excludedCoordinates = new HashSet<>();
+    }
+    return excludedCoordinates;
+  }
+
+  public void setExcludedCoordinates(final Set<PackageUrl> excludedCoordinates) {
+    this.excludedCoordinates = excludedCoordinates;
+  }
+
+  public Set<String> getExcludedVulnerabilityIds() {
+    if (excludedVulnerabilityIds == null) {
+      excludedVulnerabilityIds = new HashSet<>();
+    }
+    return excludedVulnerabilityIds;
+  }
+
+  public void setExcludedVulnerabilityIds(final Set<String> excludedVulnerabilityIds) {
+    this.excludedVulnerabilityIds = excludedVulnerabilityIds;
+  }
+
+  public boolean hasExclusions() {
+    return getExcludedCoordinates().size() + getExcludedVulnerabilityIds().size() != 0;
+  }
+
   /**
    * Render a multi-line string explaining the vulnerabilities.
    */
@@ -71,6 +107,8 @@ public class ComponentReportResult
     }
     else {
       buff.append("Detected ").append(vulnerable.size()).append(" vulnerable components:\n");
+
+      // TODO: add more details here for what was excluded
 
       // include details about each vulnerable dependency
       for (Map.Entry<Artifact, ComponentReport> entry : vulnerable.entrySet()) {

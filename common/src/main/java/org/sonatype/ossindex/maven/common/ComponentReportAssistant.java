@@ -88,7 +88,7 @@ public class ComponentReportAssistant
         ComponentReport report = entry.getValue();
 
         // filter and maybe record vulnerable mapping
-        if (match(request, report)) {
+        if (match(request, result, report)) {
           vulnerable.put(artifact, report);
         }
       }
@@ -129,7 +129,7 @@ public class ComponentReportAssistant
    * Apply exclusion matching rules.
    */
   @VisibleForTesting
-  boolean match(final ComponentReportRequest request, final ComponentReport report) {
+  boolean match(final ComponentReportRequest request, final ComponentReportResult result, final ComponentReport report) {
     List<ComponentReportVulnerability> vulnerabilities = report.getVulnerabilities();
 
     // do not include if there were no vulnerabilities detected
@@ -138,9 +138,11 @@ public class ComponentReportAssistant
     }
 
     // do not include if component coordinates are excluded
-    MavenCoordinates coordinates = MavenCoordinates.from(report.getCoordinates());
+    PackageUrl purl = report.getCoordinates();
+    MavenCoordinates coordinates = MavenCoordinates.from(purl);
     if (request.getExcludeCoordinates().contains(coordinates)) {
       log.warn("Excluding coordinates: {}", coordinates);
+      result.getExcludedCoordinates().add(purl);
       return false;
     }
 
@@ -167,6 +169,9 @@ public class ComponentReportAssistant
 
       if (include) {
         matched++;
+      }
+      else {
+        result.getExcludedVulnerabilityIds().add(vulnerability.getId());
       }
     }
 

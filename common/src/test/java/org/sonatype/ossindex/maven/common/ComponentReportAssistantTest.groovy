@@ -103,6 +103,7 @@ class ComponentReportAssistantTest
   @Test
   void 'inclusion matching'() {
     def request = new ComponentReportRequest()
+    def result = new ComponentReportResult()
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
         vulnerabilities: [
@@ -117,23 +118,25 @@ class ComponentReportAssistantTest
         ]
     )
 
-    assert underTest.match(request, report)
+    assert underTest.match(request, result, report)
   }
 
   @Test
   void 'inclusion matching; no vulnerabilities'() {
     def request = new ComponentReportRequest()
+    def result = new ComponentReportResult()
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
         vulnerabilities: []
     )
 
-    assert !underTest.match(request, report)
+    assert !underTest.match(request, result, report)
   }
 
   @Test
   void 'inclusion matching; exclude by id'() {
     def request = new ComponentReportRequest()
+    def result = new ComponentReportResult()
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
         vulnerabilities: [
@@ -148,16 +151,22 @@ class ComponentReportAssistantTest
         ]
     )
 
-    request.getExcludeVulnerabilityIds().add('1')
-    assert underTest.match(request, report)
+    request.excludeVulnerabilityIds.add('1')
+    assert underTest.match(request, result, report)
 
-    request.getExcludeVulnerabilityIds().add('2')
-    assert !underTest.match(request, report)
+    assert result.excludedVulnerabilityIds.contains('1')
+
+    request.excludeVulnerabilityIds.add('2')
+    assert !underTest.match(request, result, report)
+
+    assert result.excludedVulnerabilityIds.contains('1')
+    assert result.excludedVulnerabilityIds.contains('2')
   }
 
   @Test
   void 'inclusion matching; exclude by cvss score'() {
     def request = new ComponentReportRequest()
+    def result = new ComponentReportResult()
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
         vulnerabilities: [
@@ -172,16 +181,18 @@ class ComponentReportAssistantTest
         ]
     )
 
-    request.setCvssScoreThreshold(2)
-    assert underTest.match(request, report)
+    request.cvssScoreThreshold = 2
+    assert underTest.match(request, result, report)
+    assert result.excludedVulnerabilityIds.contains('1')
 
-    request.setCvssScoreThreshold(3)
-    assert !underTest.match(request, report)
+    request.cvssScoreThreshold = 3
+    assert !underTest.match(request, result, report)
   }
 
   @Test
   void 'inclusion matching; exclude by coordinates'() {
     def request = new ComponentReportRequest()
+    def result = new ComponentReportResult()
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
         vulnerabilities: [
@@ -196,11 +207,12 @@ class ComponentReportAssistantTest
         ]
     )
 
-    request.getExcludeCoordinates().add(new MavenCoordinates('a', 'b', '1'))
-    assert underTest.match(request, report)
+    request.excludeCoordinates.add(new MavenCoordinates('a', 'b', '1'))
+    assert underTest.match(request, result, report)
+    result.excludedCoordinates.contains(PackageUrl.parse('maven:a/b@1'))
 
-    request.getExcludeCoordinates().add(new MavenCoordinates('foo', 'bar', '1'))
-    assert !underTest.match(request, report)
+    request.excludeCoordinates.add(new MavenCoordinates('foo', 'bar', '1'))
+    assert !underTest.match(request, result, report)
   }
 
   //
