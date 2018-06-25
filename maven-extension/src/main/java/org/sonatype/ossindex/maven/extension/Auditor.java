@@ -58,7 +58,6 @@ public class Auditor
       log.info("  {}", artifact);
     }
 
-    // HACK: testing
-    throw new RuntimeException("FOO");
+    // TODO:
   }
 }
