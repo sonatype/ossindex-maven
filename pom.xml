@@ -221,7 +221,7 @@
           <artifactId>license-maven-plugin</artifactId>
           <configuration>
             <excludes combine.children="append">
-              <exclude>*/src/test/projects/**</exclude>
+              <exclude>*/src/it/projects/**</exclude>
             </excludes>
           </configuration>
         </plugin>
