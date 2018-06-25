@@ -4,20 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonatype.ossindex.maven.enforcer</groupId>
-    <artifactId>test3</artifactId>
+    <groupId>org.sonatype.ossindex.maven.enforcer.it</groupId>
+    <artifactId>multimodule-warn</artifactId>
     <version>1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>foo</artifactId>
+  <artifactId>baz</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
-  <dependencies>
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-    </dependency>
-  </dependencies>
+  <!-- no dependencies -->
 
 </project>

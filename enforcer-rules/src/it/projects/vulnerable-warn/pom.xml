@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.sonatype.ossindex.maven.enforcer</groupId>
-  <artifactId>test2</artifactId>
+  <groupId>org.sonatype.ossindex.maven.enforcer.it</groupId>
+  <artifactId>vulnerable-warn</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
@@ -45,7 +45,7 @@
                   <clientConfiguration>
                     <baseUrl>@ossindex.baseUrl@</baseUrl>
                   </clientConfiguration>
-                  <transitive>false</transitive>
+                  <level>WARN</level>
                 </banVunerableDependencies>
               </rules>
             </configuration>

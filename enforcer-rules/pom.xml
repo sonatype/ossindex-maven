@@ -104,14 +104,13 @@
                 </goals>
                 <configuration>
                   <failIfNoProjects>true</failIfNoProjects>
-                  <projectsDirectory>${project.basedir}/src/test/projects</projectsDirectory>
-                  <cloneProjectsTo>${project.build.directory}/test-projects</cloneProjectsTo>
+                  <projectsDirectory>${project.basedir}/src/it/projects</projectsDirectory>
+                  <cloneProjectsTo>${project.build.directory}/it-projects</cloneProjectsTo>
                   <pomIncludes>
-                    <pomInclude>test1/pom.xml</pomInclude>
-                    <!--<pomInclude>*/pom.xml</pomInclude>-->
+                    <pomInclude>*/pom.xml</pomInclude>
                   </pomIncludes>
-                  <settingsFile>${project.basedir}/src/test/projects/settings.xml</settingsFile>
-                  <localRepositoryPath>${project.build.directory}/test-repo</localRepositoryPath>
+                  <settingsFile>${project.basedir}/src/it/projects/settings.xml</settingsFile>
+                  <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
                   <filterProperties>
                     <ossindex.baseUrl>${ossindex.baseUrl}</ossindex.baseUrl>
                     <apache-maven-enforcer.version>${apache-maven-enforcer.version}</apache-maven-enforcer.version>
