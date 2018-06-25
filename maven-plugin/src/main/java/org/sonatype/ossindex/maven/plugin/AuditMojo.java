@@ -53,6 +53,12 @@ import static org.apache.maven.plugins.annotations.ResolutionScope.TEST;
 public class AuditMojo
     extends AbstractMojo
 {
+  @Component
+  private DependencyGraphBuilder dependencyGraphBuilder;
+
+  @Component
+  private ComponentReportAssistant reportAssistant;
+
   @Parameter(defaultValue = "${project}", readonly = true)
   private MavenProject project;
 
@@ -72,27 +78,33 @@ public class AuditMojo
   @Parameter(property = "ossindex.fail", defaultValue = "true")
   private boolean fail = true;
 
-  // TODO: bridge exclusion configuration
+  @Parameter
+  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
-  // FIXME: if the use-case for this goal is for direct usage, then complex configuration here isn't going to work
+  // TODO: allow setting coordinates from List<String>
 
   @Parameter
-  private Set<MavenCoordinates> excludeCoordinates;
+  private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
+
+  /**
+   * Set {@link #excludeCoordinates} from a comma-separated list.
+   */
+  @Nullable
+  @Parameter(property = "ossindex.excludeCoordinates")
+  private String excludeCoordinatesCsv;
 
   @Parameter(property = "ossindex.cvssScoreThreshold", defaultValue = "0")
   private float cvssScoreThreshold = 0;
 
   @Parameter
-  private Set<String> excludeVulnerabilityIds;
+  private Set<String> excludeVulnerabilityIds = new HashSet<>();
 
-  @Component
-  private DependencyGraphBuilder dependencyGraphBuilder;
-
-  @Parameter
-  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
-
-  @Component
-  private ComponentReportAssistant reportAssistant;
+  /**
+   * Set {@link #excludeVulnerabilityIds} from a comma-separated list.
+   */
+  @Nullable
+  @Parameter(property = "ossindex.excludeVulnerabilityIds")
+  private String excludeVulnerabilityIdsCsv;
 
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
@@ -120,12 +132,24 @@ public class AuditMojo
 
     // skip if project has no dependencies
     if (dependencies.isEmpty()) {
-      getLog().info("Skipping; no dependencies found");
+      getLog().info("Skipping; zero dependencies");
       return;
+    }
+
+    // adapt string-list configuration forms
+    if (excludeCoordinatesCsv != null) {
+      excludeCoordinates.addAll(MavenCoordinates.parseList(excludeCoordinatesCsv));
+    }
+    if (excludeVulnerabilityIdsCsv != null) {
+      List<String> ids = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(excludeVulnerabilityIdsCsv);
+      excludeVulnerabilityIds.addAll(ids);
     }
 
     ComponentReportRequest reportRequest = new ComponentReportRequest();
     reportRequest.setClientConfiguration(clientConfiguration);
+    reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
+    reportRequest.setExcludeCoordinates(excludeCoordinates);
+    reportRequest.setExcludeVulnerabilityIds(excludeVulnerabilityIds);
     reportRequest.setComponents(dependencies);
 
     ComponentReportResult reportResult = reportAssistant.request(reportRequest);

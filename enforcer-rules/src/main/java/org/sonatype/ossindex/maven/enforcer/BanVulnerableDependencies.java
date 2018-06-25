@@ -47,9 +47,9 @@ public class BanVulnerableDependencies
 {
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
-  private boolean transitive = true;
-
   private String scope;
+
+  private boolean transitive = true;
 
   private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
 
@@ -65,20 +65,20 @@ public class BanVulnerableDependencies
     this.clientConfiguration = clientConfiguration;
   }
 
-  public boolean isTransitive() {
-    return transitive;
-  }
-
-  public void setTransitive(final boolean transitive) {
-    this.transitive = transitive;
-  }
-
   public String getScope() {
     return scope;
   }
 
   public void setScope(final String scope) {
     this.scope = scope;
+  }
+
+  public boolean isTransitive() {
+    return transitive;
+  }
+
+  public void setTransitive(final boolean transitive) {
+    this.transitive = transitive;
   }
 
   public Set<MavenCoordinates> getExcludeCoordinates() {
@@ -138,13 +138,13 @@ public class BanVulnerableDependencies
     public void run() throws EnforcerRuleException {
       // skip if maven is in offline mode
       if (session.isOffline()) {
-        log.warn("Skipping " + BanVulnerableDependencies.class.getSimpleName() + " evaluation; offline");
+        log.warn("Skipping " + BanVulnerableDependencies.class.getSimpleName() + "; offline");
         return;
       }
 
       // skip if packaging is pom
       if ("pom".equals(project.getPackaging())) {
-        log.debug("Skipping POM module");
+        log.debug("Skipping; POM module");
         return;
       }
 
@@ -159,15 +159,15 @@ public class BanVulnerableDependencies
 
       // skip if project has no dependencies
       if (dependencies.isEmpty()) {
-        log.debug("Skipping; no dependencies found");
+        log.debug("Skipping; zero dependencies");
         return;
       }
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
       reportRequest.setClientConfiguration(clientConfiguration);
       reportRequest.setExcludeCoordinates(excludeCoordinates);
-      reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
       reportRequest.setExcludeVulnerabilityIds(excludeVulnerabilityIds);
+      reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
       reportRequest.setComponents(dependencies);
 
       ComponentReportResult reportResult = reportAssistant.request(reportRequest);

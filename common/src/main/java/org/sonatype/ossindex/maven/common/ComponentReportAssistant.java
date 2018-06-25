@@ -70,6 +70,10 @@ public class ComponentReportAssistant
       purlArtifacts.put(packageUrl(artifact), artifact);
     }
 
+    log.info("Exclude coordinates: {}", request.getExcludeCoordinates());
+    log.info("Exclude vulnerability identifiers: {}", request.getExcludeVulnerabilityIds());
+    log.info("CVSS-score threshold: {}", request.getCvssScoreThreshold());
+
     OssindexClient client = createClient(request.getClientConfiguration());
     ComponentReportResult result = new ComponentReportResult();
     Map<Artifact, ComponentReport> vulnerable = new HashMap<>();
