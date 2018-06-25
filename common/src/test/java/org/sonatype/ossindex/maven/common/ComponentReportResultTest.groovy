@@ -41,10 +41,10 @@ class ComponentReportResultTest
     def underTest = new ComponentReportResult()
     assert !underTest.hasExclusions()
 
-    underTest.excludedVulnerabilityIds.add('1')
+    underTest.excludedVulnerabilities.add(new ComponentReportVulnerability())
     assert underTest.hasExclusions()
 
-    underTest.excludedVulnerabilityIds.clear()
+    underTest.excludedVulnerabilities.clear()
     assert !underTest.hasExclusions()
 
     underTest.excludedCoordinates.add(MavenCoordinates.parse('foo:bar:1'))
@@ -66,23 +66,24 @@ class ComponentReportResultTest
     def underTest = new ComponentReportResult()
     def artifact1 = TestArtifactFactory.create('foo', 'bar', '1')
     def purl1 = PackageUrl.parse('maven:foo/bar@1')
+
+    def vuln1 = new ComponentReportVulnerability(
+        id: '1',
+        title: 'vuln-1',
+        cvssScore: 1.1,
+        reference: URI.create("http://ossindex.example.com/vuln/1"),
+    )
+    def vuln2 = new ComponentReportVulnerability(
+        id: '2',
+        title: 'vuln-2',
+        cvssScore: 3,
+        reference: URI.create("http://ossindex.example.com/vuln/2"),
+    )
+
     def report1 = new ComponentReport(
         coordinates: purl1,
         reference: URI.create("http://ossindex.example.com/component/$purl1"),
-        vulnerabilities: [
-            new ComponentReportVulnerability(
-                id: '1',
-                title: 'vuln-1',
-                cvssScore: 1.1,
-                reference: URI.create("http://ossindex.example.com/vuln/1"),
-            ),
-            new ComponentReportVulnerability(
-                id: '2',
-                title: 'vuln-2',
-                cvssScore: 3,
-                reference: URI.create("http://ossindex.example.com/vuln/2"),
-            )
-        ]
+        vulnerabilities: [ vuln1, vuln2 ]
     )
     underTest.vulnerable.put(artifact1, report1)
 
@@ -90,8 +91,8 @@ class ComponentReportResultTest
     log text
 
     assert text.contains('Detected 1 vulnerable components')
-    assert text.contains('vuln-1 (1.1);')
-    assert text.contains('vuln-2 (3.0);')
+    assert text.contains('* vuln-1 (1.1);')
+    assert text.contains('* vuln-2 (3.0);')
   }
 
   @Test
@@ -100,33 +101,34 @@ class ComponentReportResultTest
 
     def artifact1 = TestArtifactFactory.create('foo', 'bar', '1')
     def purl1 = PackageUrl.parse('maven:foo/bar@1')
+
+    def vuln1 = new ComponentReportVulnerability(
+        id: '1',
+        title: 'vuln-1',
+        cvssScore: 1.1,
+        reference: URI.create("http://ossindex.example.com/vuln/1"),
+    )
+    def vuln2 = new ComponentReportVulnerability(
+        id: '2',
+        title: 'vuln-2',
+        cvssScore: 3,
+        reference: URI.create("http://ossindex.example.com/vuln/2"),
+    )
+
     def report1 = new ComponentReport(
         coordinates: purl1,
         reference: URI.create("http://ossindex.example.com/component/$purl1"),
-        vulnerabilities: [
-            new ComponentReportVulnerability(
-                id: '1',
-                title: 'vuln-1',
-                cvssScore: 1.1,
-                reference: URI.create("http://ossindex.example.com/vuln/1"),
-            ),
-            new ComponentReportVulnerability(
-                id: '2',
-                title: 'vuln-2',
-                cvssScore: 3,
-                reference: URI.create("http://ossindex.example.com/vuln/2"),
-            )
-        ]
+        vulnerabilities: [ vuln1, vuln2 ]
     )
     underTest.vulnerable.put(artifact1, report1)
-    underTest.excludedVulnerabilityIds.add('1')
+    underTest.excludedVulnerabilities.add(vuln1)
 
     def text = underTest.explain()
     log text
 
     assert text.contains('Detected 1 vulnerable components')
-    assert !text.contains('vuln-1 (1.1);')
-    assert text.contains('vuln-2 (3.0);')
+    assert text.contains('- vuln-1 (1.1);')
+    assert text.contains('* vuln-2 (3.0);')
     assert text.contains('Excluded vulnerabilities')
   }
 
@@ -136,23 +138,24 @@ class ComponentReportResultTest
 
     def artifact1 = TestArtifactFactory.create('foo', 'bar', '1')
     def purl1 = PackageUrl.parse('maven:foo/bar@1')
+
+    def vuln1 = new ComponentReportVulnerability(
+        id: '1',
+        title: 'vuln-1',
+        cvssScore: 1.1,
+        reference: URI.create("http://ossindex.example.com/vuln/1"),
+    )
+    def vuln2 = new ComponentReportVulnerability(
+        id: '2',
+        title: 'vuln-2',
+        cvssScore: 3,
+        reference: URI.create("http://ossindex.example.com/vuln/2"),
+    )
+
     def report1 = new ComponentReport(
         coordinates: purl1,
         reference: URI.create("http://ossindex.example.com/component/$purl1"),
-        vulnerabilities: [
-            new ComponentReportVulnerability(
-                id: '1',
-                title: 'vuln-1',
-                cvssScore: 1.1,
-                reference: URI.create("http://ossindex.example.com/vuln/1"),
-            ),
-            new ComponentReportVulnerability(
-                id: '2',
-                title: 'vuln-2',
-                cvssScore: 3,
-                reference: URI.create("http://ossindex.example.com/vuln/2"),
-            )
-        ]
+        vulnerabilities: [ vuln1, vuln2 ]
     )
     underTest.vulnerable.put(artifact1, report1)
 

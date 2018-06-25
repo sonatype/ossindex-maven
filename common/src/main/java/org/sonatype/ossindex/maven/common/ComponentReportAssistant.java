@@ -170,7 +170,7 @@ public class ComponentReportAssistant
         matched++;
       }
       else {
-        result.getExcludedVulnerabilityIds().add(vulnerability.getId());
+        result.getExcludedVulnerabilities().add(vulnerability);
       }
     }
 

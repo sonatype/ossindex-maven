@@ -137,54 +137,56 @@ class ComponentReportAssistantTest
   void 'inclusion matching; exclude by id'() {
     def request = new ComponentReportRequest()
     def result = new ComponentReportResult()
+
+    def vuln1 = new ComponentReportVulnerability(
+        id: '1',
+        cvssScore: 1
+    )
+    def vuln2 = new ComponentReportVulnerability(
+        id: '2',
+        cvssScore: 2
+    )
+
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
-        vulnerabilities: [
-            new ComponentReportVulnerability(
-                id: '1',
-                cvssScore: 1
-            ),
-            new ComponentReportVulnerability(
-                id: '2',
-                cvssScore: 2
-            )
-        ]
+        vulnerabilities: [ vuln1, vuln2 ]
     )
 
     request.excludeVulnerabilityIds.add('1')
     assert underTest.match(request, result, report)
 
-    assert result.excludedVulnerabilityIds.contains('1')
+    assert result.excludedVulnerabilities.contains(vuln1)
 
     request.excludeVulnerabilityIds.add('2')
     assert !underTest.match(request, result, report)
 
-    assert result.excludedVulnerabilityIds.contains('1')
-    assert result.excludedVulnerabilityIds.contains('2')
+    assert result.excludedVulnerabilities.contains(vuln1)
+    assert result.excludedVulnerabilities.contains(vuln2)
   }
 
   @Test
   void 'inclusion matching; exclude by cvss score'() {
     def request = new ComponentReportRequest()
     def result = new ComponentReportResult()
+
+    def vuln1 = new ComponentReportVulnerability(
+        id: '1',
+        cvssScore: 1
+    )
+    def vuln2 = new ComponentReportVulnerability(
+        id: '2',
+        cvssScore: 2
+    )
+
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
-        vulnerabilities: [
-            new ComponentReportVulnerability(
-                id: '1',
-                cvssScore: 1
-            ),
-            new ComponentReportVulnerability(
-                id: '2',
-                cvssScore: 2
-            )
-        ]
+        vulnerabilities: [ vuln1, vuln2 ]
     )
 
     request.cvssScoreThreshold = 2
     assert underTest.match(request, result, report)
 
-    assert result.excludedVulnerabilityIds.contains('1')
+    assert result.excludedVulnerabilities.contains(vuln1)
 
     request.cvssScoreThreshold = 3
     assert !underTest.match(request, result, report)
@@ -194,18 +196,19 @@ class ComponentReportAssistantTest
   void 'inclusion matching; exclude by coordinates'() {
     def request = new ComponentReportRequest()
     def result = new ComponentReportResult()
+
+    def vuln1 = new ComponentReportVulnerability(
+        id: '1',
+        cvssScore: 1
+    )
+    def vuln2 = new ComponentReportVulnerability(
+        id: '2',
+        cvssScore: 2
+    )
+
     def report = new ComponentReport(
         coordinates: PackageUrl.parse('maven:foo/bar@1'),
-        vulnerabilities: [
-            new ComponentReportVulnerability(
-                id: '1',
-                cvssScore: 1
-            ),
-            new ComponentReportVulnerability(
-                id: '2',
-                cvssScore: 2
-            )
-        ]
+        vulnerabilities: [ vuln1, vuln2 ]
     )
 
     def coords1 = new MavenCoordinates('a', 'b', '1')

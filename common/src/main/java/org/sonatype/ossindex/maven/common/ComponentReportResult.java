@@ -47,7 +47,7 @@ public class ComponentReportResult
   /**
    * Excluded vulnerabilities (by vuln-id or by cvss-score threshold).
    */
-  private Set<String> excludedVulnerabilityIds;
+  private Set<ComponentReportVulnerability> excludedVulnerabilities;
 
   public Map<Artifact, ComponentReport> getReports() {
     if (reports == null) {
@@ -89,22 +89,22 @@ public class ComponentReportResult
     this.excludedCoordinates = excludedCoordinates;
   }
 
-  public Set<String> getExcludedVulnerabilityIds() {
-    if (excludedVulnerabilityIds == null) {
-      excludedVulnerabilityIds = new HashSet<>();
+  public Set<ComponentReportVulnerability> getExcludedVulnerabilities() {
+    if (excludedVulnerabilities == null) {
+      excludedVulnerabilities = new HashSet<>();
     }
-    return excludedVulnerabilityIds;
+    return excludedVulnerabilities;
   }
 
-  public void setExcludedVulnerabilityIds(final Set<String> excludedVulnerabilityIds) {
-    this.excludedVulnerabilityIds = excludedVulnerabilityIds;
+  public void setExcludedVulnerabilities(final Set<ComponentReportVulnerability> excludedVulnerabilities) {
+    this.excludedVulnerabilities = excludedVulnerabilities;
   }
 
   /**
    * Returns {@code true} if report has any coordinates or vulnerabilities that were excluded.
    */
   public boolean hasExclusions() {
-    return getExcludedCoordinates().size() + getExcludedVulnerabilityIds().size() != 0;
+    return getExcludedCoordinates().size() + getExcludedVulnerabilities().size() != 0;
   }
 
   /**
@@ -133,31 +133,24 @@ public class ComponentReportResult
         // include terse details about vulnerability and link to more detailed information
         for (ComponentReportVulnerability vulnerability : report.getVulnerabilities()) {
           // if vulnerability was excluded, skip; report will still contain this for inspection however
-          if (getExcludedVulnerabilityIds().contains(vulnerability.getId())) {
+          if (getExcludedVulnerabilities().contains(vulnerability)) {
             continue;
           }
 
-          buff.append("    * ")
-              .append(vulnerability.getTitle());
-
-          Float cvssScore = vulnerability.getCvssScore();
-          if (cvssScore != null) {
-            buff.append(" (").append(cvssScore).append(')');
-          }
-
-          buff.append("; ").append(vulnerability.getReference()).append("\n");
+          buff.append("    * ");
+          explainVulnerability(buff, vulnerability);
         }
       }
 
       // if anything was included, include a brief summary for clarity
       if (hasExclusions()) {
         buff.append("\n");
-        Set<String> excludedIds = getExcludedVulnerabilityIds();
-        if (!excludedIds.isEmpty()) {
-          buff.append("Excluded vulnerabilities\n");
-          for (String id : excludedIds) {
-            // TODO: would be nice to give more details here, may need to refactor model slightly to support that
-            buff.append("  - ").append(id).append("\n");
+        Set<ComponentReportVulnerability> excludedVulnerabilities = getExcludedVulnerabilities();
+        if (!excludedVulnerabilities.isEmpty()) {
+          buff.append("Excluded vulnerabilities:\n");
+          for (ComponentReportVulnerability vulnerability : excludedVulnerabilities) {
+            buff.append("  - ");
+            explainVulnerability(buff, vulnerability);
           }
         }
 
@@ -173,5 +166,16 @@ public class ComponentReportResult
     }
 
     return buff.toString();
+  }
+
+  private void explainVulnerability(final StringBuilder buff, final ComponentReportVulnerability vulnerability) {
+    buff.append(vulnerability.getTitle());
+
+    Float cvssScore = vulnerability.getCvssScore();
+    if (cvssScore != null) {
+      buff.append(" (").append(cvssScore).append(')');
+    }
+
+    buff.append("; ").append(vulnerability.getReference()).append("\n");
   }
 }
