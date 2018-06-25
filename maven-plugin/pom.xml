@@ -60,6 +60,23 @@
     </dependency>
   </dependencies>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-helpmojo</id>
+            <goals>
+              <goal>helpmojo</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
   <profiles>
     <profile>
       <id>it</id>
@@ -84,13 +101,13 @@
                 </goals>
                 <configuration>
                   <failIfNoProjects>true</failIfNoProjects>
-                  <projectsDirectory>${project.basedir}/src/test/projects</projectsDirectory>
-                  <cloneProjectsTo>${project.build.directory}/test-projects</cloneProjectsTo>
+                  <projectsDirectory>src/it/projects</projectsDirectory>
+                  <cloneProjectsTo>${project.build.directory}/it-projects</cloneProjectsTo>
                   <pomIncludes>
                     <pomInclude>*/pom.xml</pomInclude>
                   </pomIncludes>
-                  <settingsFile>${project.basedir}/src/test/projects/settings.xml</settingsFile>
-                  <localRepositoryPath>${project.build.directory}/test-repo</localRepositoryPath>
+                  <settingsFile>src/it/projects/settings.xml</settingsFile>
+                  <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
                   <filterProperties>
                     <ossindex.baseUrl>${ossindex.baseUrl}</ossindex.baseUrl>
                   </filterProperties>

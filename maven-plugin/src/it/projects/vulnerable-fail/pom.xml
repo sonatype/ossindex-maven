@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.sonatype.ossindex.maven.plugin</groupId>
-  <artifactId>test1</artifactId>
+  <groupId>org.sonatype.ossindex.maven.plugin.it</groupId>
+  <artifactId>vulnerable-fail</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
