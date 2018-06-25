@@ -12,12 +12,11 @@
  */
 package org.sonatype.ossindex.maven.common;
 
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 
@@ -33,14 +32,12 @@ public class ComponentReportResult
   /**
    * All component-reports.
    */
-  private Map<PackageUrl, ComponentReport> reports;
+  private Map<Artifact, ComponentReport> reports;
 
   /**
    * Component-reports which have matching vulnerabilities.
    */
   private Map<Artifact, ComponentReport> vulnerable;
-
-  // TODO: may need to adjust the data for excluded for better reporting and potential exposure to calling clients
 
   /**
    * Excluded components which had vulnerabilities.
@@ -52,15 +49,21 @@ public class ComponentReportResult
    */
   private Set<String> excludedVulnerabilityIds;
 
-  public Map<PackageUrl, ComponentReport> getReports() {
+  public Map<Artifact, ComponentReport> getReports() {
+    if (reports == null) {
+      reports = new HashMap<>();
+    }
     return reports;
   }
 
-  public void setReports(final Map<PackageUrl, ComponentReport> reports) {
+  public void setReports(final Map<Artifact, ComponentReport> reports) {
     this.reports = reports;
   }
 
   public Map<Artifact, ComponentReport> getVulnerable() {
+    if (vulnerable == null) {
+      vulnerable = new HashMap<>();
+    }
     return vulnerable;
   }
 
@@ -68,8 +71,11 @@ public class ComponentReportResult
     this.vulnerable = vulnerable;
   }
 
+  /**
+   * Returns {@code true} if report has any vulnerabilities.
+   */
   public boolean hasVulnerable() {
-    return !vulnerable.isEmpty();
+    return !getVulnerable().isEmpty();
   }
 
   public Set<MavenCoordinates> getExcludedCoordinates() {
@@ -94,6 +100,9 @@ public class ComponentReportResult
     this.excludedVulnerabilityIds = excludedVulnerabilityIds;
   }
 
+  /**
+   * Returns {@code true} if report has any coordinates or vulnerabilities that were excluded.
+   */
   public boolean hasExclusions() {
     return getExcludedCoordinates().size() + getExcludedVulnerabilityIds().size() != 0;
   }
@@ -104,16 +113,14 @@ public class ComponentReportResult
   public String explain() {
     StringBuilder buff = new StringBuilder();
 
-    if (vulnerable.isEmpty()) {
+    if (getVulnerable().isEmpty()) {
       buff.append("No vulnerable components detected");
     }
     else {
-      buff.append("Detected ").append(vulnerable.size()).append(" vulnerable components:\n");
-
-      // TODO: add more details here for what was excluded
+      buff.append("Detected ").append(getVulnerable().size()).append(" vulnerable components:\n");
 
       // include details about each vulnerable dependency
-      for (Map.Entry<Artifact, ComponentReport> entry : vulnerable.entrySet()) {
+      for (Map.Entry<Artifact, ComponentReport> entry : getVulnerable().entrySet()) {
         Artifact artifact = entry.getKey();
         ComponentReport report = entry.getValue();
 
@@ -124,20 +131,42 @@ public class ComponentReportResult
             .append("\n");
 
         // include terse details about vulnerability and link to more detailed information
-        Iterator<ComponentReportVulnerability> iter = report.getVulnerabilities().iterator();
-        while (iter.hasNext()) {
-          ComponentReportVulnerability vulnerability = iter.next();
+        for (ComponentReportVulnerability vulnerability : report.getVulnerabilities()) {
+          // if vulnerability was excluded, skip; report will still contain this for inspection however
+          if (getExcludedVulnerabilityIds().contains(vulnerability.getId())) {
+            continue;
+          }
+
           buff.append("    * ")
               .append(vulnerability.getTitle());
 
           Float cvssScore = vulnerability.getCvssScore();
           if (cvssScore != null) {
-              buff.append(" (").append(cvssScore).append(')');
+            buff.append(" (").append(cvssScore).append(')');
           }
 
-          buff.append("; ").append(vulnerability.getReference());
-          if (iter.hasNext()) {
-            buff.append("\n");
+          buff.append("; ").append(vulnerability.getReference()).append("\n");
+        }
+      }
+
+      // if anything was included, include a brief summary for clarity
+      if (hasExclusions()) {
+        buff.append("\n");
+        Set<String> excludedIds = getExcludedVulnerabilityIds();
+        if (!excludedIds.isEmpty()) {
+          buff.append("Excluded vulnerabilities\n");
+          for (String id : excludedIds) {
+            // TODO: would be nice to give more details here, may need to refactor model slightly to support that
+            buff.append("  - ").append(id).append("\n");
+          }
+        }
+
+        Set<MavenCoordinates> excludedCoordinates = getExcludedCoordinates();
+        if (!excludedCoordinates.isEmpty()) {
+          buff.append("Excluded coordinates:\n");
+          for (MavenCoordinates coordinates : excludedCoordinates) {
+            // TODO: would be nice to give more details here, may need to refactor model slightly to support that
+            buff.append("  - ").append(coordinates).append("\n");
           }
         }
       }

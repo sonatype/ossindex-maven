@@ -76,27 +76,25 @@ public class ComponentReportAssistant
 
     OssindexClient client = createClient(request.getClientConfiguration());
     ComponentReportResult result = new ComponentReportResult();
-    Map<Artifact, ComponentReport> vulnerable = new HashMap<>();
     try {
       Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(purlArtifacts.keySet()));
       log.trace("Fetched {} component-reports", reports.size());
-      result.setReports(reports);
 
       for (Map.Entry<PackageUrl, ComponentReport> entry : reports.entrySet()) {
         PackageUrl purl = entry.getKey();
         Artifact artifact = purlArtifacts.get(purl);
         ComponentReport report = entry.getValue();
+        result.getReports().put(artifact, report);
 
         // filter and maybe record vulnerable mapping
         if (match(request, result, report)) {
-          vulnerable.put(artifact, report);
+          result.getVulnerable().put(artifact, report);
         }
       }
     }
     catch (Exception e) {
       log.warn("Failed to fetch component-reports", e);
     }
-    result.setVulnerable(vulnerable);
 
     return result;
   }
@@ -154,11 +152,13 @@ public class ComponentReportAssistant
       boolean include = false;
 
       Float cvssScore = vulnerability.getCvssScore();
-      if (cvssScore != null && cvssScore >= cvssScoreThreshold) {
-        include = true;
-      }
-      else {
-        log.warn("Excluding CVSS-score: {}", cvssScore);
+      if (cvssScore != null) {
+        if (cvssScore >= cvssScoreThreshold) {
+          include = true;
+        }
+        else {
+          log.warn("Excluding CVSS-score: {}", cvssScore);
+        }
       }
 
       if (excludeVulnerabilityIds.contains(vulnerability.getId())) {
