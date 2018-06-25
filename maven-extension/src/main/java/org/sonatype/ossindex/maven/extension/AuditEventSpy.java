@@ -19,6 +19,9 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.apache.maven.eventspy.AbstractEventSpy;
+import org.apache.maven.execution.ExecutionEvent;
+import org.eclipse.aether.RepositoryEvent;
+import org.eclipse.aether.RepositoryEvent.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +49,7 @@ public class AuditEventSpy
   @Override
   public void init(final Context context) throws Exception {
     log.info("INIT: {}", context);
-    for (Map.Entry<String,Object> entry : context.getData().entrySet()) {
+    for (Map.Entry<String, Object> entry : context.getData().entrySet()) {
       log.info("  {}={}", entry.getKey(), entry.getValue());
     }
   }
@@ -54,6 +57,19 @@ public class AuditEventSpy
   @Override
   public void onEvent(final Object event) throws Exception {
     log.info("EVENT {}: {}", event.getClass().getSimpleName(), event);
+
+    if (event instanceof RepositoryEvent) {
+      RepositoryEvent target = (RepositoryEvent) event;
+      if (target.getType() == EventType.ARTIFACT_RESOLVED) {
+        auditor.track(target.getArtifact());
+      }
+    }
+    else if (event instanceof ExecutionEvent) {
+      ExecutionEvent target = (ExecutionEvent) event;
+      if (target.getType() == ExecutionEvent.Type.ProjectSucceeded) {
+        auditor.audit();
+      }
+    }
   }
 
   @Override

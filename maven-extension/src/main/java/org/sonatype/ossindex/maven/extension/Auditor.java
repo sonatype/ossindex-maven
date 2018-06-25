@@ -12,8 +12,18 @@
  */
 package org.sonatype.ossindex.maven.extension;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
+
+import org.eclipse.aether.artifact.Artifact;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * ???
@@ -24,5 +34,31 @@ import javax.inject.Singleton;
 @Singleton
 public class Auditor
 {
-  // TODO
+  private static final Logger log = LoggerFactory.getLogger(Auditor.class);
+
+  private final List<Artifact> tracked = Collections.synchronizedList(new ArrayList<Artifact>());
+
+  public void track(final Artifact artifact) {
+    checkNotNull(artifact);
+    tracked.add(artifact);
+    log.info("Tracking: {}", artifact);
+  }
+
+  public void audit() {
+    log.info("Audit");
+
+    List<Artifact> artifacts;
+    synchronized (tracked) {
+      artifacts = new ArrayList<>(tracked);
+      tracked.clear();
+    }
+
+    log.info("Audit {} artifacts:", artifacts.size());
+    for (Artifact artifact : artifacts) {
+      log.info("  {}", artifact);
+    }
+
+    // HACK: testing
+    throw new RuntimeException("FOO");
+  }
 }
