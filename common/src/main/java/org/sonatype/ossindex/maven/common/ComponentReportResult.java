@@ -40,10 +40,12 @@ public class ComponentReportResult
    */
   private Map<Artifact, ComponentReport> vulnerable;
 
+  // TODO: may need to adjust the data for excluded for better reporting and potential exposure to calling clients
+
   /**
    * Excluded components which had vulnerabilities.
    */
-  private Set<PackageUrl> excludedCoordinates;
+  private Set<MavenCoordinates> excludedCoordinates;
 
   /**
    * Excluded vulnerabilities (by vuln-id or by cvss-score threshold).
@@ -70,14 +72,14 @@ public class ComponentReportResult
     return !vulnerable.isEmpty();
   }
 
-  public Set<PackageUrl> getExcludedCoordinates() {
+  public Set<MavenCoordinates> getExcludedCoordinates() {
     if (excludedCoordinates == null) {
       excludedCoordinates = new HashSet<>();
     }
     return excludedCoordinates;
   }
 
-  public void setExcludedCoordinates(final Set<PackageUrl> excludedCoordinates) {
+  public void setExcludedCoordinates(final Set<MavenCoordinates> excludedCoordinates) {
     this.excludedCoordinates = excludedCoordinates;
   }
 

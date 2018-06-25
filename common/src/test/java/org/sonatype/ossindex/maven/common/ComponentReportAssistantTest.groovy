@@ -183,6 +183,7 @@ class ComponentReportAssistantTest
 
     request.cvssScoreThreshold = 2
     assert underTest.match(request, result, report)
+
     assert result.excludedVulnerabilityIds.contains('1')
 
     request.cvssScoreThreshold = 3
@@ -207,12 +208,17 @@ class ComponentReportAssistantTest
         ]
     )
 
-    request.excludeCoordinates.add(new MavenCoordinates('a', 'b', '1'))
+    def coords1 = new MavenCoordinates('a', 'b', '1')
+    request.excludeCoordinates.add(coords1)
     assert underTest.match(request, result, report)
-    result.excludedCoordinates.contains(PackageUrl.parse('maven:a/b@1'))
 
-    request.excludeCoordinates.add(new MavenCoordinates('foo', 'bar', '1'))
+    assert !result.excludedCoordinates.contains(coords1)
+
+    def coords2 = new MavenCoordinates('foo', 'bar', '1')
+    request.excludeCoordinates.add(coords2)
     assert !underTest.match(request, result, report)
+
+    assert result.excludedCoordinates.contains(coords2)
   }
 
   //

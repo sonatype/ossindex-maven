@@ -138,11 +138,10 @@ public class ComponentReportAssistant
     }
 
     // do not include if component coordinates are excluded
-    PackageUrl purl = report.getCoordinates();
-    MavenCoordinates coordinates = MavenCoordinates.from(purl);
+    MavenCoordinates coordinates = MavenCoordinates.from(report.getCoordinates());
     if (request.getExcludeCoordinates().contains(coordinates)) {
       log.warn("Excluding coordinates: {}", coordinates);
-      result.getExcludedCoordinates().add(purl);
+      result.getExcludedCoordinates().add(coordinates);
       return false;
     }
 
