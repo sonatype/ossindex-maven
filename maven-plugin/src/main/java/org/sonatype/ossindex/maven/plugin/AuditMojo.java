@@ -45,7 +45,7 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 import static org.apache.maven.plugins.annotations.ResolutionScope.TEST;
 
 /**
- * Component-report {@code audit} goal.
+ * Vulnerability audit of project dependencies via <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
  *
  * @since ???
  */
@@ -65,24 +65,42 @@ public class AuditMojo
   @Parameter(defaultValue = "${session}", readonly = true)
   private MavenSession session;
 
+  /**
+   * Skip execution.
+   */
   @Parameter(property = "ossindex.skip", defaultValue = "false")
   private boolean skip = false;
 
+  /**
+   * Limit scope of dependency resolution.
+   */
   @Nullable
   @Parameter(property = "ossindex.scope")
   private String scope;
 
+  /**
+   * Include transitive dependencies.
+   */
   @Parameter(property = "ossindex.transitive", defaultValue = "true")
   private boolean transitive = true;
 
+  /**
+   * When vulnerable components are found; fail the build.
+   */
   @Parameter(property = "ossindex.fail", defaultValue = "true")
   private boolean fail = true;
 
+  /**
+   * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
+   */
   @Parameter
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
   // TODO: allow setting coordinates from List<String>
 
+  /**
+   * Set of coordinates to exclude from vulnerability matching.
+   */
   @Parameter
   private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
 
@@ -93,9 +111,16 @@ public class AuditMojo
   @Parameter(property = "ossindex.excludeCoordinates")
   private String excludeCoordinatesCsv;
 
+  /**
+   * CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
+   */
   @Parameter(property = "ossindex.cvssScoreThreshold", defaultValue = "0")
   private float cvssScoreThreshold = 0;
 
+  /**
+   * Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
+   * vulnerability identifiers to exclude from matching.
+   */
   @Parameter
   private Set<String> excludeVulnerabilityIds = new HashSet<>();
 
