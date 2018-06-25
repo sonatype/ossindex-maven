@@ -95,7 +95,7 @@
   <modules>
     <module>common</module>
     <module>enforcer-rules</module>
-    <module>maven-extension</module>
+    <!--<module>maven-extension</module>-->
     <module>maven-plugin</module>
   </modules>
 
@@ -343,6 +343,13 @@
   </build>
 
   <profiles>
+    <profile>
+      <id>maven-extension</id>
+      <modules>
+        <module>maven-extension</module>
+      </modules>
+    </profile>
+
     <profile>
       <id>it</id>
       <activation>
