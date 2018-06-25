@@ -58,16 +58,22 @@ public class AuditEventSpy
     log.info("EVENT {}: {}", event.getClass().getSimpleName(), event);
 
     if (event instanceof RepositoryEvent) {
-      RepositoryEvent target = (RepositoryEvent) event;
-      if (target.getType() == RepositoryEvent.EventType.ARTIFACT_RESOLVED) {
-        auditor.track(target.getArtifact());
-      }
+      on((RepositoryEvent) event);
     }
     else if (event instanceof ExecutionEvent) {
-      ExecutionEvent target = (ExecutionEvent) event;
-      if (target.getType() == ExecutionEvent.Type.ProjectSucceeded) {
-        auditor.audit();
-      }
+      on((ExecutionEvent) event);
+    }
+  }
+
+  private void on(final RepositoryEvent event) {
+    if (event.getType() == RepositoryEvent.EventType.ARTIFACT_RESOLVED) {
+      auditor.track(event.getArtifact());
+    }
+  }
+
+  private void on(final ExecutionEvent event) {
+    if (event.getType() == ExecutionEvent.Type.ProjectSucceeded) {
+      auditor.audit();
     }
   }
 
