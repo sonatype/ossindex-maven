@@ -142,13 +142,19 @@ public class MavenCoordinates
 
   @Override
   public String toString() {
-    return MoreObjects.toStringHelper(this)
-        .add("groupId", groupId)
-        .add("artifactId", artifactId)
-        .add("type", type)
-        .add("classifier", classifier)
-        .add("version", version)
-        .toString();
+    StringBuilder buff = new StringBuilder();
+
+    buff.append(groupId).append(':');
+    buff.append(artifactId).append(':');
+    if (type != null) {
+      buff.append(type).append(':');
+      if (classifier != null) {
+        buff.append(classifier).append(':');
+      }
+    }
+    buff.append(version);
+
+    return buff.toString();
   }
 
   //

@@ -38,6 +38,8 @@ public class ComponentReportResult
    */
   private Map<Artifact, ComponentReport> vulnerable;
 
+  // TODO: expose the set of excluded bits?
+
   public Map<PackageUrl, ComponentReport> getReports() {
     return reports;
   }
@@ -86,8 +88,14 @@ public class ComponentReportResult
         while (iter.hasNext()) {
           ComponentReportVulnerability vulnerability = iter.next();
           buff.append("    * ")
-              .append(vulnerability.getTitle())
-              .append("; ").append(vulnerability.getReference());
+              .append(vulnerability.getTitle());
+
+          Float cvssScore = vulnerability.getCvssScore();
+          if (cvssScore != null) {
+              buff.append(" (").append(cvssScore).append(')');
+          }
+
+          buff.append("; ").append(vulnerability.getReference());
           if (iter.hasNext()) {
             buff.append("\n");
           }
