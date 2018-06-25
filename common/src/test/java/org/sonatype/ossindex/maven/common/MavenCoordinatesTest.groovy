@@ -72,4 +72,16 @@ class MavenCoordinatesTest
       assert version == '3'
     }
   }
+
+  @Test
+  void 'string representation'() {
+    // value to parse should be the same as toString rendering
+    def assert_toString = { String value ->
+      assert MavenCoordinates.parse(value).toString() == value
+    }
+
+    assert_toString 'foo:bar:1'
+    assert_toString 'foo:bar:zip:1'
+    assert_toString 'foo:bar:zip:baz:1'
+  }
 }
