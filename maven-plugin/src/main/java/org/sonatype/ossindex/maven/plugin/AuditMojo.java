@@ -117,7 +117,7 @@ public class AuditMojo
       return;
     }
     if ("pom".equals(project.getPackaging())) {
-      getLog().debug("Skipping; POM module");
+      getLog().info("Skipping; POM module");
       return;
     }
 
