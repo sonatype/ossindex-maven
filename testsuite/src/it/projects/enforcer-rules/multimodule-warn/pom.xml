@@ -5,7 +5,6 @@
 
   <groupId>org.sonatype.ossindex.maven.enforcer.it</groupId>
   <artifactId>multimodule-warn</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
   <packaging>pom</packaging>
 
   <version>1-SNAPSHOT</version>

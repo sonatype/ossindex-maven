@@ -25,7 +25,6 @@
 
   <groupId>org.sonatype.ossindex.maven.testsuite</groupId>
   <artifactId>ossindex-maven-testsuite-runner</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
   <version>@project.version@</version>

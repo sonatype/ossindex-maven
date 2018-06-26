@@ -5,7 +5,6 @@
 
   <groupId>org.sonatype.ossindex.maven.enforcer.it</groupId>
   <artifactId>exclude-coordinates</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
   <version>1-SNAPSHOT</version>
