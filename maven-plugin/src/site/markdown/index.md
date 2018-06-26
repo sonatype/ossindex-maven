@@ -1,0 +1,23 @@
+# Maven Plugin
+
+Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org).
+
+## Via POM execution
+
+Add an invocation of the `ossindex-maven-plugin` via POM execution, adjust poms to include:
+
+    <build>
+      <plugins>
+        <plugin>
+          <groupId>org.sonatype.ossindex.maven</groupId>
+          <artifactId>ossindex-maven-plugin</artifactId>
+        </plugin>
+      <plugins>
+    </build>
+
+## Via CLI
+
+If you can not change the POM, you can run the `org.sonatype.ossindex.maven:ossindex-maven-plugin:audit` goal
+directly on the command-line with a project:
+
+    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit

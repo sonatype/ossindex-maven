@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd"
+         name="Sonatype OSS Index: Maven">
+
+  <!--<bannerLeft>-->
+  <!--<name>ossindex</name>-->
+  <!--<src>https://ossindex.sonatype.org/assets/images/sonatype-32x32.png</src>-->
+  <!--<href>https://ossindex.sonatype.org</href>-->
+  <!--</bannerLeft>-->
+
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.7</version>
+  </skin>
+
+  <publishDate position="right"/>
+  <version position="right"/>
+
+  <custom>
+    <fluidoSkin>
+      <navBarStyle>navbar-inverse</navBarStyle>
+      <topBarEnabled>true</topBarEnabled>
+      <topBarIcon>
+        <name>ossindex</name>
+        <src>images/sonatype-dark-32x32.png</src>
+        <href>https://ossindex.sonatype.org</href>
+      </topBarIcon>
+      <sideBarEnabled>false</sideBarEnabled>
+      <gitHub>
+        <projectId>sonatype/ossindex-maven</projectId>
+        <ribbonOrientation>right</ribbonOrientation>
+        <ribbonColor>green</ribbonColor>
+      </gitHub>
+    </fluidoSkin>
+  </custom>
+
+  <body>
+    <breadcrumbs>
+      <item name="Home" href="./index.html"/>
+    </breadcrumbs>
+
+    <menu name="Overview">
+      <item name="About" href="index.html"/>
+    </menu>
+
+    <menu ref="modules"/>
+
+    <menu ref="reports"/>
+
+    <menu name="Uber Ref">
+      <item name="Javadocs" href="apidocs/index.html"/>
+      <item name="Source" href="xref/index.html"/>
+    </menu>
+
+    <footer>
+      Copyright &copy; ${project.inceptionYear} Sonatype, Inc. All rights reserved.
+    </footer>
+  </body>
+</project>

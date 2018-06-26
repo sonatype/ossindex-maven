@@ -83,11 +83,20 @@
     </pluginRepository>
   </pluginRepositories>
 
+  <distributionManagement>
+    <site>
+      <id>sonatype-gitsite</id>
+      <url>gitsite:git@github.com/sonatype/ossindex-maven.git</url>
+    </site>
+  </distributionManagement>
+
   <properties>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 
     <apache-maven.version>3.5.2</apache-maven.version>
+    <apache-maven-plugin-plugin.version>3.5.2</apache-maven-plugin-plugin.version>
+    <apache-maven-javadoc-plugin.version>3.0.1</apache-maven-javadoc-plugin.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
   </properties>
@@ -163,7 +172,7 @@
       <dependency>
         <groupId>org.apache.maven.shared</groupId>
         <artifactId>maven-verifier</artifactId>
-        <version>3.0.1</version>
+        <version>1.6</version>
       </dependency>
 
       <!--<dependency>-->
@@ -200,7 +209,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
-          <version>3.5.2</version>
+          <version>${apache-maven-plugin-plugin.version}</version>
         </plugin>
 
         <!--<plugin>-->
@@ -213,6 +222,25 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-invoker-plugin</artifactId>
           <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${apache-maven-javadoc-plugin.version}</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <additionalOptions>
+              <!-- Turn off strict javadoc checks in Java-8 -->
+              <option>-Xdoclint:none</option>
+            </additionalOptions>
+          </configuration>
         </plugin>
 
         <plugin>
@@ -341,6 +369,35 @@
     </plugins>
   </build>
 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.9</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${apache-maven-javadoc-plugin.version}</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <additionalOptions>
+            <!-- Turn off strict javadoc checks in Java-8 -->
+            <option>-Xdoclint:none</option>
+          </additionalOptions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
   <profiles>
     <profile>
       <id>it</id>
@@ -366,6 +423,27 @@
             </executions>
           </plugin>
         </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>site-stage</id>
+
+      <build>
+        <defaultGoal>clean install site:site site:stage</defaultGoal>
+
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-enforcer-plugin</artifactId>
+              <configuration>
+                <!-- site generation uses components which violate general enforcer rules for class-file-format. -->
+                <skip>true</skip>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
       </build>
     </profile>
   </profiles>
