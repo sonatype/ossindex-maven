@@ -61,7 +61,6 @@ public class BanVulnerableDependencies
 
   private float cvssScoreThreshold = 0;
 
-
   private Set<String> excludeVulnerabilityIds = new HashSet<>();
 
   /**
