@@ -51,83 +51,60 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 public class BanVulnerableDependencies
     extends EnforcerRuleSupport
 {
+  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+
+  private String scope;
+
+  private boolean transitive = true;
+
+  private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
+
+  private float cvssScoreThreshold = 0;
+
+
+  private Set<String> excludeVulnerabilityIds = new HashSet<>();
+
   /**
    * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
    */
-  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
+    this.clientConfiguration = clientConfiguration;
+  }
 
   /**
    * Limit scope of dependency resolution.
    */
-  private String scope;
+  public void setScope(final String scope) {
+    this.scope = scope;
+  }
 
   /**
    * Include transitive dependencies.
    */
-  private boolean transitive = true;
+  public void setTransitive(final boolean transitive) {
+    this.transitive = transitive;
+  }
+
+  // TODO: allow setting coordinates from List<String>
 
   /**
    * Set of coordinates to exclude from vulnerability matching.
    */
-  private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
+  public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
+    this.excludeCoordinates = excludeCoordinates;
+  }
 
   /**
    * CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
    */
-  private float cvssScoreThreshold = 0;
+  public void setCvssScoreThreshold(final float cvssScoreThreshold) {
+    this.cvssScoreThreshold = cvssScoreThreshold;
+  }
 
   /**
    * Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
    * vulnerability identifiers to exclude from matching.
    */
-  private Set<String> excludeVulnerabilityIds = new HashSet<>();
-
-  public OssindexClientConfiguration getClientConfiguration() {
-    return clientConfiguration;
-  }
-
-  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
-    this.clientConfiguration = clientConfiguration;
-  }
-
-  public String getScope() {
-    return scope;
-  }
-
-  public void setScope(final String scope) {
-    this.scope = scope;
-  }
-
-  public boolean isTransitive() {
-    return transitive;
-  }
-
-  public void setTransitive(final boolean transitive) {
-    this.transitive = transitive;
-  }
-
-  public Set<MavenCoordinates> getExcludeCoordinates() {
-    return excludeCoordinates;
-  }
-
-  // TODO: allow setting coordinates from List<String>
-
-  public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
-    this.excludeCoordinates = excludeCoordinates;
-  }
-
-  public float getCvssScoreThreshold() {
-    return cvssScoreThreshold;
-  }
-
-  public void setCvssScoreThreshold(final float cvssScoreThreshold) {
-    this.cvssScoreThreshold = cvssScoreThreshold;
-  }
-
-  public Set<String> getExcludeVulnerabilityIds() {
-    return excludeVulnerabilityIds;
-  }
-
   public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
     this.excludeVulnerabilityIds = excludeVulnerabilityIds;
   }
