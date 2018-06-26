@@ -13,6 +13,7 @@
 package org.sonatype.ossindex.maven.testsuite
 
 import groovy.util.logging.Slf4j
+import org.apache.tools.ant.BuildException
 
 /**
  * Maven installation helper.
@@ -42,26 +43,44 @@ class MavenInstallation
   }
 
   void build(final File project) {
-    // TODO: copy tree to target/<something>?
-
-    log.info "Building $project"
+    log.info "Building: $project"
     assert project.exists()
 
-    ant.exec(executable: "$basedir/bin/mvn", failonerror: true) {
-      arg(value: '--show-version')
-      arg(value: '--batch-mode')
-      arg(value: '--errors')
+    File dir = project.parentFile
+    File logFile = new File(dir, 'build.log')
 
-      arg(value: '--file')
-      arg(file: project)
+    try {
+      ant.exec(executable: "$basedir/bin/mvn", dir: dir, output: logFile, failonerror: true) {
+        arg(value: '--show-version')
+        arg(value: '--batch-mode')
+        arg(value: '--errors')
 
-      arg(value: '--activate-profiles')
-      arg(value: 'it')
+        arg(value: '--file')
+        arg(file: project)
 
-      arg(value: 'verify')
+        arg(value: '--activate-profiles')
+        arg(value: 'it')
 
-      // disable maven-enforcer-plugin execution which will fail on different versions, etc
-      arg(value: '-Denforcer.skip=true')
+        arg(value: 'verify')
+
+        // disable maven-enforcer-plugin execution which will fail on different versions, etc
+        arg(value: '-Denforcer.skip=true')
+      }
+    }
+    catch (BuildException e) {
+      log.error("Build failed", e)
+
+      def lines = logFile.readLines()
+
+      def max = 100
+      if (lines.size() < max) {
+        max = lines.size()
+      }
+
+      def snip = lines[-max..-1]
+      log.error("\n----8<----\n${snip.join('\n')}\n----8<----")
+
+      throw e
     }
   }
 }

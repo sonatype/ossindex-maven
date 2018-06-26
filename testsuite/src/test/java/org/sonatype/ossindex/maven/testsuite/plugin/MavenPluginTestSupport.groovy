@@ -26,10 +26,13 @@ abstract class MavenPluginTestSupport
 {
   String mavenVersion
 
+  AntBuilder ant
+
   MavenInstallation maven
 
   @Before
   void setUp() {
+    ant = new AntBuilder()
     File install = util.resolveFile("target/maven-installations/maven-$mavenVersion").canonicalFile
     maven = new MavenInstallation(mavenVersion, install)
   }
@@ -38,8 +41,18 @@ abstract class MavenPluginTestSupport
   void 'build integration-tests'() {
     maven.test()
 
-    File project = util.resolveFile('../maven-plugin/pom.xml').canonicalFile
+    File project = util.resolveFile('../maven-plugin').canonicalFile
+    File workspace = util.resolveFile("target/it-workspace/${getClass().simpleName}")
+    log "Preparing workspace: $workspace"
 
-    maven.build(project)
+    ant.mkdir(dir: workspace)
+    ant.copy(todir: workspace) {
+      fileset(dir: project) {
+        include(name: 'pom.xml')
+        include(name: 'src/**')
+      }
+    }
+
+    maven.build(new File(workspace, 'pom.xml'))
   }
 }
