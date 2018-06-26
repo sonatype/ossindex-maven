@@ -15,7 +15,7 @@ package org.sonatype.ossindex.maven.testsuite
 import groovy.util.logging.Slf4j
 
 /**
- * ???
+ * Maven installation helper.
  */
 @Slf4j
 class MavenInstallation

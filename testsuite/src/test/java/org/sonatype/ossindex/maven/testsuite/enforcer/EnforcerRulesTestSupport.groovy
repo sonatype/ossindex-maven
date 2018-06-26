@@ -19,7 +19,7 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * ???
+ * Support for {@code enforcer-rules} tests.
  */
 abstract class EnforcerRulesTestSupport
     extends TestSupport
@@ -30,7 +30,7 @@ abstract class EnforcerRulesTestSupport
 
   @Before
   void setUp() {
-    File install = util.resolveFile("target/maven-installations/maven-$mavenVersion")
+    File install = util.resolveFile("target/maven-installations/maven-$mavenVersion").canonicalFile
     maven = new MavenInstallation(mavenVersion, install)
   }
 
@@ -38,7 +38,7 @@ abstract class EnforcerRulesTestSupport
   void 'build integration-tests'() {
     maven.test()
 
-    File project = util.resolveFile('../enforcer-rules/pom.xml')
+    File project = util.resolveFile('../enforcer-rules/pom.xml').canonicalFile
 
     maven.build(project)
   }

@@ -19,7 +19,7 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * ???
+ * Support for {@code maven-plugin} tests.
  */
 abstract class MavenPluginTestSupport
     extends TestSupport
@@ -30,7 +30,7 @@ abstract class MavenPluginTestSupport
 
   @Before
   void setUp() {
-    File install = util.resolveFile("target/maven-installations/maven-$mavenVersion")
+    File install = util.resolveFile("target/maven-installations/maven-$mavenVersion").canonicalFile
     maven = new MavenInstallation(mavenVersion, install)
   }
 
@@ -38,7 +38,7 @@ abstract class MavenPluginTestSupport
   void 'build integration-tests'() {
     maven.test()
 
-    File project = util.resolveFile('../maven-plugin/pom.xml')
+    File project = util.resolveFile('../maven-plugin/pom.xml').canonicalFile
 
     maven.build(project)
   }
