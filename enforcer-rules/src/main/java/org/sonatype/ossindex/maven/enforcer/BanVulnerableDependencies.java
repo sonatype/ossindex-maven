@@ -45,16 +45,35 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 public class BanVulnerableDependencies
     extends EnforcerRuleSupport
 {
+  /**
+   * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
+   */
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
+  /**
+   * Limit scope of dependency resolution.
+   */
   private String scope;
 
+  /**
+   * Include transitive dependencies.
+   */
   private boolean transitive = true;
 
+  /**
+   * Set of coordinates to exclude from vulnerability matching.
+   */
   private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
 
+  /**
+   * CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
+   */
   private float cvssScoreThreshold = 0;
 
+  /**
+   * Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
+   * vulnerability identifiers to exclude from matching.
+   */
   private Set<String> excludeVulnerabilityIds = new HashSet<>();
 
   public OssindexClientConfiguration getClientConfiguration() {
