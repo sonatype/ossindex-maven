@@ -59,7 +59,6 @@
             <configuration>
               <failIfNoProjects>true</failIfNoProjects>
               <projectsDirectory>${project.basedir}</projectsDirectory>
-              <cloneProjectsTo>${project.build.directory}/it-projects</cloneProjectsTo>
               <pomIncludes>
                 <pomInclude>*/*/pom.xml</pomInclude>
               </pomIncludes>
