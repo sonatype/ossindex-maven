@@ -3,12 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd"
          name="Sonatype OSS Index: Maven">
 
-  <!--<bannerLeft>-->
-  <!--<name>ossindex</name>-->
-  <!--<src>https://ossindex.sonatype.org/assets/images/sonatype-32x32.png</src>-->
-  <!--<href>https://ossindex.sonatype.org</href>-->
-  <!--</bannerLeft>-->
-
   <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-fluido-skin</artifactId>
@@ -25,7 +19,7 @@
       <topBarIcon>
         <name>ossindex</name>
         <src>images/sonatype-dark-32x32.png</src>
-        <href>https://ossindex.sonatype.org</href>
+        <href>${project.url}</href>
       </topBarIcon>
       <sideBarEnabled>false</sideBarEnabled>
       <gitHub>

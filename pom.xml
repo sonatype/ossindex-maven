@@ -30,7 +30,7 @@
 
   <version>1-SNAPSHOT</version>
 
-  <url>https://github.com/sonatype/ossindex-maven</url>
+  <url>https://sonatype.github.io/ossindex-maven/</url>
 
   <scm>
     <connection>scm:git:git://github.com/sonatype/ossindex-maven.git</connection>
@@ -86,7 +86,7 @@
   <distributionManagement>
     <site>
       <id>sonatype-gitsite</id>
-      <url>gitsite:git@github.com/sonatype/ossindex-maven.git</url>
+      <url>scm:git:ssh://git@github.com/sonatype/ossindex-maven.git</url>
     </site>
   </distributionManagement>
 
@@ -228,6 +228,15 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <version>3.0.0</version>
+          <configuration>
+            <scmBranch>gh-pages</scmBranch>
+          </configuration>
         </plugin>
 
         <plugin>
