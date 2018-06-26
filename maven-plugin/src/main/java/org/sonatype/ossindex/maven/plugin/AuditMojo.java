@@ -104,8 +104,6 @@ public class AuditMojo
   @Parameter
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
-  // TODO: allow setting coordinates from List<String>
-
   /**
    * Set of coordinates to exclude from vulnerability matching.
    */
@@ -120,7 +118,9 @@ public class AuditMojo
   private String excludeCoordinatesCsv;
 
   /**
-   * CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
+   * CVSS-score threshold.
+   *
+   * Vulnerabilities with lower scores will be excluded.
    */
   @Parameter(property = "ossindex.cvssScoreThreshold", defaultValue = "0")
   private float cvssScoreThreshold = 0;

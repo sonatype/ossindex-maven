@@ -67,6 +67,7 @@ public class BanVulnerableDependencies
   /**
    * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
    */
+  @SuppressWarnings("unused")
   public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
     this.clientConfiguration = clientConfiguration;
   }
@@ -74,6 +75,7 @@ public class BanVulnerableDependencies
   /**
    * Limit scope of dependency resolution.
    */
+  @SuppressWarnings("unused")
   public void setScope(final String scope) {
     this.scope = scope;
   }
@@ -81,22 +83,25 @@ public class BanVulnerableDependencies
   /**
    * Include transitive dependencies.
    */
+  @SuppressWarnings("unused")
   public void setTransitive(final boolean transitive) {
     this.transitive = transitive;
   }
 
-  // TODO: allow setting coordinates from List<String>
-
   /**
    * Set of coordinates to exclude from vulnerability matching.
    */
+  @SuppressWarnings("unused")
   public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
     this.excludeCoordinates = excludeCoordinates;
   }
 
   /**
-   * CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
+   * CVSS-score threshold.
+   *
+   * Vulnerabilities with lower scores will be excluded.
    */
+  @SuppressWarnings("unused")
   public void setCvssScoreThreshold(final float cvssScoreThreshold) {
     this.cvssScoreThreshold = cvssScoreThreshold;
   }
@@ -105,6 +110,7 @@ public class BanVulnerableDependencies
    * Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
    * vulnerability identifiers to exclude from matching.
    */
+  @SuppressWarnings("unused")
   public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
     this.excludeVulnerabilityIds = excludeVulnerabilityIds;
   }
