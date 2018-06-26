@@ -85,7 +85,7 @@
 
   <distributionManagement>
     <site>
-      <id>sonatype-gitsite</id>
+      <id>sonatype-ghpages</id>
       <url>scm:git:ssh://git@github.com/sonatype/ossindex-maven.git</url>
     </site>
   </distributionManagement>
@@ -447,7 +447,7 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-enforcer-plugin</artifactId>
               <configuration>
-                <!-- site generation uses components which violate general enforcer rules for class-file-format. -->
+                <!-- site generation causes problems with project dependency resolution? -->
                 <skip>true</skip>
               </configuration>
             </plugin>

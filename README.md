@@ -15,3 +15,7 @@
 # Sonatype OSS Index - Maven Integrations
 
 [Sonatype OSS Index](https://ossindex.sonatype.org/) integrations for [Apache Maven](https://maven.apache.org/).
+
+## Site Publish
+
+    mvn -Psite-stage && mvn scm-publish:publish-scm
