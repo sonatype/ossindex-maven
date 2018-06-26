@@ -1,0 +1,3 @@
+org.sonatype.ossindex.maven.common
+org.sonatype.ossindex.maven.enforcer
+org.sonatype.ossindex.maven.plugin
