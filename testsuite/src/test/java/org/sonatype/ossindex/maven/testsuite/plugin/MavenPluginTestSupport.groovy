@@ -13,6 +13,7 @@
 package org.sonatype.ossindex.maven.testsuite.plugin
 
 import org.sonatype.goodies.testsupport.TestSupport
+import org.sonatype.ossindex.maven.testsuite.MavenInstallation
 
 import org.junit.Before
 import org.junit.Test
@@ -25,47 +26,20 @@ abstract class MavenPluginTestSupport
 {
   String mavenVersion
 
-  AntBuilder ant
+  MavenInstallation maven
 
   @Before
   void setUp() {
-    ant = new AntBuilder()
+    File install = util.resolveFile("target/maven-installations/maven-$mavenVersion")
+    maven = new MavenInstallation(mavenVersion, install)
   }
 
   @Test
   void 'build integration-tests'() {
-    File install = util.resolveFile("target/maven-installations/maven-$mavenVersion")
-    assert install.exists()
+    maven.test()
 
-    log "Testing Maven $mavenVersion installation"
+    File project = util.resolveFile('../maven-plugin/pom.xml')
 
-    ant.exec(executable: "$install/bin/mvn", failonerror: true) {
-      arg(value: '--version')
-    }
-
-    File basedir = util.resolveFile('..')
-    File project = new File(basedir, 'maven-plugin/pom.xml')
-    assert project.exists()
-
-    // TODO: copy tree to target/<something>?
-
-    log "Building $project with integration-tests"
-
-    ant.exec(executable: "$install/bin/mvn", failonerror: true) {
-      arg(value: '--show-version')
-      arg(value: '--batch-mode')
-      arg(value: '--errors')
-
-      arg(value: '--file')
-      arg(file: project)
-
-      arg(value: '--activate-profiles')
-      arg(value: 'it')
-
-      arg(value: 'verify')
-
-      // disable maven-enforcer-plugin execution which will fail on different versions, etc
-      arg(value: '-Denforcer.skip=true')
-    }
+    maven.build(project)
   }
 }
