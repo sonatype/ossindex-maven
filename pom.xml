@@ -105,6 +105,7 @@
     <module>common</module>
     <module>enforcer-rules</module>
     <module>maven-plugin</module>
+    <module>testsuite</module>
   </modules>
 
   <dependencyManagement>
@@ -176,9 +177,9 @@
       </dependency>
 
       <!--<dependency>-->
-        <!--<groupId>org.codehaus.plexus</groupId>-->
-        <!--<artifactId>plexus-component-annotations</artifactId>-->
-        <!--<version>1.7.1</version>-->
+      <!--<groupId>org.codehaus.plexus</groupId>-->
+      <!--<artifactId>plexus-component-annotations</artifactId>-->
+      <!--<version>1.7.1</version>-->
       <!--</dependency>-->
 
       <dependency>
@@ -200,6 +201,18 @@
         <artifactId>ossindex-maven-common</artifactId>
         <version>1-SNAPSHOT</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.sonatype.ossindex.maven</groupId>
+        <artifactId>ossindex-maven-enforcer-rules</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.sonatype.ossindex.maven</groupId>
+        <artifactId>ossindex-maven-plugin</artifactId>
+        <version>1-SNAPSHOT</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -213,9 +226,9 @@
         </plugin>
 
         <!--<plugin>-->
-          <!--<groupId>org.codehaus.plexus</groupId>-->
-          <!--<artifactId>plexus-component-metadata</artifactId>-->
-          <!--<version>1.7.1</version>-->
+        <!--<groupId>org.codehaus.plexus</groupId>-->
+        <!--<artifactId>plexus-component-metadata</artifactId>-->
+        <!--<version>1.7.1</version>-->
         <!--</plugin>-->
 
         <plugin>
@@ -250,6 +263,12 @@
               <option>-Xdoclint:none</option>
             </additionalOptions>
           </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.codehaus.gmaven</groupId>
+          <artifactId>groovy-maven-plugin</artifactId>
+          <version>2.0</version>
         </plugin>
 
         <plugin>
@@ -418,16 +437,16 @@
       </plugin>
 
       <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-invoker-plugin</artifactId>-->
-        <!--<version>3.1.0</version>-->
+      <!--<groupId>org.apache.maven.plugins</groupId>-->
+      <!--<artifactId>maven-invoker-plugin</artifactId>-->
+      <!--<version>3.1.0</version>-->
       <!--</plugin>-->
 
       <!--<plugin>-->
-        <!--<groupId>org.apache.maven.plugins</groupId>-->
-        <!--<artifactId>maven-changelog-plugin</artifactId>-->
-        <!--<version>2.3</version>-->
-        <!--<inherited>false</inherited>-->
+      <!--<groupId>org.apache.maven.plugins</groupId>-->
+      <!--<artifactId>maven-changelog-plugin</artifactId>-->
+      <!--<version>2.3</version>-->
+      <!--<inherited>false</inherited>-->
       <!--</plugin>-->
 
       <plugin>
