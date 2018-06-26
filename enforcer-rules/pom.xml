@@ -28,8 +28,6 @@
   <packaging>jar</packaging>
 
   <properties>
-    <apache-maven-enforcer.version>3.0.0-M1</apache-maven-enforcer.version>
-
     <!-- maven-enforcer-plugin relies on older maven implementations -->
     <apache-maven.version>3.0</apache-maven.version>
   </properties>
@@ -43,7 +41,7 @@
     <dependency>
       <groupId>org.apache.maven.enforcer</groupId>
       <artifactId>enforcer-api</artifactId>
-      <version>${apache-maven-enforcer.version}</version>
+      <version>3.0.0-M1</version>
     </dependency>
 
     <dependency>
@@ -79,51 +77,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <profiles>
-    <profile>
-      <id>it</id>
-      <activation>
-        <property>
-          <name>it</name>
-          <value>true</value>
-        </property>
-      </activation>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-invoker-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>integration-test</id>
-                <goals>
-                  <goal>install</goal>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <failIfNoProjects>true</failIfNoProjects>
-                  <projectsDirectory>${project.basedir}/src/it/projects</projectsDirectory>
-                  <cloneProjectsTo>${project.build.directory}/it-projects</cloneProjectsTo>
-                  <pomIncludes>
-                    <pomInclude>*/pom.xml</pomInclude>
-                  </pomIncludes>
-                  <settingsFile>${project.basedir}/src/it/projects/settings.xml</settingsFile>
-                  <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
-                  <filterProperties>
-                    <ossindex.baseUrl>${ossindex.baseUrl}</ossindex.baseUrl>
-                    <apache-maven-enforcer.version>${apache-maven-enforcer.version}</apache-maven-enforcer.version>
-                  </filterProperties>
-                  <preBuildHookScript>setup</preBuildHookScript>
-                  <postBuildHookScript>verify</postBuildHookScript>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
 </project>
