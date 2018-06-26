@@ -146,7 +146,6 @@ public class AuditMojo
       return;
     }
     if (session.isOffline()) {
-      // TODO: could potentially use @Mojo(requiresOnline = true) instead
       getLog().info("Skipping; offline");
       return;
     }
