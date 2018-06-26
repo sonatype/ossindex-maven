@@ -20,14 +20,18 @@ import org.junit.Test
 /**
  * ???
  */
-class ConsolidatedTrial
+class TestsuiteSupport
     extends TestSupport
 {
-  String mavenVersion = '3.5.4'
+  private final String mavenVersion
 
-  AntBuilder ant
+  private AntBuilder ant
 
-  MavenInstallation maven
+  private MavenInstallation maven
+
+  TestsuiteSupport(final String mavenVersion) {
+    this.mavenVersion = mavenVersion
+  }
 
   @Before
   void setUp() {

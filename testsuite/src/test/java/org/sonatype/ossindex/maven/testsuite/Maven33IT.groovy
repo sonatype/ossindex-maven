@@ -10,15 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package org.sonatype.ossindex.maven.testsuite.enforcer
+package org.sonatype.ossindex.maven.testsuite
 
 /**
- * ???
+ * Maven 3.3 testsuite.
  */
-class EnforcerRules31IT
-    extends EnforcerRulesTestSupport
+class Maven33IT
+    extends TestsuiteSupport
 {
-  EnforcerRules31IT() {
-    mavenVersion = '3.1.1'
+  Maven33IT() {
+    super('3.3.9')
   }
 }

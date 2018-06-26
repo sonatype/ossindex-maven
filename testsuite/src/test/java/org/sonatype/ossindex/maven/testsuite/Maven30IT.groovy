@@ -10,15 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package org.sonatype.ossindex.maven.testsuite.plugin
+package org.sonatype.ossindex.maven.testsuite
 
 /**
- * ???
+ * Maven 3.0 testsuite.
  */
-class MavenPlugin33IT
-    extends MavenPluginTestSupport
+class Maven30IT
+    extends TestsuiteSupport
 {
-  MavenPlugin33IT() {
-    mavenVersion = '3.3.9'
+  Maven30IT() {
+    super('3.0.5')
   }
 }

@@ -10,18 +10,15 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package org.sonatype.ossindex.maven.testsuite.enforcer
-
-import org.junit.Ignore
+package org.sonatype.ossindex.maven.testsuite
 
 /**
- * ???
+ * Maven 3.5 testsuite.
  */
-@Ignore("Maven 3.0.x is not supported")
-class EnforcerRules30IT
-    extends EnforcerRulesTestSupport
+class Maven35IT
+    extends TestsuiteSupport
 {
-  EnforcerRules30IT() {
-    mavenVersion = '3.0.5'
+  Maven35IT() {
+    super('3.5.4')
   }
 }
