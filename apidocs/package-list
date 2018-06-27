@@ -1,3 +1,4 @@
 org.sonatype.ossindex.maven.common
 org.sonatype.ossindex.maven.enforcer
 org.sonatype.ossindex.maven.plugin
+org.sonatype.ossindex.maven.plugin.export
