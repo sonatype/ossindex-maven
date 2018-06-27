@@ -24,7 +24,15 @@ import org.sonatype.ossindex.maven.common.ComponentReportResult;
  */
 public interface Exporter
 {
+  /**
+   * Returns {@code true} if this exporter can render to given file.
+   *
+   * Exporters user file-extension to determine acceptance.
+   */
   boolean accept(File file);
 
+  /**
+   * Export component-report to given file.
+   */
   void export(ComponentReportResult result, File file) throws IOException;
 }
