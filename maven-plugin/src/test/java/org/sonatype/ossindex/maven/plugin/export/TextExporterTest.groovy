@@ -10,21 +10,20 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package org.sonatype.ossindex.maven.plugin.export;
+package org.sonatype.ossindex.maven.plugin.export
 
-import java.io.File;
-import java.io.IOException;
-
-import org.sonatype.ossindex.maven.common.ComponentReportResult;
+import org.junit.Before
 
 /**
- * Report exporter.
- *
- * @since ???
+ * Tests for {@link TextExporter}.
  */
-public interface Exporter
+class TextExporterTest
+    extends ExporterTestSupport
 {
-  boolean accept(File file);
+  TextExporter underTest
 
-  void export(ComponentReportResult result, File file) throws IOException;
+  @Before
+  void setUp() {
+    underTest = new TextExporter()
+  }
 }

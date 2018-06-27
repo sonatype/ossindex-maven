@@ -97,6 +97,7 @@
     <apache-maven.version>3.5.2</apache-maven.version>
     <apache-maven-plugin-plugin.version>3.5.2</apache-maven-plugin-plugin.version>
     <apache-maven-javadoc-plugin.version>3.0.1</apache-maven-javadoc-plugin.version>
+    <jackson.version>2.9.0</jackson.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
   </properties>
@@ -168,6 +169,18 @@
         <groupId>org.apache.maven.shared</groupId>
         <artifactId>maven-dependency-tree</artifactId>
         <version>3.0.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${jackson.version}</version>
       </dependency>
 
       <!--<dependency>-->

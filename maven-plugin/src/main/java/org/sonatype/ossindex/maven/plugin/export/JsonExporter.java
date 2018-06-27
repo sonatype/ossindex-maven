@@ -14,33 +14,40 @@ package org.sonatype.ossindex.maven.plugin.export;
 
 import java.io.Writer;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.sonatype.ossindex.maven.common.ComponentReportResult;
-import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
- * ???
+ * JSON report {@link Exporter}.
  *
  * @since ???
  */
 @Named
 @Singleton
 public class JsonExporter
-  extends ExporterSupport
+    extends ExporterSupport
 {
+  private final ObjectMapper objectMapper;
+
+  @Inject
+  public JsonExporter() {
+    this.objectMapper = new ObjectMapper()
+        .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+        .configure(SerializationFeature.INDENT_OUTPUT, true);
+  }
+
   @Override
   protected boolean accept(final String filename) {
     return filename.endsWith(".json");
   }
 
   @Override
-  protected void export(final ComponentReportResult result, final Writer writer) throws Exception {
-    // HACK: this is internal to the client
-    GsonMarshaller marshaller = new GsonMarshaller();
-
-    String json = marshaller.marshal(result);
-    writer.write(json);
+  protected void export(final ComponentReportExport export, final Writer writer) throws Exception {
+    objectMapper.writeValue(writer, export);
   }
 }

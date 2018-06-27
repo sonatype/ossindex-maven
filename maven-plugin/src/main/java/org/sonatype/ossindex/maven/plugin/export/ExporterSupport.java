@@ -19,17 +19,24 @@ import java.io.IOException;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
+import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 
+import org.apache.maven.artifact.Artifact;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * ???
+ * Support for {@link Exporter} implementations.
  *
  * @since ???
  */
@@ -56,8 +63,11 @@ public abstract class ExporterSupport
     Path path = file.getParentFile().toPath();
     Files.createDirectories(path);
 
+    // translate result to export format
+    ComponentReportExport export = translate(result);
+
     try (Writer writer = new BufferedWriter(new FileWriter(file))) {
-      export(result, writer);
+      export(export, writer);
     }
     catch (Exception e) {
       log.error("Export failed", e);
@@ -65,5 +75,30 @@ public abstract class ExporterSupport
     }
   }
 
-  protected abstract void export(final ComponentReportResult result, final Writer writer) throws Exception;
+  private ComponentReportExport translate(final ComponentReportResult result) {
+    ComponentReportExport export = new ComponentReportExport();
+
+    Map<String, ComponentReport> reports = new HashMap<>(result.getReports().size());
+    for (Map.Entry<Artifact,ComponentReport> entry : result.getReports().entrySet()) {
+      reports.put(entry.getKey().toString(), entry.getValue());
+    }
+    export.setReports(reports);
+
+    Map<String, ComponentReport> vulnerable = new HashMap<>(result.getVulnerable().size());
+    for (Map.Entry<Artifact,ComponentReport> entry : result.getVulnerable().entrySet()) {
+      vulnerable.put(entry.getKey().toString(), entry.getValue());
+    }
+    export.setVulnerable(vulnerable);
+
+    Set<String> excludedCoordinates = new HashSet<>(result.getExcludedCoordinates().size());
+    for (MavenCoordinates coordinates : result.getExcludedCoordinates()) {
+      excludedCoordinates.add(coordinates.toString());
+    }
+    export.setExcludedCoordinates(excludedCoordinates);
+
+    export.setExcludedVulnerabilities(result.getExcludedVulnerabilities());
+    return export;
+  }
+
+  protected abstract void export(final ComponentReportExport export, final Writer writer) throws Exception;
 }

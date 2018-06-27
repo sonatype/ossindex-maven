@@ -12,31 +12,59 @@
  */
 package org.sonatype.ossindex.maven.plugin.export;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Locale;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
-import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * ???
+ * Text report {@link Exporter}.
  *
  * @since ???
  */
 @Named
 @Singleton
 public class TextExporter
-  extends ExporterSupport
+  implements Exporter
 {
+  private static final Logger log = LoggerFactory.getLogger(TextExporter.class);
+
   @Override
-  protected boolean accept(final String filename) {
-    return filename.endsWith(".txt");
+  public boolean accept(final File file) {
+    checkNotNull(file);
+    return file.getName().toLowerCase(Locale.ENGLISH).endsWith(".txt");
   }
 
   @Override
-  protected void export(final ComponentReportResult result, final Writer writer) throws Exception {
-    // TODO:
+  public void export(final ComponentReportResult result, final File file) throws IOException {
+    checkNotNull(result);
+    checkNotNull(file);
+
+    log.debug("Exporting to: {}", file);
+
+    Path path = file.getParentFile().toPath();
+    Files.createDirectories(path);
+
+    try (Writer writer = new BufferedWriter(new FileWriter(file))) {
+      writer.write(result.explain());
+    }
+    catch (Exception e) {
+      log.error("Export failed", e);
+      throw new IOException("Failed to export", e);
+    }
   }
 }

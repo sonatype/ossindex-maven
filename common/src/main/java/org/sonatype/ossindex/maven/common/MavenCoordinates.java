@@ -22,7 +22,6 @@ import javax.annotation.Nullable;
 
 import org.sonatype.goodies.packageurl.PackageUrl;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Splitter;
 
 import static com.google.common.base.Preconditions.checkArgument;

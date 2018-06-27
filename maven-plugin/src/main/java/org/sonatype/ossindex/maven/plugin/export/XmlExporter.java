@@ -19,10 +19,8 @@ import javax.inject.Singleton;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import org.sonatype.ossindex.maven.common.ComponentReportResult;
-
 /**
- * ???
+ * XML report {@link Exporter}.
  *
  * @since ???
  */
@@ -37,10 +35,10 @@ public class XmlExporter
   }
 
   @Override
-  protected void export(final ComponentReportResult result, final Writer writer) throws Exception {
-    JAXBContext context = JAXBContext.newInstance(ComponentReportResult.class);
+  protected void export(final ComponentReportExport export, final Writer writer) throws Exception {
+    JAXBContext context = JAXBContext.newInstance(ComponentReportExport.class);
     Marshaller marshaller = context.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    marshaller.marshal(result, writer);
+    marshaller.marshal(export, writer);
   }
 }

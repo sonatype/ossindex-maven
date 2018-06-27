@@ -17,11 +17,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 
@@ -33,35 +28,30 @@ import org.apache.maven.artifact.Artifact;
  *
  * @since ???
  */
-@XmlRootElement
 public class ComponentReportResult
 {
   /**
    * All component-reports.
    */
   @JsonProperty
-  @XmlElement
   private Map<Artifact, ComponentReport> reports;
 
   /**
    * Component-reports which have matching vulnerabilities.
    */
   @JsonProperty
-  @XmlElement
   private Map<Artifact, ComponentReport> vulnerable;
 
   /**
    * Excluded components which had vulnerabilities.
    */
   @JsonProperty
-  @XmlElement
   private Set<MavenCoordinates> excludedCoordinates;
 
   /**
    * Excluded vulnerabilities (by vuln-id or by cvss-score threshold).
    */
   @JsonProperty
-  @XmlElement
   private Set<ComponentReportVulnerability> excludedVulnerabilities;
 
   public Map<Artifact, ComponentReport> getReports() {
