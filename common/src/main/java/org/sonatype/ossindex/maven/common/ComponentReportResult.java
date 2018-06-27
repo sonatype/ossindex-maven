@@ -20,7 +20,6 @@ import java.util.Set;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.maven.artifact.Artifact;
 
 /**
@@ -33,25 +32,21 @@ public class ComponentReportResult
   /**
    * All component-reports.
    */
-  @JsonProperty
   private Map<Artifact, ComponentReport> reports;
 
   /**
    * Component-reports which have matching vulnerabilities.
    */
-  @JsonProperty
   private Map<Artifact, ComponentReport> vulnerable;
 
   /**
    * Excluded components which had vulnerabilities.
    */
-  @JsonProperty
   private Set<MavenCoordinates> excludedCoordinates;
 
   /**
    * Excluded vulnerabilities (by vuln-id or by cvss-score threshold).
    */
-  @JsonProperty
   private Set<ComponentReportVulnerability> excludedVulnerabilities;
 
   public Map<Artifact, ComponentReport> getReports() {
