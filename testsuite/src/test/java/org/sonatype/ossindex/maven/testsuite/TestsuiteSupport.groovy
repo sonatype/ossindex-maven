@@ -29,6 +29,8 @@ abstract class TestsuiteSupport
 
   private MavenInstallation maven
 
+  String[] arguments
+
   TestsuiteSupport(final String mavenVersion) {
     this.mavenVersion = mavenVersion
   }
@@ -87,6 +89,6 @@ abstract class TestsuiteSupport
       }
     }
 
-    maven.build(new File(workspace, 'pom.xml'))
+    maven.build(new File(workspace, 'pom.xml'), arguments)
   }
 }

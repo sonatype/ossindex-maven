@@ -12,6 +12,8 @@
  */
 package org.sonatype.ossindex.maven.plugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +24,7 @@ import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.maven.plugin.export.Exporter;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 
 import com.google.common.base.Splitter;
@@ -58,6 +61,9 @@ public class AuditMojo
 
   @Component
   private ComponentReportAssistant reportAssistant;
+
+  @Component
+  private List<Exporter> exporters;
 
   @Parameter(defaultValue = "${project}", readonly = true)
   private MavenProject project;
@@ -131,6 +137,10 @@ public class AuditMojo
   @Parameter(property = "ossindex.excludeVulnerabilityIds")
   private String excludeVulnerabilityIdsCsv;
 
+  @Nullable
+  @Parameter(property = "ossindex.reportFile")
+  private File reportFile;
+
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
     if (skip) {
@@ -179,6 +189,17 @@ public class AuditMojo
 
     ComponentReportResult reportResult = reportAssistant.request(reportRequest);
 
+    // maybe export report
+    try {
+      if (reportFile != null) {
+        export(reportResult, reportFile);
+      }
+    }
+    catch (IOException e) {
+      throw new MojoExecutionException("Failed to export report file: " + reportFile, e);
+    }
+
+    // maybe fail or warn
     if (reportResult.hasVulnerable()) {
       if (fail) {
         throw new MojoFailureException(reportResult.explain());
@@ -226,5 +247,38 @@ public class AuditMojo
         }
       }
     }
+  }
+
+  //
+  // Export
+  //
+
+  /**
+   * Export given report results to file.
+   */
+  private void export(final ComponentReportResult result, final File file) throws IOException {
+    getLog().info("Exporting results to: " + file);
+
+    Exporter exporter = selectExporter(file);
+    if (exporter == null) {
+      getLog().warn("Unsupported export file: " + file);
+      return;
+    }
+
+    getLog().debug("Selected exporter: " + exporter);
+    exporter.export(result, file);
+  }
+
+  /**
+   * Select the exporter to use for given file.
+   */
+  @Nullable
+  private Exporter selectExporter(final File file) {
+    for (Exporter exporter : exporters) {
+      if (exporter.accept(file)) {
+        return exporter;
+      }
+    }
+    return null;
   }
 }
