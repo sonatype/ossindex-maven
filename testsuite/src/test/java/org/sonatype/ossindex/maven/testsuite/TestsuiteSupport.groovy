@@ -18,9 +18,9 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * ???
+ * Support for testsuite.
  */
-class TestsuiteSupport
+abstract class TestsuiteSupport
     extends TestSupport
 {
   private final String mavenVersion
@@ -40,6 +40,31 @@ class TestsuiteSupport
     maven = new MavenInstallation(mavenVersion, install)
   }
 
+  /**
+   * Load environment properties.
+   */
+  private Properties loadEnvironment() {
+    File file = util.resolveFile('target/environment.properties')
+
+    Properties env = new Properties()
+    file.withReader { input ->
+      env.load(input)
+    }
+
+    // argument properties
+    env.putAll([
+        'apache-maven-invoker.version' : '3.1.0',
+        'apache-maven-enforcer.version': '3.0.0-M1'
+    ])
+
+    log 'Environment:'
+    env.each { key, value ->
+      log "  $key=$value"
+    }
+
+    return env
+  }
+
   @Test
   void 'build integration-tests'() {
     maven.test()
@@ -48,12 +73,7 @@ class TestsuiteSupport
     File workspace = util.resolveFile("target/it-workspace/${getClass().simpleName}")
     log "Preparing workspace: $workspace"
 
-    def filters = [
-        'project.version'              : '1-SNAPSHOT',
-        'ossindex.baseUrl'             : 'https://ossindex.sonatype.org',
-        'apache-maven-invoker.version' : '3.1.0',
-        'apache-maven-enforcer.version': '3.0.0-M1'
-    ]
+    def env = loadEnvironment()
 
     ant.mkdir(dir: workspace)
     ant.copy(todir: workspace, overwrite: true, filtering: true) {
@@ -61,7 +81,7 @@ class TestsuiteSupport
         include(name: '**')
       }
       filterset {
-        filters.each {
+        env.each {
           filter(token: it.key, value: it.value)
         }
       }

@@ -14,11 +14,13 @@
 def installs = new File(basedir, 'target/maven-installations')
 def dists = new File(basedir, 'target/maven-distributions')
 def versions = [
-    '3.0.5',
+    '3.0.5', // 3.0.x presently doesn't work, here only to confirm that
     '3.1.1',
     '3.3.9',
     '3.5.4'
 ]
+
+// Prepare Maven installations for each version we test with
 
 versions.each { version ->
   log.info "Preparing: $version"
@@ -34,3 +36,23 @@ versions.each { version ->
     }
   }
 }
+
+// Generate environment.properties to bridge some configuration from Maven to tests
+
+def env = new Properties()
+env.put('project.version', project.version)
+env.put('ossindex.baseUrl', properties['ossindex.baseUrl'])
+
+def envFile = new File(basedir, 'target/environment.properties')
+envFile.withWriter { output ->
+  env.store(output, '')
+}
+
+/*
+    def filters = [
+        'project.version'              : '1-SNAPSHOT',
+        'ossindex.baseUrl'             : 'https://ossindex.sonatype.org',
+        'apache-maven-invoker.version' : '3.1.0',
+        'apache-maven-enforcer.version': '3.0.0-M1'
+    ]
+ */
