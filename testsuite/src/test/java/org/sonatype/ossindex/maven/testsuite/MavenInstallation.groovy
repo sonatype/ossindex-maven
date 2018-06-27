@@ -42,7 +42,7 @@ class MavenInstallation
     }
   }
 
-  void build(final File project) {
+  void build(final File project, final String... arguments) {
     log.info "Building: $project"
     assert project.exists()
 
@@ -59,6 +59,10 @@ class MavenInstallation
         arg(file: project)
 
         arg(value: 'verify')
+
+        for (custom in arguments) {
+          arg(value: custom)
+        }
       }
     }
     catch (BuildException e) {

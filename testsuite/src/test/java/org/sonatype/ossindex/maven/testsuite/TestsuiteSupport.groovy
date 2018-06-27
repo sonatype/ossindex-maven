@@ -29,6 +29,10 @@ abstract class TestsuiteSupport
 
   private MavenInstallation maven
 
+  String[] arguments
+
+  Map<String,String> overrides
+
   TestsuiteSupport(final String mavenVersion) {
     this.mavenVersion = mavenVersion
   }
@@ -56,6 +60,10 @@ abstract class TestsuiteSupport
         'apache-maven-invoker.version' : '3.1.0',
         'apache-maven-enforcer.version': '3.0.0-M1'
     ])
+
+    if (overrides != null) {
+      env.putAll(overrides)
+    }
 
     log 'Environment:'
     env.each { key, value ->
@@ -87,6 +95,6 @@ abstract class TestsuiteSupport
       }
     }
 
-    maven.build(new File(workspace, 'pom.xml'))
+    maven.build(new File(workspace, 'pom.xml'), arguments)
   }
 }
