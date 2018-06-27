@@ -58,13 +58,7 @@ class MavenInstallation
         arg(value: '--file')
         arg(file: project)
 
-        arg(value: '--activate-profiles')
-        arg(value: 'it')
-
         arg(value: 'verify')
-
-        // disable maven-enforcer-plugin execution which will fail on different versions, etc
-        arg(value: '-Denforcer.skip=true')
       }
     }
     catch (BuildException e) {

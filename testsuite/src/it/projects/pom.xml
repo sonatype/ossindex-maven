@@ -18,45 +18,28 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonatype.ossindex.maven</groupId>
-    <artifactId>ossindex-maven</artifactId>
-    <version>1-SNAPSHOT</version>
+    <groupId>org.sonatype.buildsupport</groupId>
+    <artifactId>public-parent</artifactId>
+    <version>13</version>
   </parent>
 
-  <artifactId>ossindex-maven-plugin</artifactId>
-  <name>${project.groupId}:${project.artifactId}</name>
-  <packaging>maven-plugin</packaging>
+  <groupId>org.sonatype.ossindex.maven.testsuite</groupId>
+  <artifactId>ossindex-maven-testsuite-runner</artifactId>
+  <packaging>jar</packaging>
+
+  <version>@project.version@</version>
 
   <dependencies>
     <dependency>
       <groupId>org.sonatype.ossindex.maven</groupId>
-      <artifactId>ossindex-maven-common</artifactId>
+      <artifactId>ossindex-maven-enforcer-rules</artifactId>
+      <version>@project.version@</version>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven.plugin-tools</groupId>
-      <artifactId>maven-plugin-annotations</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-core</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven.shared</groupId>
-      <artifactId>maven-dependency-tree</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.sonatype.goodies</groupId>
-      <artifactId>goodies-testsupport</artifactId>
-      <scope>test</scope>
+      <groupId>org.sonatype.ossindex.maven</groupId>
+      <artifactId>ossindex-maven-plugin</artifactId>
+      <version>@project.version@</version>
     </dependency>
   </dependencies>
 
@@ -64,27 +47,30 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-plugin-plugin</artifactId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <version>@apache-maven-invoker.version@</version>
         <executions>
           <execution>
-            <id>generate-helpmojo</id>
+            <id>integration-test</id>
             <goals>
-              <goal>helpmojo</goal>
+              <goal>install</goal>
+              <goal>run</goal>
             </goals>
+            <configuration>
+              <failIfNoProjects>true</failIfNoProjects>
+              <projectsDirectory>${project.basedir}</projectsDirectory>
+              <pomIncludes>
+                <pomInclude>*/*/pom.xml</pomInclude>
+              </pomIncludes>
+              <settingsFile>${project.basedir}/settings.xml</settingsFile>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+              <preBuildHookScript>setup</preBuildHookScript>
+              <postBuildHookScript>verify</postBuildHookScript>
+            </configuration>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-plugin-plugin</artifactId>
-        <version>${apache-maven-plugin-plugin.version}</version>
-      </plugin>
-    </plugins>
-  </reporting>
 
 </project>
