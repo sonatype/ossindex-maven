@@ -105,6 +105,9 @@ public class AuditMojo
 
   // FIXME: we need more adaption to ^^^ to bridge configuration when run via CLI instead of execution
 
+  /**
+   * Override <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> service base-URL.
+   */
   @Nullable
   @Parameter(property = "ossindex.baseUrl")
   private URI baseUrl;
