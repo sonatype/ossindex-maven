@@ -18,6 +18,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.sonatype.goodies.packageurl.jackson.PackageUrlModule;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,7 +38,8 @@ public class JsonExporter
   @Inject
   public JsonExporter() {
     this.objectMapper = new ObjectMapper()
-        .setSerializationInclusion(Include.NON_EMPTY);
+        .setSerializationInclusion(Include.NON_EMPTY)
+        .registerModule(new PackageUrlModule());
   }
 
   @Override
