@@ -14,6 +14,7 @@ package org.sonatype.ossindex.maven.plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,6 +103,10 @@ public class AuditMojo
   @Parameter
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
+  @Nullable
+  @Parameter(property = "ossindex.baseUrl")
+  private URI baseUrl;
+
   // TODO: allow setting coordinates from List<String>
 
   /**
@@ -174,6 +179,11 @@ public class AuditMojo
     if (dependencies.isEmpty()) {
       getLog().info("Skipping; zero dependencies");
       return;
+    }
+
+    // adapt client configuration
+    if (baseUrl != null) {
+      clientConfiguration.setBaseUrl(baseUrl);
     }
 
     // adapt string-list configuration forms

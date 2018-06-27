@@ -23,5 +23,8 @@ class ExportTrial
     arguments = [
         '-Dinvoker.test=maven-plugin/export-*'
     ]
+    overrides = [
+        'ossindex.baseUrl': 'http://10.20.5.63:8080/'
+    ]
   }
 }
