@@ -137,6 +137,11 @@ public class AuditMojo
   @Parameter(property = "ossindex.excludeVulnerabilityIds")
   private String excludeVulnerabilityIdsCsv;
 
+  /**
+   * Export component-report to file.
+   *
+   * Supports {@code .json}, {@code .xml} and {@code .txt} extensions.
+   */
   @Nullable
   @Parameter(property = "ossindex.reportFile")
   private File reportFile;
@@ -196,7 +201,7 @@ public class AuditMojo
       }
     }
     catch (IOException e) {
-      throw new MojoExecutionException("Failed to export report file: " + reportFile, e);
+      throw new MojoExecutionException("Failed to export report: " + reportFile, e);
     }
 
     // maybe fail or warn
