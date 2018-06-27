@@ -23,7 +23,7 @@ import org.junit.Before
 import org.junit.Test
 
 /**
- * ???
+ * Support for {@link Exporter} tests.
  */
 abstract class ExporterTestSupport
     extends TestSupport

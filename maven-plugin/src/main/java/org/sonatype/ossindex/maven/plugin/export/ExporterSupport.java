@@ -75,6 +75,11 @@ public abstract class ExporterSupport
     }
   }
 
+  /**
+   * Translate result to export model.
+   *
+   * This is mostly here because JAXB is unable to be configured to handle sane rendering of some types.
+   */
   private ComponentReportExport translate(final ComponentReportResult result) {
     ComponentReportExport export = new ComponentReportExport();
 
