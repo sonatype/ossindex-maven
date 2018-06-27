@@ -103,6 +103,8 @@ public class AuditMojo
   @Parameter
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
 
+  // FIXME: we need more adaption to ^^^ to bridge configuration when run via CLI instead of execution
+
   @Nullable
   @Parameter(property = "ossindex.baseUrl")
   private URI baseUrl;
