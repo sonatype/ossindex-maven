@@ -18,9 +18,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
  * JSON report {@link Exporter}.
@@ -37,8 +36,7 @@ public class JsonExporter
   @Inject
   public JsonExporter() {
     this.objectMapper = new ObjectMapper()
-        .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-        .configure(SerializationFeature.INDENT_OUTPUT, true);
+        .setSerializationInclusion(Include.NON_EMPTY);
   }
 
   @Override
@@ -48,6 +46,6 @@ public class JsonExporter
 
   @Override
   protected void export(final ComponentReportExport export, final Writer writer) throws Exception {
-    objectMapper.writeValue(writer, export);
+    objectMapper.writerWithDefaultPrettyPrinter().writeValue(writer, export);
   }
 }
