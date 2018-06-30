@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <proxies>
+    <proxy>
+      <id>test-proxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>localhost</host>
+      <port>@http-proxy.port@</port>
+    </proxy>
+  </proxies>
+</settings>

@@ -13,9 +13,12 @@
 package org.sonatype.ossindex.maven.testsuite
 
 import org.sonatype.goodies.testsupport.TestSupport
+import org.sonatype.goodies.testsupport.port.PortRegistry
 
 import org.junit.Before
+import org.junit.ClassRule
 import org.junit.Test
+import org.littleshoot.proxy.impl.DefaultHttpProxyServer
 
 /**
  * Support for testsuite.
@@ -23,6 +26,17 @@ import org.junit.Test
 abstract class TestsuiteSupport
     extends TestSupport
 {
+  /**
+   * Port registry to select unused ports for some tests.
+   */
+  private static final PortRegistry portRegistry = new PortRegistry()
+
+  @ClassRule
+  public static final ProxyRule proxy = new ProxyRule(
+      DefaultHttpProxyServer.bootstrap()
+          .withPort(portRegistry.reservePort())
+  )
+
   private final String mavenVersion
 
   private AntBuilder ant
@@ -55,21 +69,6 @@ abstract class TestsuiteSupport
       env.load(input)
     }
 
-    // argument properties
-    env.putAll([
-        'apache-maven-invoker.version' : '3.1.0',
-        'apache-maven-enforcer.version': '3.0.0-M1'
-    ])
-
-    if (overrides != null) {
-      env.putAll(overrides)
-    }
-
-    log 'Environment:'
-    env.each { key, value ->
-      log "  $key=$value"
-    }
-
     return env
   }
 
@@ -82,6 +81,22 @@ abstract class TestsuiteSupport
     log "Preparing workspace: $workspace"
 
     def env = loadEnvironment()
+
+    // argument properties
+    env.putAll([
+        'apache-maven-invoker.version' : '3.1.0',
+        'apache-maven-enforcer.version': '3.0.0-M1',
+        'http-proxy.port': proxy.port,
+        'workspace.basedir': workspace.absolutePath
+    ])
+    if (overrides != null) {
+      env.putAll(overrides)
+    }
+
+    log 'Environment:'
+    env.sort().each { key, value ->
+      log "  $key=$value"
+    }
 
     ant.mkdir(dir: workspace)
     ant.copy(todir: workspace, overwrite: true, filtering: true) {

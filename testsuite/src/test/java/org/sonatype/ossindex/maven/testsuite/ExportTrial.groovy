@@ -24,6 +24,7 @@ class ExportTrial
         '-Dinvoker.test=maven-plugin/export-*'
     ]
     overrides = [
+        // send requests to dev instance
         'ossindex.baseUrl': 'http://10.20.5.63:8080/'
     ]
   }

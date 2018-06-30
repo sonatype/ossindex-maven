@@ -12,20 +12,22 @@
  */
 package org.sonatype.ossindex.maven.testsuite
 
-import org.junit.Ignore
-
 /**
- * Maven 3.0 testsuite.
+ * {@code maven-plugin} export trials.
  */
-@Ignore("Maven 3.0.x is not supported")
-class Maven30IT
+class HttpProxyTrial
     extends TestsuiteSupport
 {
-  Maven30IT() {
-    super('3.0.5')
+  HttpProxyTrial() {
+    super('3.5.4')
+    arguments = [
+        '-Dinvoker.test=*/http-proxy'
+    ]
     overrides = [
         // send requests to dev instance
         'ossindex.baseUrl': 'http://10.20.5.63:8080/'
     ]
   }
+
+  // TODO: how to easily verify http-proxy interaction?
 }

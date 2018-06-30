@@ -20,5 +20,9 @@ class Maven35IT
 {
   Maven35IT() {
     super('3.5.4')
+    overrides = [
+        // send requests to dev instance
+        'ossindex.baseUrl': 'http://10.20.5.63:8080/'
+    ]
   }
 }
