@@ -43,10 +43,6 @@
                     implementation="org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies">
                   <clientConfiguration>
                     <baseUrl>@ossindex.baseUrl@</baseUrl>
-                    <proxyConfiguration>
-                      <host>localhost</host>
-                      <port>@http-proxy.port@</port>
-                    </proxyConfiguration>
                   </clientConfiguration>
                 </banVunerableDependencies>
               </rules>
