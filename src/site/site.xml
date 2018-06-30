@@ -57,11 +57,6 @@
 
     <menu ref="reports"/>
 
-    <menu name="Uber Ref">
-      <item name="Javadocs" href="apidocs/index.html"/>
-      <item name="Source" href="xref/index.html"/>
-    </menu>
-
     <footer>
       Copyright &copy; ${project.inceptionYear} Sonatype, Inc. All rights reserved.
     </footer>
