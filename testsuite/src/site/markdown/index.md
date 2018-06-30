@@ -10,26 +10,6 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  *###
-# Maven Plugin
+# Testsuite
 
-Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org).
-
-<h2>Via POM execution</h2>
-
-Add an invocation of the `ossindex-maven-plugin` via POM execution, adjust poms to include:
-
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>org.sonatype.ossindex.maven</groupId>
-          <artifactId>ossindex-maven-plugin</artifactId>
-          <version>${project.version}<version>
-        </plugin>
-      <plugins>
-    </build>
-
-<h2>Via CLI</h2>
-
-If you can not change the POM, you can run the `ossindex:audit` goal directly on the command-line with a project:
-
-    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:${project.version}:audit
+Maven integration testsuite.

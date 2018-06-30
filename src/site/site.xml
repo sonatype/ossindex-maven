@@ -31,9 +31,9 @@
       <navBarStyle>navbar-inverse</navBarStyle>
       <topBarEnabled>true</topBarEnabled>
       <topBarIcon>
-        <name>ossindex</name>
-        <src>images/sonatype-dark-32x32.png</src>
-        <href>${project.url}</href>
+        <name>project</name>
+        <src>https://sonatype.github.io/ossindex-maven/images/sonatype-dark-32x32.png</src>
+        <href>https://sonatype.github.io/ossindex-maven</href>
       </topBarIcon>
       <sideBarEnabled>false</sideBarEnabled>
       <gitHub>
@@ -49,11 +49,11 @@
       <item name="Home" href="./index.html"/>
     </breadcrumbs>
 
+    <menu ref="modules"/>
+
     <menu name="Overview">
       <item name="About" href="index.html"/>
     </menu>
-
-    <menu ref="modules"/>
 
     <menu ref="reports"/>
 
