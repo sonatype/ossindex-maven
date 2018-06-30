@@ -49,11 +49,11 @@
       <item name="Home" href="./index.html"/>
     </breadcrumbs>
 
-    <menu ref="modules"/>
-
     <menu name="Overview">
       <item name="About" href="index.html"/>
     </menu>
+
+    <menu ref="modules"/>
 
     <menu ref="reports"/>
 
