@@ -26,9 +26,12 @@ import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.maven.plugin.export.Exporter;
+import org.sonatype.ossindex.service.client.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
+import org.sonatype.ossindex.service.client.ProxyConfiguration;
 
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
@@ -42,6 +45,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.settings.Proxy;
+import org.apache.maven.settings.Settings;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
@@ -71,6 +76,9 @@ public class AuditMojo
 
   @Parameter(defaultValue = "${session}", readonly = true)
   private MavenSession session;
+
+  @Parameter(defaultValue = "${settings}", readonly = true)
+  private Settings settings;
 
   /**
    * Skip execution.
@@ -112,8 +120,6 @@ public class AuditMojo
   @Parameter(property = "ossindex.baseUrl")
   private URI baseUrl;
 
-  // TODO: allow setting coordinates from List<String>
-
   /**
    * Set of coordinates to exclude from vulnerability matching.
    */
@@ -128,7 +134,9 @@ public class AuditMojo
   private String excludeCoordinatesCsv;
 
   /**
-   * CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
+   * CVSS-score threshold.
+   *
+   * Vulnerabilities with lower scores will be excluded.
    */
   @Parameter(property = "ossindex.cvssScoreThreshold", defaultValue = "0")
   private float cvssScoreThreshold = 0;
@@ -200,6 +208,9 @@ public class AuditMojo
       excludeVulnerabilityIds.addAll(ids);
     }
 
+    // adapt maven http-proxy settings to client configuration
+    maybeApplyProxy(clientConfiguration);
+
     ComponentReportRequest reportRequest = new ComponentReportRequest();
     reportRequest.setClientConfiguration(clientConfiguration);
     reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
@@ -229,6 +240,51 @@ public class AuditMojo
       }
     }
   }
+
+  //
+  // HTTP-proxy support; some duplication due to maven-version mismatch
+  //
+
+  /**
+   * Detect proxy configuration from Maven settings.
+   */
+  @SuppressWarnings("Duplicates")
+  @Nullable
+  private ProxyConfiguration detectProxy() {
+    Proxy proxy = settings.getActiveProxy();
+    if (proxy != null) {
+      ProxyConfiguration config = new ProxyConfiguration();
+      config.setProtocol(proxy.getProtocol());
+      config.setHost(proxy.getHost());
+      config.setPort(proxy.getPort());
+      config.setNonProxyHosts(proxy.getNonProxyHosts());
+
+      // maybe add authentication if username & password are present
+      String username = Strings.emptyToNull(proxy.getUsername());
+      String password = Strings.emptyToNull(proxy.getPassword());
+      if (username != null && password != null) {
+        config.setAuthConfiguration(new AuthConfiguration(username, password));
+      }
+      return config;
+    }
+    return null;
+  }
+
+  /**
+   * If a proxy configuration was detected then configure client, unless client has this configured already.
+   */
+  private void maybeApplyProxy(final OssindexClientConfiguration clientConfiguration) {
+    if (clientConfiguration.getProxyConfiguration() == null) {
+      ProxyConfiguration proxy = detectProxy();
+      if (proxy != null) {
+        clientConfiguration.setProxyConfiguration(proxy);
+      }
+    }
+  }
+
+  //
+  // Dependency resolution; some duplication due to maven-version mismatch
+  //
 
   /**
    * Resolve dependencies to inspect for vulnerabilities.

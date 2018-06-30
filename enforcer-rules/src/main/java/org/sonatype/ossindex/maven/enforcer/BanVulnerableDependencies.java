@@ -17,14 +17,18 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.service.client.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
+import org.sonatype.ossindex.service.client.ProxyConfiguration;
 
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
@@ -33,6 +37,8 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.settings.Proxy;
+import org.apache.maven.settings.Settings;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
@@ -45,83 +51,65 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 public class BanVulnerableDependencies
     extends EnforcerRuleSupport
 {
+  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+
+  private String scope;
+
+  private boolean transitive = true;
+
+  private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
+
+  private float cvssScoreThreshold = 0;
+
+  private Set<String> excludeVulnerabilityIds = new HashSet<>();
+
   /**
    * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
    */
-  private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+  @SuppressWarnings("unused")
+  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
+    this.clientConfiguration = clientConfiguration;
+  }
 
   /**
    * Limit scope of dependency resolution.
    */
-  private String scope;
+  @SuppressWarnings("unused")
+  public void setScope(final String scope) {
+    this.scope = scope;
+  }
 
   /**
    * Include transitive dependencies.
    */
-  private boolean transitive = true;
+  @SuppressWarnings("unused")
+  public void setTransitive(final boolean transitive) {
+    this.transitive = transitive;
+  }
 
   /**
    * Set of coordinates to exclude from vulnerability matching.
    */
-  private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
+  @SuppressWarnings("unused")
+  public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
+    this.excludeCoordinates = excludeCoordinates;
+  }
 
   /**
-   * CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
+   * CVSS-score threshold.
+   *
+   * Vulnerabilities with lower scores will be excluded.
    */
-  private float cvssScoreThreshold = 0;
+  @SuppressWarnings("unused")
+  public void setCvssScoreThreshold(final float cvssScoreThreshold) {
+    this.cvssScoreThreshold = cvssScoreThreshold;
+  }
 
   /**
    * Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
    * vulnerability identifiers to exclude from matching.
    */
-  private Set<String> excludeVulnerabilityIds = new HashSet<>();
-
-  public OssindexClientConfiguration getClientConfiguration() {
-    return clientConfiguration;
-  }
-
-  public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
-    this.clientConfiguration = clientConfiguration;
-  }
-
-  public String getScope() {
-    return scope;
-  }
-
-  public void setScope(final String scope) {
-    this.scope = scope;
-  }
-
-  public boolean isTransitive() {
-    return transitive;
-  }
-
-  public void setTransitive(final boolean transitive) {
-    this.transitive = transitive;
-  }
-
-  public Set<MavenCoordinates> getExcludeCoordinates() {
-    return excludeCoordinates;
-  }
-
-  // TODO: allow setting coordinates from List<String>
-
-  public void setExcludeCoordinates(final Set<MavenCoordinates> excludeCoordinates) {
-    this.excludeCoordinates = excludeCoordinates;
-  }
-
-  public float getCvssScoreThreshold() {
-    return cvssScoreThreshold;
-  }
-
-  public void setCvssScoreThreshold(final float cvssScoreThreshold) {
-    this.cvssScoreThreshold = cvssScoreThreshold;
-  }
-
-  public Set<String> getExcludeVulnerabilityIds() {
-    return excludeVulnerabilityIds;
-  }
-
+  @SuppressWarnings("unused")
   public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
     this.excludeVulnerabilityIds = excludeVulnerabilityIds;
   }
@@ -142,6 +130,8 @@ public class BanVulnerableDependencies
 
     private final MavenProject project;
 
+    private final Settings settings;
+
     private final DependencyGraphBuilder graphBuilder;
 
     private final ComponentReportAssistant reportAssistant;
@@ -150,22 +140,21 @@ public class BanVulnerableDependencies
       this.log = helper.getLog();
       this.session = lookup(helper, "${session}", MavenSession.class);
       this.project = lookup(helper, "${project}", MavenProject.class);
+      this.settings = lookup(helper, "${settings}", Settings.class);
       this.graphBuilder = lookup(helper, DependencyGraphBuilder.class);
       this.reportAssistant = lookup(helper, ComponentReportAssistant.class);
     }
 
-    // FIXME: adjust all logging to include rule-simple-name; what does this show up as by default?
-
     public void run() throws EnforcerRuleException {
       // skip if maven is in offline mode
       if (session.isOffline()) {
-        log.warn("Skipping " + BanVulnerableDependencies.class.getSimpleName() + "; offline");
+        log.warn(skipReason("offline"));
         return;
       }
 
       // skip if packaging is pom
       if ("pom".equals(project.getPackaging())) {
-        log.debug("Skipping; POM module");
+        log.debug(skipReason("POM module"));
         return;
       }
 
@@ -180,9 +169,12 @@ public class BanVulnerableDependencies
 
       // skip if project has no dependencies
       if (dependencies.isEmpty()) {
-        log.debug("Skipping; zero dependencies");
+        log.debug(skipReason("zero dependencies"));
         return;
       }
+
+      // adapt maven http-proxy settings to client configuration
+      maybeApplyProxy(clientConfiguration);
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
       reportRequest.setClientConfiguration(clientConfiguration);
@@ -197,6 +189,58 @@ public class BanVulnerableDependencies
         throw new EnforcerRuleException(reportResult.explain());
       }
     }
+
+    /**
+     * Generate skip reason message; includes rule simple-name for clarity.
+     */
+    private String skipReason(final String reason) {
+      return String.format("Skipping %s; %s", BanVulnerableDependencies.class.getSimpleName(), reason);
+    }
+
+    //
+    // HTTP-proxy support; some duplication due to maven-version mismatch
+    //
+
+    /**
+     * Detect proxy configuration from Maven settings.
+     */
+    @SuppressWarnings("Duplicates")
+    @Nullable
+    private ProxyConfiguration detectProxy() {
+      Proxy proxy = settings.getActiveProxy();
+      if (proxy != null) {
+        ProxyConfiguration config = new ProxyConfiguration();
+        config.setProtocol(proxy.getProtocol());
+        config.setHost(proxy.getHost());
+        config.setPort(proxy.getPort());
+        config.setNonProxyHosts(proxy.getNonProxyHosts());
+
+        // maybe add authentication if username & password are present
+        String username = Strings.emptyToNull(proxy.getUsername());
+        String password = Strings.emptyToNull(proxy.getPassword());
+        if (username != null && password != null) {
+          config.setAuthConfiguration(new AuthConfiguration(username, password));
+        }
+        return config;
+      }
+      return null;
+    }
+
+    /**
+     * If a proxy configuration was detected then configure client, unless client has this configured already.
+     */
+    private void maybeApplyProxy(final OssindexClientConfiguration clientConfiguration) {
+      if (clientConfiguration.getProxyConfiguration() == null) {
+        ProxyConfiguration proxy = detectProxy();
+        if (proxy != null) {
+          clientConfiguration.setProxyConfiguration(proxy);
+        }
+      }
+    }
+
+    //
+    // Dependency resolution; some duplication due to maven-version mismatch
+    //
 
     /**
      * Resolve dependencies to inspect for vulnerabilities.
