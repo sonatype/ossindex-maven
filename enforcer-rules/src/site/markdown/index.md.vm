@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  *###
-# Enforcer Rules
+# Usage
 
 Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org) invoked via
 [Apache Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/).
@@ -51,10 +51,13 @@ To ban vulnerable dependencies from being consumed by builds:
 
 <h3>Parameters</h3>
 
-* **scope** - Limit [scope](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope) of dependency resolution.
-* **transitive** - include transitive dependencies; _default:_ `true`
-* **cvssScoreThreshold** - CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.
-* **excludeCoordinates** - Set of [coordinates](https://sonatype.github.io/ossindex-maven/apidocs/org/sonatype/ossindex/maven/common/MavenCoordinates.html) to exclude from vulnerability matching.
-* **excludeVulnerabilityIds** - Set of vulnerability identifiers to exclude from matching.
-* **level** - Levels steering whether a rule should fail a build (`ERROR`) or just display a warning (`WARN`); _default:_ `ERROR`
-* **clientConfiguration** - Optional [client configuration](https://sonatype.github.io/ossindex-public/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html).
+| Paramemter                  | Description | Default Value |
+| --------------------------- | ----------- | ------------- |
+| **scope**                   | Limit [scope](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope) of dependency resolution. | |
+| **transitive**              | include transitive dependencies | `true` |
+| **cvssScoreThreshold**      | CVSS-score threshold.  Vulnerabilities with lower scores will be excluded. | `0.0` |
+| **excludeCoordinates**      | Set of [coordinates](https://sonatype.github.io/ossindex-maven/apidocs/org/sonatype/ossindex/maven/common/MavenCoordinates.html) to exclude from vulnerability matching. | |
+| **excludeVulnerabilityIds** | Set of vulnerability identifiers to exclude from matching. | |
+| **level**                   | Levels steering whether a rule should fail a build (`ERROR`) or just display a warning (`WARN`). | `ERROR` |
+| **clientConfiguration**     | Optional [client configuration](https://sonatype.github.io/ossindex-public/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html). | |
+

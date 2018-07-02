@@ -23,7 +23,7 @@
     <menu name="Parent" ref="parent"/>
 
     <menu name="Overview">
-      <item name="Usage" href="index.html"/>
+      <item name="About" href="index.html"/>
       <!--<item name="Dependency" href="dependency-info.html"/>-->
       <item name="License" href="license.html"/>
     </menu>
