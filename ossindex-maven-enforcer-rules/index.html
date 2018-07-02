@@ -37,6 +37,8 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Overview <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li><a href="index.html" title="Usage">Usage</a></li>
+            <li><a href="excludes.html" title="Excludes">Excludes</a></li>
+            <li><a href="failorwarn.html" title="Fail or Warn">Fail or Warn</a></li>
             <li><a href="license.html" title="License">License</a></li>
         </ul>
       </li>
@@ -112,7 +114,7 @@
           &lt;/goals&gt;
           &lt;configuration&gt;
             &lt;rules&gt;
-              &lt;banVunerable implementation=&quot;org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies&quot;/&gt;
+              &lt;banVulnerable implementation=&quot;org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies&quot;/&gt;
             &lt;/rules&gt;
           &lt;/configuration&gt;
         &lt;/execution&gt;
@@ -122,6 +124,15 @@
 &lt;/build&gt;
 </pre></div></div>
 
+<div class="section">
+<h3><a name="Features"></a>Features</h3>
+
+<ul>
+
+<li><a href="excludes.html">Excludes</a></li>
+<li><a href="failorwarn.html">Fail or Warn</a></li>
+</ul>
+</div>
 <div class="section">
 <h3><a name="Optional_Parameters"></a>Optional Parameters</h3>
 
