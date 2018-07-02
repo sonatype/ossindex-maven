@@ -14,8 +14,8 @@
 -->
 # Excludes
 
-Sometimes audit may find vulnerabilities which are not relevant.  In those cases audit can be configured to *exclude*
-from vulnerabilities from matching.
+Sometimes audit may detect vulnerabilities which are not relevant.
+In those cases audit can be configured to *exclude* from vulnerabilities from matching.
 
 ## Exclude Specific Vulnerabilities
 
@@ -41,7 +41,7 @@ This exclusion can also be configured via CLI property as a comma-separated list
 
 Specific components can be excluded by coordinates.
 
-For example to exclude [commons-fileupload:commons-fileupload:1.3](https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload):
+For example to exclude [commons-fileupload:commons-fileupload:1.3](https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3):
 
     <plugin>
       <groupId>org.sonatype.ossindex.maven</groupId>
@@ -60,4 +60,5 @@ For example to exclude [commons-fileupload:commons-fileupload:1.3](https://ossin
 This exclusion can also be configured via CLI property as a comma-separated list of coordinates:
 
     mvn ossindex:audit -Dossindex.excludeCoordinates=commons-fileupload:commons-fileupload:1.3
- 
+
+**NOTE:** Only exact coordinate matches are excluded.
