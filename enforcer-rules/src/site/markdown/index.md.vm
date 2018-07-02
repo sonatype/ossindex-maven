@@ -40,7 +40,7 @@ To ban vulnerable dependencies from being consumed by builds:
               </goals>
               <configuration>
                 <rules>
-                  <banVunerable implementation="org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies"/>
+                  <banVulnerable implementation="org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies"/>
                 </rules>
               </configuration>
             </execution>
@@ -48,6 +48,11 @@ To ban vulnerable dependencies from being consumed by builds:
         </plugin>
       </plugins>
     </build>
+
+<h3>Features</h3>
+
+* [Excludes](excludes.html)
+* [Fail or Warn](failorwarn.html)
 
 <h3>Optional Parameters</h3>
 
@@ -60,4 +65,3 @@ To ban vulnerable dependencies from being consumed by builds:
 | **excludeVulnerabilityIds** | Set of String               | Set of vulnerability identifiers to exclude from matching. | |
 | **level**                   | String                      | Levels steering whether a rule should fail a build (`ERROR`) or just display a warning (`WARN`). | `ERROR` |
 | **clientConfiguration**     | OssindexClientConfiguration | [Client configuration](https://sonatype.github.io/ossindex-public/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html). | |
-
