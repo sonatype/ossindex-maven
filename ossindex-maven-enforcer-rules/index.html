@@ -125,16 +125,37 @@
 <div class="section">
 <h3><a name="Parameters"></a>Parameters</h3>
 
-<ul>
+<table border="0" class="table table-striped">
+<thead>
 
-<li><b>scope</b> - Limit <a class="externalLink" href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope">scope</a> of dependency resolution.</li>
-<li><b>transitive</b> - include transitive dependencies; <i>default:</i> <tt>true</tt></li>
-<li><b>cvssScoreThreshold</b> - CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.</li>
-<li><b>excludeCoordinates</b> - Set of <a class="externalLink" href="https://sonatype.github.io/ossindex-maven/apidocs/org/sonatype/ossindex/maven/common/MavenCoordinates.html">coordinates</a> to exclude from vulnerability matching.</li>
-<li><b>excludeVulnerabilityIds</b> - Set of vulnerability identifiers to exclude from matching.</li>
-<li><b>level</b> - Levels steering whether a rule should fail a build (<tt>ERROR</tt>) or just display a warning (<tt>WARN</tt>); <i>default:</i> <tt>ERROR</tt></li>
-<li><b>clientConfiguration</b> - Optional <a class="externalLink" href="https://sonatype.github.io/ossindex-public/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html">client configuration</a>.</li>
-</ul></div></div>
+<tr class="a">
+<th> Paramemter                  </th>
+<th> Description </th></tr>
+</thead><tbody>
+
+<tr class="b">
+<td> <b>scope</b>                   </td>
+<td> Limit <a class="externalLink" href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope">scope</a> of dependency resolution. </td></tr>
+<tr class="a">
+<td> <b>transitive</b>              </td>
+<td> include transitive dependencies; <i>default:</i> <tt>true</tt> </td></tr>
+<tr class="b">
+<td> <b>cvssScoreThreshold</b>      </td>
+<td> CVSS-score threshold.  Vulnerabilities with lower scores will be excluded. </td></tr>
+<tr class="a">
+<td> <b>excludeCoordinates</b>      </td>
+<td> Set of <a class="externalLink" href="https://sonatype.github.io/ossindex-maven/apidocs/org/sonatype/ossindex/maven/common/MavenCoordinates.html">coordinates</a> to exclude from vulnerability matching. </td></tr>
+<tr class="b">
+<td> <b>excludeVulnerabilityIds</b> </td>
+<td> Set of vulnerability identifiers to exclude from matching. </td></tr>
+<tr class="a">
+<td> <b>level</b>                   </td>
+<td> Levels steering whether a rule should fail a build (<tt>ERROR</tt>) or just display a warning (<tt>WARN</tt>); <i>default:</i> <tt>ERROR</tt> </td></tr>
+<tr class="b">
+<td> <b>clientConfiguration</b>     </td>
+<td> Optional <a class="externalLink" href="https://sonatype.github.io/ossindex-public/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html">client configuration</a>. </td></tr>
+</tbody>
+</table></div></div>
         </div>
     </div>
     <hr/>
