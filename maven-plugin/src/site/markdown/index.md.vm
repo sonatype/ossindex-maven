@@ -16,7 +16,7 @@ Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatyp
 
 <h2>Via POM execution</h2>
 
-Add an invocation of the `ossindex-maven-plugin` [audit](audit-mojo.html) goal via POM execution:
+Add an invocation of the [ossindex:audit](audit-mojo.html) goal via POM execution:
 
     <build>
       <plugins>
@@ -39,12 +39,13 @@ Add an invocation of the `ossindex-maven-plugin` [audit](audit-mojo.html) goal v
 
 <h2>Via CLI</h2>
 
-If you can not change the POM, you can run the `ossindex-maven-plugin` [audit](audit-mojo.html) goal
-directly on the command-line with a project:
+If you can not change the POM, run the [ossindex:audit](audit-mojo.html) goal directly on the command-line
+with a project:
 
-    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:${project.version}:audit
+    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:${project.version}:audit -f pom.xml
 
 <h2>Features</h2>
 
 * [Goals](plugin-info.html)
 * [Excludes](excludes.html)
+* [Fail or Warn](failorwarn.html)

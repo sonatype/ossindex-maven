@@ -26,6 +26,7 @@
       <item name="Usage" href="index.html"/>
       <item name="Goals" href="plugin-info.html"/>
       <item name="Excludes" href="excludes.html"/>
+      <item name="Fail or Warn" href="failorwarn.html"/>
       <!--<item name="Dependency" href="dependency-info.html"/>-->
       <item name="License" href="license.html"/>
     </menu>
