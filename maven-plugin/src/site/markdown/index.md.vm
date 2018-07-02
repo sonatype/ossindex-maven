@@ -10,13 +10,13 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  *###
-# Maven Plugin
+# Usage
 
 Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org).
 
 <h2>Via POM execution</h2>
 
-Add an invocation of the `ossindex-maven-plugin` via POM execution, adjust poms to include:
+Add an invocation of the [ossindex:audit](audit-mojo.html) goal via POM execution:
 
     <build>
       <plugins>
@@ -24,12 +24,29 @@ Add an invocation of the `ossindex-maven-plugin` via POM execution, adjust poms 
           <groupId>org.sonatype.ossindex.maven</groupId>
           <artifactId>ossindex-maven-plugin</artifactId>
           <version>${project.version}<version>
+          <executions>
+            <execution>
+              <id>audit-dependencies</id>
+              <phase>validate</verify>
+              <goals>
+                <goal>audit</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       <plugins>
     </build>
 
 <h2>Via CLI</h2>
 
-If you can not change the POM, you can run the `ossindex:audit` goal directly on the command-line with a project:
+If you can not change the POM, run the [ossindex:audit](audit-mojo.html) goal directly on the command-line
+with a project:
 
-    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:${project.version}:audit
+    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:${project.version}:audit -f pom.xml
+
+<h2>Features</h2>
+
+* [Goals](plugin-info.html)
+* [Excludes](excludes.html)
+* [Fail or Warn](failorwarn.html)
+* [Export Report](exportreport.html)

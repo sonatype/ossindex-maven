@@ -17,13 +17,35 @@
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
   <body>
     <breadcrumbs>
-      <item name="Home" href="../index.html"/>
+      <item name="Maven Plugin" href="index.html"/>
     </breadcrumbs>
 
+    <menu name="Parent" ref="parent"/>
+
     <menu name="Overview">
-      <item name="About" href="index.html"/>
+      <item name="Usage" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="Excludes" href="excludes.html"/>
+      <item name="Fail or Warn" href="failorwarn.html"/>
+      <item name="Export Report" href="exportreport.html"/>
+      <!--<item name="Dependency" href="dependency-info.html"/>-->
+      <item name="License" href="license.html"/>
     </menu>
 
-    <menu ref="reports"/>
+    <menu name="Development">
+      <item name="Source Repository" href="source-repository.html"/>
+      <item name="Maven Dependencies" href="dependencies.html"/>
+      <item name="Team" href="team-list.html"/>
+      <item name="Findbugs Report" href="findbugs.html"/>
+      <item name="PMD Report" href="pmd.html"/>
+      <item name="Surefire Report" href="surefire-report.html"/>
+    </menu>
+
+    <menu name="Reference">
+      <item name="API" href="apidocs/index.html"/>
+      <item name="Source" href="xref/index.html"/>
+    </menu>
+
+    <!--<menu ref="reports"/>-->
   </body>
 </project>
