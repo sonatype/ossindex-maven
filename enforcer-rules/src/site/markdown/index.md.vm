@@ -15,6 +15,12 @@
 Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org) invoked via
 [Apache Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/).
 
+<h2>Requirements</h2>
+
+* [Java](http://java.oracle.com) 7+ (version 10 is **NOT** supported)
+* [Apache Maven](https://maven.apache.org) 3.1+
+* [Apache Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/) 3+
+
 <h2>Ban Vulnerable Dependencies</h2>
 
 To ban vulnerable dependencies from being consumed by builds:
