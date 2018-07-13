@@ -28,7 +28,7 @@ Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatyp
 
 ## Dependency
 
-{{< maven-dependency module="ossindex-maven-enforcer-rules" >}}
+{{< maven-dependency module="ossindex-maven-enforcer-rules" skip-d="true" >}}
 
 ## Ban Vulnerable Dependencies
 
