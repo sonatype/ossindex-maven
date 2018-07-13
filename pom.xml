@@ -251,6 +251,20 @@
         </plugin>
 
         <plugin>
+          <groupId>org.sonatype.dionysus</groupId>
+          <artifactId>dionysus-maven-plugin</artifactId>
+          <version>1-SNAPSHOT</version>
+          <extensions>true</extensions>
+          <configuration>
+            <generators>
+              <mavenModules/>
+              <mavenPom/>
+              <mavenPlugin/>
+            </generators>
+          </configuration>
+        </plugin>
+
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
@@ -517,11 +531,13 @@
     </profile>
 
     <profile>
-      <id>site-stage</id>
+      <id>dionysus-generate-data</id>
+    </profile>
+
+    <profile>
+      <id>dionysus-generate-maven-site</id>
 
       <build>
-        <defaultGoal>clean install site:site site:stage</defaultGoal>
-
         <pluginManagement>
           <plugins>
             <plugin>
