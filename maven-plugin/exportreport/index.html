@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html id="site-root" lang="en-us">
+  
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="Sonatype, Inc."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Maven Plugin: Export Report &ndash; Sonatype OSS Index: Maven</title>
+
+  <link rel="shortcut icon" href="/ossindex-maven/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/ossindex-maven/favicon.ico"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-16x16.png" sizes="16x16"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-32x32.png" sizes="32x32"/>
+
+  <link rel="stylesheet" href="/ossindex-maven/theme.css">
+</head>
+
+  <body id="site-body">
+    <wrapper id="site-wrapper">
+      
+<header id="site-header">
+  <nav id="site-topnav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/ossindex-maven/">
+        <img class="d-inline-block align-top mr-2" src="/ossindex-maven/images/sonatype-dark-32x32.png" width="32" height="32" alt="">
+        Sonatype OSS Index: Maven
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar-toggle">
+        <ul class="navbar-nav mr-auto">
+          
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="/ossindex-maven/maven-plugin/" title="Maven Plugin">Maven Plugin</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ossindex-maven/enforcer-rules/" title="Enforcer Rules">Enforcer Rules</a>
+            </li>
+          
+        </ul>
+
+        
+        
+      </div>
+    </div>
+  </nav>
+</header>
+      <main id="site-content">
+        
+<div id="page-description">
+  <h1 class="title"><i class="fas fa-wrench"></i> Maven Plugin: Export Report</h1>
+  
+</div>
+
+
+
+<p>The <a href="audit-mojo.html">ossindex:audit</a> can optionally record a report file which contains the details about the
+component reports that are used to determine if a dependency is vulnerable or not.</p>
+
+<p>To enable this feature configure the <a href="audit-mojo.html#reportFile">reportFile</a> parameter to the location where
+the report will be written.</p>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;plugin&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.sonatype.ossindex.maven<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>ossindex-maven-plugin<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;configuration&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;reportFile&gt;</span>${project.build.directory}/audit-report.json<span style="color:#309;font-weight:bold">&lt;/reportFile&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;/configuration&gt;</span>
+<span style="color:#309;font-weight:bold">&lt;/plugin&gt;</span></code></pre></div>
+
+<p>or via CLI:</p>
+
+<pre><code>mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json
+</code></pre>
+
+<h2 id="formats">Formats</h2>
+
+<p>The file extension is used to inform which format the report will be written as.</p>
+
+<table>
+<thead>
+<tr>
+<th>Format &nbsp;</th>
+<th>File Extension</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>JSON</td>
+<td><code>.json</code></td>
+</tr>
+
+<tr>
+<td>XML</td>
+<td><code>.xml</code></td>
+</tr>
+
+<tr>
+<td>Text</td>
+<td><code>.txt</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+      </main>
+      
+<footer id="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="section-brand">
+        <h5 class="section-title"><img src="/ossindex-maven/images/sonatype-24x24.png" width="24" height="24" alt=""></h5>
+        <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">About</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/about">Sonatype OSS Index: Maven</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Resources</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Legal</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/tos">Terms of Service</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+<script src="/ossindex-maven/theme.js"></script>
+    </wrapper>
+  </body>
+</html>

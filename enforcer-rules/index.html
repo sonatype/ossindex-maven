@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html id="site-root" lang="en-us">
+  
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="Sonatype, Inc."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Enforcer Rules &ndash; Sonatype OSS Index: Maven</title>
+
+  <link rel="shortcut icon" href="/ossindex-maven/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/ossindex-maven/favicon.ico"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-16x16.png" sizes="16x16"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-32x32.png" sizes="32x32"/>
+
+  <link rel="stylesheet" href="/ossindex-maven/theme.css">
+</head>
+
+  <body id="site-body">
+    <wrapper id="site-wrapper">
+      
+<header id="site-header">
+  <nav id="site-topnav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/ossindex-maven/">
+        <img class="d-inline-block align-top mr-2" src="/ossindex-maven/images/sonatype-dark-32x32.png" width="32" height="32" alt="">
+        Sonatype OSS Index: Maven
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar-toggle">
+        <ul class="navbar-nav mr-auto">
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ossindex-maven/maven-plugin/" title="Maven Plugin">Maven Plugin</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="/ossindex-maven/enforcer-rules/" title="Enforcer Rules">Enforcer Rules</a>
+            </li>
+          
+        </ul>
+
+        
+        
+      </div>
+    </div>
+  </nav>
+</header>
+      <main id="site-content">
+        
+<div id="page-description">
+  <h1 class="title"><i class="fas fa-ruler-combined"></i> Enforcer Rules</h1>
+  
+    <p class="subtitle">Apache Maven Enforcer Rules for Sonatype OSS Index</p>
+  
+</div>
+
+
+
+<p>Audit a project dependencies using <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a> invoked via
+<a href="https://maven.apache.org/enforcer/maven-enforcer-plugin/">Apache Maven Enforcer Plugin</a>.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+<li><a href="http://java.oracle.com">Java</a> 7+ (version 10 is <strong>NOT</strong> supported)</li>
+<li><a href="https://maven.apache.org">Apache Maven</a> 3.1+</li>
+<li><a href="https://maven.apache.org/enforcer/maven-enforcer-plugin/">Apache Maven Enforcer Plugin</a> 3+</li>
+</ul>
+
+<h2 id="ban-vulnerable-dependencies">Ban Vulnerable Dependencies</h2>
+
+<p>To ban vulnerable dependencies from being consumed by builds:</p>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;build&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;plugins&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;plugin&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>maven-enforcer-plugin<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;dependencies&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;dependency&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.sonatype.ossindex.maven<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>ossindex-maven-enforcer-rules<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;version&gt;</span>${project.version}<span style="color:#309;font-weight:bold">&lt;/version&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;/dependency&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;/dependencies&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;executions&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;execution&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;id&gt;</span>vulnerability-checks<span style="color:#309;font-weight:bold">&lt;/id&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;phase&gt;</span>validate<span style="color:#309;font-weight:bold">&lt;/phase&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;goals&gt;</span>
+            <span style="color:#309;font-weight:bold">&lt;goal&gt;</span>enforce<span style="color:#309;font-weight:bold">&lt;/goal&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;/goals&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;configuration&gt;</span>
+            <span style="color:#309;font-weight:bold">&lt;rules&gt;</span>
+              <span style="color:#309;font-weight:bold">&lt;banVulnerable</span> <span style="color:#309">implementation=</span><span style="color:#c30">&#34;org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies&#34;</span><span style="color:#309;font-weight:bold">/&gt;</span>
+            <span style="color:#309;font-weight:bold">&lt;/rules&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;/configuration&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;/execution&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;/executions&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;/plugin&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;/plugins&gt;</span>
+<span style="color:#309;font-weight:bold">&lt;/build&gt;</span></code></pre></div>
+
+<h3 id="optional-parameters">Optional Parameters</h3>
+
+<table>
+<thead>
+<tr>
+<th>Paramemter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>scope</strong></td>
+<td>String</td>
+<td>Limit <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope">scope</a> of dependency resolution.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>transitive</strong></td>
+<td>Boolean</td>
+<td>Include transitive dependencies</td>
+<td><code>true</code></td>
+</tr>
+
+<tr>
+<td><strong>cvssScoreThreshold</strong></td>
+<td>Float</td>
+<td>CVSS-score threshold.  Vulnerabilities with lower scores will be excluded.</td>
+<td><code>0.0</code></td>
+</tr>
+
+<tr>
+<td><strong>excludeCoordinates</strong></td>
+<td>Set of MavenCoordinates</td>
+<td>Set of <a href="https://sonatype.github.io/ossindex-maven/apidocs/org/sonatype/ossindex/maven/common/MavenCoordinates.html">coordinates</a> to exclude from vulnerability matching.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>excludeVulnerabilityIds</strong></td>
+<td>Set of String</td>
+<td>Set of vulnerability identifiers to exclude from matching.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>level</strong></td>
+<td>String</td>
+<td>Levels steering whether a rule should fail a build (<code>ERROR</code>) or just display a warning (<code>WARN</code>).</td>
+<td><code>ERROR</code></td>
+</tr>
+
+<tr>
+<td><strong>clientConfiguration</strong></td>
+<td>OssindexClientConfiguration</td>
+<td><a href="https://sonatype.github.io/ossindex-public/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html">Client configuration</a>.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="features">Features</h2>
+
+
+<table class="page-list">
+
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-wrench"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/enforcer-rules/excludes/">Enforcer Rules: Excludes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-wrench"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/enforcer-rules/failorwarn/">Enforcer Rules: Fail or Warn</a>
+    </td>
+  </tr>
+
+</table>
+
+
+      </main>
+      
+<footer id="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="section-brand">
+        <h5 class="section-title"><img src="/ossindex-maven/images/sonatype-24x24.png" width="24" height="24" alt=""></h5>
+        <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">About</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/about">Sonatype OSS Index: Maven</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Resources</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Legal</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/tos">Terms of Service</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+<script src="/ossindex-maven/theme.js"></script>
+    </wrapper>
+  </body>
+</html>

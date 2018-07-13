@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html id="site-root" lang="en-us">
+  
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="Sonatype, Inc."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>ossindex:help &ndash; Sonatype OSS Index: Maven</title>
+
+  <link rel="shortcut icon" href="/ossindex-maven/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/ossindex-maven/favicon.ico"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-16x16.png" sizes="16x16"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-32x32.png" sizes="32x32"/>
+
+  <link rel="stylesheet" href="/ossindex-maven/theme.css">
+</head>
+
+  <body id="site-body">
+    <wrapper id="site-wrapper">
+      
+<header id="site-header">
+  <nav id="site-topnav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/ossindex-maven/">
+        <img class="d-inline-block align-top mr-2" src="/ossindex-maven/images/sonatype-dark-32x32.png" width="32" height="32" alt="">
+        Sonatype OSS Index: Maven
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar-toggle">
+        <ul class="navbar-nav mr-auto">
+          
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="/ossindex-maven/maven-plugin/" title="Maven Plugin">Maven Plugin</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ossindex-maven/enforcer-rules/" title="Enforcer Rules">Enforcer Rules</a>
+            </li>
+          
+        </ul>
+
+        
+        
+      </div>
+    </div>
+  </nav>
+</header>
+      <main id="site-content">
+        
+<div id="page-description">
+  <h1 class="title"><i class="fas fa-puzzle-piece"></i> ossindex:help</h1>
+  
+</div>
+
+
+
+
+
+
+<div class="mavenplugin-goal">
+  <h2><i class="fas fa-bullseye"></i> ossindex:help</h2>
+
+  
+  <p class="goal-description">
+    Display help information on ossindex-maven-plugin.<br>
+Call <code>mvn ossindex:help -Ddetail=true -Dgoal=&lt;goal-name&gt;</code> to display parameter details.
+  </p>
+  
+
+  <dl class="goal-metadata">
+    <dt class="name">Full name</dt>
+    <dd class="value monospace">org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:help</dd>
+
+    
+
+    
+
+    <dt class="name">Requires Project</dt>
+    <dd class="value monospace">false</dd>
+
+    <dt class="name">Requires Online</dt>
+    <dd class="value monospace">false</dd>
+
+    <dt class="name">Requires Direct Invocation</dt>
+    <dd class="value monospace">false</dd>
+
+    <dt class="name">Thread-safe</dt>
+    <dd class="value monospace">true</dd>
+  </dl>
+
+  <h3>Parameters</h3>
+
+  
+  <table class="parameters-table">
+    <caption>4 parameters</caption>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Since</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td><a href="#detail"><i class="fas fa-splotch"></i> detail</a></td>
+        <td class="monospace">boolean</td>
+        <td class="monospace"><i class="fas fa-ban"></i></td>
+        <td>If <code>true</code>, display all settable properties for each goal.</td>
+      </tr>
+      
+      <tr>
+        <td><a href="#goal"><i class="fas fa-splotch"></i> goal</a></td>
+        <td class="monospace">java.lang.String</td>
+        <td class="monospace"><i class="fas fa-ban"></i></td>
+        <td>The name of the goal for which to show help. If unspecified, all goals will be displayed.</td>
+      </tr>
+      
+      <tr>
+        <td><a href="#indentSize"><i class="fas fa-splotch"></i> indentSize</a></td>
+        <td class="monospace">int</td>
+        <td class="monospace"><i class="fas fa-ban"></i></td>
+        <td>The number of spaces per indentation level, should be positive.</td>
+      </tr>
+      
+      <tr>
+        <td><a href="#lineLength"><i class="fas fa-splotch"></i> lineLength</a></td>
+        <td class="monospace">int</td>
+        <td class="monospace"><i class="fas fa-ban"></i></td>
+        <td>The maximum length of a display line, should be positive.</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  
+  
+  <div class="parameter-detail">
+    <h4><a name="detail"><i class="fas fa-splotch"></i> detail</a></h4>
+
+    
+    <p class="parameter-description">
+      If <code>true</code>, display all settable properties for each goal.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">boolean</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+      <dt class="name">Default Value</dt>
+      <dd class="value monospace">false</dd>
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${detail}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <h4><a name="goal"><i class="fas fa-splotch"></i> goal</a></h4>
+
+    
+    <p class="parameter-description">
+      The name of the goal for which to show help. If unspecified, all goals will be displayed.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.lang.String</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${goal}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <h4><a name="indentSize"><i class="fas fa-splotch"></i> indentSize</a></h4>
+
+    
+    <p class="parameter-description">
+      The number of spaces per indentation level, should be positive.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">int</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+      <dt class="name">Default Value</dt>
+      <dd class="value monospace">2</dd>
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${indentSize}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <h4><a name="lineLength"><i class="fas fa-splotch"></i> lineLength</a></h4>
+
+    
+    <p class="parameter-description">
+      The maximum length of a display line, should be positive.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">int</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+      <dt class="name">Default Value</dt>
+      <dd class="value monospace">80</dd>
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${lineLength}</dd>
+      
+    </dl>
+  </div>
+  
+</div>
+
+
+
+
+      </main>
+      
+<footer id="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="section-brand">
+        <h5 class="section-title"><img src="/ossindex-maven/images/sonatype-24x24.png" width="24" height="24" alt=""></h5>
+        <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">About</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/about">Sonatype OSS Index: Maven</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Resources</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Legal</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/tos">Terms of Service</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+<script src="/ossindex-maven/theme.js"></script>
+    </wrapper>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/contact/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/categories/enforcer-rules/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/enforcer-rules/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/enforcer-rules/excludes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/enforcer-rules/failorwarn/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/categories/maven/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/categories/maven-plugin/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/excludes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/exportreport/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/failorwarn/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/tags/ossindex-maven-enforcer-rules/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/tags/ossindex-maven-plugin/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/tos/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</loc>
+  </url>
+  
+</urlset>

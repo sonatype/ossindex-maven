@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html id="site-root" lang="en-us">
+  
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="Sonatype, Inc."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Maven Plugin &ndash; Sonatype OSS Index: Maven</title>
+
+  <link rel="shortcut icon" href="/ossindex-maven/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/ossindex-maven/favicon.ico"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-16x16.png" sizes="16x16"/>
+  <link rel="icon" type="image/png" href="/ossindex-maven/images/favicon-32x32.png" sizes="32x32"/>
+
+  <link rel="stylesheet" href="/ossindex-maven/theme.css">
+</head>
+
+  <body id="site-body">
+    <wrapper id="site-wrapper">
+      
+<header id="site-header">
+  <nav id="site-topnav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/ossindex-maven/">
+        <img class="d-inline-block align-top mr-2" src="/ossindex-maven/images/sonatype-dark-32x32.png" width="32" height="32" alt="">
+        Sonatype OSS Index: Maven
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar-toggle">
+        <ul class="navbar-nav mr-auto">
+          
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="/ossindex-maven/maven-plugin/" title="Maven Plugin">Maven Plugin</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ossindex-maven/enforcer-rules/" title="Enforcer Rules">Enforcer Rules</a>
+            </li>
+          
+        </ul>
+
+        
+        
+      </div>
+    </div>
+  </nav>
+</header>
+      <main id="site-content">
+        
+<div id="page-description">
+  <h1 class="title"><i class="fas fa-puzzle-piece"></i> Maven Plugin</h1>
+  
+    <p class="subtitle">Apache Maven plugin for Sonatype OSS Index</p>
+  
+</div>
+
+
+
+<p>Audit a project dependencies using <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+<li><a href="http://java.oracle.com">Java</a> 7+ (version 10 is <strong>NOT</strong> supported)</li>
+<li><a href="https://maven.apache.org">Apache Maven</a> 3.1+</li>
+</ul>
+
+<h2 id="pom-execution">POM execution</h2>
+
+<p>Add an invocation of the <a href="ossindex-audit/">ossindex:audit</a> goal via POM execution:</p>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;build&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;plugins&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;plugin&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.sonatype.ossindex.maven<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>ossindex-maven-plugin<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;executions&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;execution&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;id&gt;</span>audit-dependencies<span style="color:#309;font-weight:bold">&lt;/id&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;phase&gt;</span>validate<span style="color:#309;font-weight:bold">&lt;/verify&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;goals&gt;</span>
+            <span style="color:#309;font-weight:bold">&lt;goal&gt;</span>audit<span style="color:#309;font-weight:bold">&lt;/goal&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;/goals&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;/execution&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;/executions&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;/plugin&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;plugins&gt;</span>
+<span style="color:#309;font-weight:bold">&lt;/build&gt;</span></code></pre></div>
+
+<h2 id="command-line">Command-line</h2>
+
+<p>If you can not change the POM, run the <a href="ossindex-audit/">ossindex:audit</a> goal directly on the command-line
+with a project:</p>
+
+<pre><code>mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml
+</code></pre>
+
+<h2 id="goals">Goals</h2>
+
+<p>Goals available for this plugin:</p>
+
+<p>
+
+
+
+
+<div class="mavenplugin-goals">
+  <table class="table">
+    <caption>2 goals</caption>
+    <thead>
+      <tr>
+        <th scope="col">Goal</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td class="goal-name"><a href="ossindex-audit"><i class="fas fa-bullseye"></i> ossindex:audit</a></td>
+        <td class="goal-description">Vulnerability audit of project dependencies via <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.</td>
+      </tr>
+      
+      <tr>
+        <td class="goal-name"><a href="ossindex-help"><i class="fas fa-bullseye"></i> ossindex:help</a></td>
+        <td class="goal-description">Display help information on ossindex-maven-plugin.<br>
+Call <code>mvn ossindex:help -Ddetail=true -Dgoal=&lt;goal-name&gt;</code> to display parameter details.</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+
+</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>You should specify the version in your project&rsquo;s plugin configuration:</p>
+
+
+
+
+
+
+
+
+<div class="mavenplugin-usage">
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;project&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;build&gt;</span>
+    <span style="color:#09f;font-style:italic">&lt;!-- plugin management --&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;pluginMangement&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;plugins&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;plugin&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.sonatype.ossindex.maven<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>ossindex-maven-plugin<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
+          <span style="color:#309;font-weight:bold">&lt;version&gt;</span>1-SNAPSHOT<span style="color:#309;font-weight:bold">&lt;/version&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;/plugin&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;/plugins&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;/pluginMangement&gt;</span>
+
+    <span style="color:#09f;font-style:italic">&lt;!-- plugin execution --&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;plugins&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;plugin&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.sonatype.ossindex.maven<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>ossindex-maven-plugin<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
+        <span style="color:#309;font-weight:bold">&lt;version&gt;</span>1-SNAPSHOT<span style="color:#309;font-weight:bold">&lt;/version&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;/plugin&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;/plugins&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;/build&gt;</span>
+<span style="color:#309;font-weight:bold">&lt;/project&gt;</span>
+</code></pre></div>
+</div>
+
+
+
+<h2 id="features">Features</h2>
+
+
+<table class="page-list">
+
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-wrench"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/maven-plugin/excludes/">Maven Plugin: Excludes</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-wrench"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/maven-plugin/exportreport/">Maven Plugin: Export Report</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-wrench"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/maven-plugin/failorwarn/">Maven Plugin: Fail or Warn</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-puzzle-piece"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/maven-plugin/ossindex-audit/">ossindex:audit</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-puzzle-piece"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/maven-plugin/ossindex-help/">ossindex:help</a>
+    </td>
+  </tr>
+
+</table>
+
+
+      </main>
+      
+<footer id="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="section-brand">
+        <h5 class="section-title"><img src="/ossindex-maven/images/sonatype-24x24.png" width="24" height="24" alt=""></h5>
+        <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">About</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/about">Sonatype OSS Index: Maven</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Resources</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h5 class="section-title">Legal</h5>
+        <ul class="section-list">
+          <li>
+            <a class="section-entry" href="/ossindex-maven/tos">Terms of Service</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+      
+<script src="/ossindex-maven/theme.js"></script>
+    </wrapper>
+  </body>
+</html>
