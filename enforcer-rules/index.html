@@ -72,6 +72,36 @@
 <li><a href="https://maven.apache.org/enforcer/maven-enforcer-plugin/">Apache Maven Enforcer Plugin</a> 3+</li>
 </ul>
 
+<h2 id="dependency">Dependency</h2>
+
+
+
+
+
+
+
+<div class="maven-dependency">
+  
+  
+
+  <div class="dependency-management">
+    <div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;dependencyManagement&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;dependencies&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;dependency&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.sonatype.ossindex.maven<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>ossindex-maven-enforcer-rules<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
+      <span style="color:#309;font-weight:bold">&lt;version&gt;</span>1-SNAPSHOT<span style="color:#309;font-weight:bold">&lt;/version&gt;</span>
+    <span style="color:#309;font-weight:bold">&lt;/dependency&gt;</span>
+  <span style="color:#309;font-weight:bold">&lt;/dependencies&gt;</span>
+<span style="color:#309;font-weight:bold">&lt;/dependencyManagement&gt;</span></code></pre></div>
+  </div>
+  
+
+  
+</div>
+
+
+
 <h2 id="ban-vulnerable-dependencies">Ban Vulnerable Dependencies</h2>
 
 <p>To ban vulnerable dependencies from being consumed by builds:</p>
@@ -85,7 +115,6 @@
         <span style="color:#309;font-weight:bold">&lt;dependency&gt;</span>
           <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.sonatype.ossindex.maven<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
           <span style="color:#309;font-weight:bold">&lt;artifactId&gt;</span>ossindex-maven-enforcer-rules<span style="color:#309;font-weight:bold">&lt;/artifactId&gt;</span>
-          <span style="color:#309;font-weight:bold">&lt;version&gt;</span>${project.version}<span style="color:#309;font-weight:bold">&lt;/version&gt;</span>
         <span style="color:#309;font-weight:bold">&lt;/dependency&gt;</span>
       <span style="color:#309;font-weight:bold">&lt;/dependencies&gt;</span>
       <span style="color:#309;font-weight:bold">&lt;executions&gt;</span>
