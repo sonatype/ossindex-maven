@@ -24,6 +24,37 @@ Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatyp
 * [Java](http://java.oracle.com) 7+ (version 10 is **NOT** supported)
 * [Apache Maven](https://maven.apache.org) 3.1+
 
+## POM execution
+
+Add an invocation of the [ossindex:audit](ossindex-audit/) goal via POM execution:
+
+{{< highlight "xml" >}}
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.sonatype.ossindex.maven</groupId>
+      <artifactId>ossindex-maven-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>audit-dependencies</id>
+          <phase>validate</verify>
+          <goals>
+            <goal>audit</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  <plugins>
+</build>
+{{</ highlight >}}
+
+## Command-line
+
+If you can not change the POM, run the [ossindex:audit](ossindex-audit/) goal directly on the command-line
+with a project:
+
+    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml
+    
 ## Goals
 
 Goals available for this plugin:
