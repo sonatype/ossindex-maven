@@ -9,6 +9,12 @@ menu:
   topnav:
     identifier: Enforcer-Rules
     weight: 20
+
+categories:
+  - maven
+  - enforcer-rules
+tags:
+  - ossindex-maven-enforcer-rules
 ---
 
 Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org) invoked via
