@@ -17,6 +17,15 @@ tags:
   - ossindex-maven-plugin
 ---
 
+Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org).
+
+## Requirements
+
+* [Java](http://java.oracle.com) 7+ (version 10 is **NOT** supported)
+* [Apache Maven](https://maven.apache.org) 3.1+
+
+## Goals
+
 Goals available for this plugin:
 
 {{< mavenplugin-goals plugin="ossindex-maven-plugin" >}}
@@ -26,3 +35,5 @@ Goals available for this plugin:
 You should specify the version in your project's plugin configuration:
 
 {{< mavenplugin-usage plugin="ossindex-maven-plugin" >}}
+
+## Features
