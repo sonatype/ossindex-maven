@@ -26,6 +26,10 @@ Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatyp
 * [Apache Maven](https://maven.apache.org) 3.1+
 * [Apache Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/) 3+
 
+## Dependency
+
+{{< maven-dependency module="ossindex-maven-enforcer-rules" >}}
+
 ## Ban Vulnerable Dependencies
 
 To ban vulnerable dependencies from being consumed by builds:
@@ -40,7 +44,6 @@ To ban vulnerable dependencies from being consumed by builds:
         <dependency>
           <groupId>org.sonatype.ossindex.maven</groupId>
           <artifactId>ossindex-maven-enforcer-rules</artifactId>
-          <version>${project.version}</version>
         </dependency>
       </dependencies>
       <executions>
