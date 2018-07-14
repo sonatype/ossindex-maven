@@ -27,7 +27,8 @@ Requirements  Java 7+ (version 10 is NOT supported) Apache Maven 3.1+ Apache Mav
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/enforcer-rules/excludes/</guid>
-      <description>Excludes Sometimes BanVulnerableDependencies may detect vulnerabilities which are not relevant. In those cases exclusions can be configured to prevent from vulnerabilities from matching.
+      <description>Sometimes BanVulnerableDependencies may detect vulnerabilities which are not relevant.
+ In those cases exclusions can be configured to prevent from vulnerabilities from matching.
 Exclude Specific Vulnerabilities Specific vulnerabilities can be excluded by vulnerability-id.
 For example to exclude 39d74cc8-457a-4e57-89ef-a258420138c5:
 &amp;lt;configuration&amp;gt; &amp;lt;rules&amp;gt; &amp;lt;banVulnerable implementation=&amp;#34;org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies&amp;#34;&amp;gt; &amp;lt;excludeVulnerabilityIds&amp;gt; &amp;lt;exclude&amp;gt;39d74cc8-457a-4e57-89ef-a258420138c5&amp;lt;/exclude&amp;gt; &amp;lt;/excludeVulnerabilityIds&amp;gt; &amp;lt;/banVulnerable&amp;gt; &amp;lt;/rules&amp;gt; &amp;lt;/configuration&amp;gt; Exclude Specific Components Specific components can be excluded by coordinates.
@@ -41,9 +42,9 @@ For example to exclude commons-fileupload:commons-fileupload:1.3:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/enforcer-rules/failorwarn/</guid>
-      <description>Fail or Warn By default BanVulnerableDependencies will cause failures will cause BUILD FAILURE if any vulnerabilities are detected:
-Example build output:
-[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [WARNING] Rule 0: org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies failed with message: Detected 1 vulnerable components: commons-fileupload:commons-fileupload:jar:1.3:compile; https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3 * [CVE-2014-0050] Permissions, Privileges, and Access Controls (7.</description>
+      <description>By default BanVulnerableDependencies will cause failures will cause BUILD FAILURE if any vulnerabilities are detected.
+ Example build output:
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [WARNING] Rule 0: org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies failed with message: Detected 1 vulnerable components: commons-fileupload:commons-fileupload:jar:1.3:compile; https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3 * [CVE-2014-0050] Permissions, Privileges, and Access Controls (7.5); https://ossindex.sonatype.org/vuln/43e6c5a5-b586-4b31-9244-b62b6e36f2d0 * Arbitrary file upload via deserialization (0.</description>
     </item>
     
     <item>
@@ -53,7 +54,7 @@ Example build output:
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/</guid>
       <description>Audit a project dependencies using Sonatype OSS Index.
-Requirements  Java 7+ (version 10 is NOT supported) Apache Maven 3.1+  POM execution Add an invocation of the ossindex:audit goal via POM execution:
+ Requirements  Java 7+ (version 10 is NOT supported) Apache Maven 3.1+  POM execution Add an invocation of the ossindex:audit goal via POM execution:
 &amp;lt;build&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;executions&amp;gt; &amp;lt;execution&amp;gt; &amp;lt;id&amp;gt;audit-dependencies&amp;lt;/id&amp;gt; &amp;lt;phase&amp;gt;validate&amp;lt;/verify&amp;gt; &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;audit&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt; &amp;lt;/execution&amp;gt; &amp;lt;/executions&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;/build&amp;gt; Command Line If you can not change the POM, run the ossindex:audit goal directly on the command-line with a project:</description>
     </item>
     
@@ -63,7 +64,8 @@ Requirements  Java 7+ (version 10 is NOT supported) Apache Maven 3.1+  POM execu
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/excludes/</guid>
-      <description>Sometimes audit may detect vulnerabilities which are not relevant. In those cases audit can be configured to exclude from vulnerabilities from matching.
+      <description>Sometimes audit may detect vulnerabilities which are not relevant.
+ In those cases audit can be configured to exclude from vulnerabilities from matching.
 Exclude Specific Vulnerabilities Specific vulnerabilities can be excluded by vulnerability-id.
 For example to exclude 39d74cc8-457a-4e57-89ef-a258420138c5:
 &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;excludeVulnerabilityIds&amp;gt; &amp;lt;exclude&amp;gt;39d74cc8-457a-4e57-89ef-a258420138c5&amp;lt;/exclude&amp;gt; &amp;lt;/excludeVulnerabilityIds&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; This exclusion can also be configured via CLI property as a comma-separated list of ids:
@@ -77,7 +79,7 @@ mvn ossindex:audit -Dossindex.excludeVulnerabilityIds=39d74cc8-457a-4e57-89ef-a2
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/exportreport/</guid>
       <description>The ossindex:audit can optionally record a report file which contains the details about the component reports that are used to determine if a dependency is vulnerable or not.
-To enable this feature configure the reportFile parameter to the location where the report will be written.
+ To enable this feature configure the reportFile parameter to the location where the report will be written.
 &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;reportFile&amp;gt;${project.build.directory}/audit-report.json&amp;lt;/reportFile&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; or via CLI:
 mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json   
 Formats The file extension is used to inform which format the report will be written as.</description>
@@ -90,7 +92,7 @@ Formats The file extension is used to inform which format the report will be wri
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/failorwarn/</guid>
       <description>By default ossindex:audit will cause BUILD FAILURE if any vulnerabilities are detected:
-Example build output:
+ Example build output:
 [INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T12:54:10-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) on project vulnerable-fail: Detected 1 vulnerable components: [ERROR] commons-fileupload:commons-fileupload:jar:1.</description>
     </item>
     
@@ -100,7 +102,7 @@ Example build output:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit/</guid>
-      <description>ossindex:audit Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:audit Since ??? Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 12 parameters   Name Type Since Description      baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.    cvssScoreThreshold float  CVSS-score threshold.</description>
+      <description>Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:audit Since ??? Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 12 parameters   Name Type Since Description      baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.    cvssScoreThreshold float  CVSS-score threshold. Vulnerabilities with lower scores will be excluded.</description>
     </item>
     
     <item>
@@ -109,7 +111,7 @@ Example build output:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</guid>
-      <description>ossindex:help Display help information on ossindex-maven-plugin.
+      <description>Display help information on ossindex-maven-plugin.
 Call mvn ossindex:help -Ddetail=true -Dgoal=&amp;lt;goal-name&amp;gt; to display parameter details. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:help Requires Project false Requires Online false Requires Direct Invocation false Thread-safe true  Parameters 4 parameters   Name Type Since Description      detail boolean  If true, display all settable properties for each goal.    goal java.lang.String  The name of the goal for which to show help.</description>
     </item>
     
