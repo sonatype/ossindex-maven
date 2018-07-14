@@ -33,7 +33,7 @@ For example to exclude [39d74cc8-457a-4e57-89ef-a258420138c5](https://ossindex.s
     </excludeVulnerabilityIds>
   </configuration>
 </plugin>
-{{</ highlight >}}
+{{< /highlight >}}
 
 This exclusion can also be configured via CLI property as a comma-separated list of ids:
 
@@ -61,7 +61,7 @@ For example to exclude [commons-fileupload:commons-fileupload:1.3](https://ossin
     </excludeCoordinates>
   </configuration>
 </plugin>
-{{</ highlight >}}
+{{< /highlight >}}
 
 This exclusion can also be configured via CLI property as a comma-separated list of coordinates:
 

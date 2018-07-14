@@ -35,7 +35,7 @@ For example to exclude [39d74cc8-457a-4e57-89ef-a258420138c5](https://ossindex.s
     </banVulnerable>
   </rules>
 </configuration>
-{{</ highlight >}}
+{{< /highlight >}}
 
 ## Exclude Specific Components
 
@@ -57,6 +57,6 @@ For example to exclude [commons-fileupload:commons-fileupload:1.3](https://ossin
     </banVulnerable>
   </rules>
 </configuration>
-{{</ highlight >}}
+{{< /highlight >}}
 
 **NOTE:** Only exact coordinate matches are excluded.

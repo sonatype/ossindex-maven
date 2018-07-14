@@ -1,5 +1,6 @@
 ---
 title: License
+subtitle: Project licenses
 glyph: far fa-handshake
 
 draft: false

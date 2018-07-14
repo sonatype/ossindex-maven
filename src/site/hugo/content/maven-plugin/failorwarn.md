@@ -14,7 +14,7 @@ categories:
 tags:
   - ossindex-maven-plugin
 ---
-By default [ossindex:audit](audit-mojo.html) will cause `BUILD FAILURE` if any vulnerabilities are detected:
+By default [ossindex:audit](../ossindex-audit/) will cause `BUILD FAILURE` if any vulnerabilities are detected:
 
 Example build output:
 
@@ -49,7 +49,7 @@ Example build output:
 
 ## Warn
 
-To prevent build failure configure the [fail](audit-mojo.html#fail) parameter:
+To prevent build failure configure the [fail](../ossindex-audit#fail) parameter:
 
 {{< highlight "xml" >}}
 <plugin>

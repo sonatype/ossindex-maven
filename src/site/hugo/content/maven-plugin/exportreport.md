@@ -14,10 +14,10 @@ categories:
 tags:
   - ossindex-maven-plugin
 ---
-The [ossindex:audit](audit-mojo.html) can optionally record a report file which contains the details about the
+The [ossindex:audit](../ossindex-audit/) can optionally record a report file which contains the details about the
 component reports that are used to determine if a dependency is vulnerable or not.
 
-To enable this feature configure the [reportFile](audit-mojo.html#reportFile) parameter to the location where
+To enable this feature configure the [reportFile](../ossindex-audit#reportFile) parameter to the location where
 the report will be written.
 
 {{< highlight "xml" >}}
@@ -28,7 +28,7 @@ the report will be written.
     <reportFile>${project.build.directory}/audit-report.json</reportFile>
   </configuration>
 </plugin>
-{{</ highlight >}}
+{{< /highlight >}}
 
 or via CLI:
 

@@ -63,7 +63,7 @@ To prevent build failure configure the `level` parameter to `WARN`:
     </banVulnerable>
   </rules>
 </configuration>
-{{</ highlight >}}
+{{< /highlight >}}
 
 Example build output:
 
