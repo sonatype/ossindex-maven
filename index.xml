@@ -16,7 +16,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/about/</guid>
-      <description>BLAH</description>
+      <description>Vestibulum vel sollicitudin diam. Nulla hendrerit sapien mauris, in consequat turpis ornare vel. Nunc condimentum nunc ante, sit amet porta nunc cursus suscipit. Pellentesque erat metus, scelerisque sit amet euismod et, eleifend a est. Etiam quis congue ante. Sed suscipit enim placerat condimentum malesuada. Nam vitae metus fermentum, ullamcorper nibh vitae, ultricies purus. Cras nec efficitur felis, eleifend sodales mauris. Sed accumsan ligula ut libero porta, non blandit nulla suscipit. Etiam id posuere ante.</description>
     </item>
     
     <item>
@@ -96,7 +96,7 @@ Example build output:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/source-repository/</guid>
-      <description>TODO</description>
+      <description>Vestibulum vel sollicitudin diam. Nulla hendrerit sapien mauris, in consequat turpis ornare vel. Nunc condimentum nunc ante, sit amet porta nunc cursus suscipit. Pellentesque erat metus, scelerisque sit amet euismod et, eleifend a est. Etiam quis congue ante. Sed suscipit enim placerat condimentum malesuada. Nam vitae metus fermentum, ullamcorper nibh vitae, ultricies purus. Cras nec efficitur felis, eleifend sodales mauris. Sed accumsan ligula ut libero porta, non blandit nulla suscipit. Etiam id posuere ante.</description>
     </item>
     
     <item>
