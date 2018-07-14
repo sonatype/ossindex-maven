@@ -53,8 +53,10 @@ Add an invocation of the [ossindex:audit](ossindex-audit/) goal via POM executio
 If you can not change the POM, run the [ossindex:audit](ossindex-audit/) goal directly on the command-line
 with a project:
 
-    mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml
-    
+{{< command >}}
+mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml
+{{< /command >}}
+
 ## Goals
 
 Goals available for this plugin:

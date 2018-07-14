@@ -32,14 +32,18 @@ the report will be written.
 
 or via CLI:
 
-    mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json
+{{< command >}}
+mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json
+{{< /command >}}
 
 ## Formats
 
 The file extension is used to inform which format the report will be written as.
 
-Format &nbsp; | File Extension
+{{% tag class="table table-striped table-header-nowrap" %}}
+Format | File Extension
 ------ | -------------- 
 JSON   | `.json`        
 XML    | `.xml`         
 Text   | `.txt`         
+{{% /tag %}}

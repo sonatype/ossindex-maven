@@ -18,7 +18,7 @@ By default [ossindex:audit](audit-mojo.html) will cause `BUILD FAILURE` if any v
 
 Example build output:
 
-```
+{{< command-output >}}
 [INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-fail ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
@@ -45,7 +45,7 @@ Example build output:
 [ERROR] 
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
-```
+{{< /command-output >}}
 
 ## Warn
 
@@ -63,11 +63,13 @@ To prevent build failure configure the [fail](audit-mojo.html#fail) parameter:
 
 or via CLI:
 
-    mvn ossindex:audit -Dossindex.fail=false
+{{< command >}}
+mvn ossindex:audit -Dossindex.fail=false
+{{< /command >}}
 
 Example build output:
 
-```
+{{< command-output >}}
 [INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-warn ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
@@ -88,4 +90,4 @@ Example build output:
 [INFO] Total time: 1.347 s
 [INFO] Finished at: 2018-07-02T12:54:07-07:00
 [INFO] ------------------------------------------------------------------------
-```
+{{< /command-output >}}

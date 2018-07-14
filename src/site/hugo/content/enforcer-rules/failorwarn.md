@@ -20,7 +20,7 @@ By default `BanVulnerableDependencies` will cause failures will cause `BUILD FAI
 
 Example build output:
 
-```
+{{< command-output >}}
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
@@ -49,7 +49,7 @@ Detected 1 vulnerable components:
 [ERROR] 
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
-```
+{{< /command-output >}}
 
 ## Warn
 
@@ -67,7 +67,7 @@ To prevent build failure configure the `level` parameter to `WARN`:
 
 Example build output:
 
-```
+{{< command-output >}}
 [INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-warn ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
@@ -89,4 +89,4 @@ Detected 1 vulnerable components:
 [INFO] Total time: 1.209 s
 [INFO] Finished at: 2018-07-02T12:53:19-07:00
 [INFO] ------------------------------------------------------------------------
-```
+{{< /command-output >}}
