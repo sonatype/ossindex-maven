@@ -11,10 +11,6 @@
   </url>
   
   <url>
-    <loc>https://sonatype.github.io/ossindex-maven/contact/</loc>
-  </url>
-  
-  <url>
     <loc>https://sonatype.github.io/ossindex-maven/categories/enforcer-rules/</loc>
     <priority>0</priority>
   </url>
@@ -29,6 +25,10 @@
   
   <url>
     <loc>https://sonatype.github.io/ossindex-maven/enforcer-rules/failorwarn/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/license/</loc>
   </url>
   
   <url>
@@ -68,11 +68,11 @@
   </url>
   
   <url>
-    <loc>https://sonatype.github.io/ossindex-maven/tags/</loc>
+    <loc>https://sonatype.github.io/ossindex-maven/source-repository/</loc>
   </url>
   
   <url>
-    <loc>https://sonatype.github.io/ossindex-maven/tos/</loc>
+    <loc>https://sonatype.github.io/ossindex-maven/tags/</loc>
   </url>
   
   <url>

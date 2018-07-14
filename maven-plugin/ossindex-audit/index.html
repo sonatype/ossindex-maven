@@ -111,92 +111,92 @@
     <tbody>
       
       <tr>
-        <td><a href="#baseUrl"><i class="fas fa-splotch"></i> baseUrl</a></td>
-        <td class="monospace">java.net.URI</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Override <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> service base-URL.</td>
+        <td class="name"><a href="#baseUrl"><i class="fas fa-code"></i> baseUrl</a></td>
+        <td class="type">java.net.URI</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Override <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> service base-URL.</td>
       </tr>
       
       <tr>
-        <td><a href="#clientConfiguration"><i class="fas fa-splotch"></i> clientConfiguration</a></td>
-        <td class="monospace">org.sonatype.ossindex.service.client.OssindexClientConfiguration</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td><a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.</td>
+        <td class="name"><a href="#clientConfiguration"><i class="fas fa-code"></i> clientConfiguration</a></td>
+        <td class="type">org.sonatype.ossindex.service.client.OssindexClientConfiguration</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description"><a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.</td>
       </tr>
       
       <tr>
-        <td><a href="#cvssScoreThreshold"><i class="fas fa-splotch"></i> cvssScoreThreshold</a></td>
-        <td class="monospace">float</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>CVSS-score threshold.
+        <td class="name"><a href="#cvssScoreThreshold"><i class="fas fa-code"></i> cvssScoreThreshold</a></td>
+        <td class="type">float</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">CVSS-score threshold.
 
 Vulnerabilities with lower scores will be excluded.</td>
       </tr>
       
       <tr>
-        <td><a href="#excludeCoordinates"><i class="fas fa-splotch"></i> excludeCoordinates</a></td>
-        <td class="monospace">java.util.Set</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Set of coordinates to exclude from vulnerability matching.</td>
+        <td class="name"><a href="#excludeCoordinates"><i class="fas fa-code"></i> excludeCoordinates</a></td>
+        <td class="type">java.util.Set</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set of coordinates to exclude from vulnerability matching.</td>
       </tr>
       
       <tr>
-        <td><a href="#excludeCoordinatesCsv"><i class="fas fa-splotch"></i> excludeCoordinatesCsv</a></td>
-        <td class="monospace">java.lang.String</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Set {@link #excludeCoordinates} from a comma-separated list.</td>
+        <td class="name"><a href="#excludeCoordinatesCsv"><i class="fas fa-code"></i> excludeCoordinatesCsv</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set {@link #excludeCoordinates} from a comma-separated list.</td>
       </tr>
       
       <tr>
-        <td><a href="#excludeVulnerabilityIds"><i class="fas fa-splotch"></i> excludeVulnerabilityIds</a></td>
-        <td class="monospace">java.util.Set</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
+        <td class="name"><a href="#excludeVulnerabilityIds"><i class="fas fa-code"></i> excludeVulnerabilityIds</a></td>
+        <td class="type">java.util.Set</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
 vulnerability identifiers to exclude from matching.</td>
       </tr>
       
       <tr>
-        <td><a href="#excludeVulnerabilityIdsCsv"><i class="fas fa-splotch"></i> excludeVulnerabilityIdsCsv</a></td>
-        <td class="monospace">java.lang.String</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Set {@link #excludeVulnerabilityIds} from a comma-separated list.</td>
+        <td class="name"><a href="#excludeVulnerabilityIdsCsv"><i class="fas fa-code"></i> excludeVulnerabilityIdsCsv</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set {@link #excludeVulnerabilityIds} from a comma-separated list.</td>
       </tr>
       
       <tr>
-        <td><a href="#fail"><i class="fas fa-splotch"></i> fail</a></td>
-        <td class="monospace">boolean</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>When vulnerable components are found; fail the build.</td>
+        <td class="name"><a href="#fail"><i class="fas fa-code"></i> fail</a></td>
+        <td class="type">boolean</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">When vulnerable components are found; fail the build.</td>
       </tr>
       
       <tr>
-        <td><a href="#reportFile"><i class="fas fa-splotch"></i> reportFile</a></td>
-        <td class="monospace">java.io.File</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Export component-report to file.
+        <td class="name"><a href="#reportFile"><i class="fas fa-code"></i> reportFile</a></td>
+        <td class="type">java.io.File</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Export component-report to file.
 
 Supports {@code .json}, {@code .xml} and {@code .txt} extensions.</td>
       </tr>
       
       <tr>
-        <td><a href="#scope"><i class="fas fa-splotch"></i> scope</a></td>
-        <td class="monospace">java.lang.String</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Limit scope of dependency resolution.</td>
+        <td class="name"><a href="#scope"><i class="fas fa-code"></i> scope</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Limit scope of dependency resolution.</td>
       </tr>
       
       <tr>
-        <td><a href="#skip"><i class="fas fa-splotch"></i> skip</a></td>
-        <td class="monospace">boolean</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Skip execution.</td>
+        <td class="name"><a href="#skip"><i class="fas fa-code"></i> skip</a></td>
+        <td class="type">boolean</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Skip execution.</td>
       </tr>
       
       <tr>
-        <td><a href="#transitive"><i class="fas fa-splotch"></i> transitive</a></td>
-        <td class="monospace">boolean</td>
-        <td class="monospace"><i class="fas fa-ban"></i></td>
-        <td>Include transitive dependencies.</td>
+        <td class="name"><a href="#transitive"><i class="fas fa-code"></i> transitive</a></td>
+        <td class="type">boolean</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Include transitive dependencies.</td>
       </tr>
       
     </tbody>
@@ -205,7 +205,7 @@ Supports {@code .json}, {@code .xml} and {@code .txt} extensions.</td>
   
   
   <div class="parameter-detail">
-    <h4><a name="baseUrl"><i class="fas fa-splotch"></i> baseUrl</a></h4>
+    <h4><a name="baseUrl"><i class="fas fa-code"></i> baseUrl</a></h4>
 
     
     <p class="parameter-description">
@@ -233,7 +233,7 @@ Supports {@code .json}, {@code .xml} and {@code .txt} extensions.</td>
   
   
   <div class="parameter-detail">
-    <h4><a name="clientConfiguration"><i class="fas fa-splotch"></i> clientConfiguration</a></h4>
+    <h4><a name="clientConfiguration"><i class="fas fa-code"></i> clientConfiguration</a></h4>
 
     
     <p class="parameter-description">
@@ -258,7 +258,7 @@ Supports {@code .json}, {@code .xml} and {@code .txt} extensions.</td>
   
   
   <div class="parameter-detail">
-    <h4><a name="cvssScoreThreshold"><i class="fas fa-splotch"></i> cvssScoreThreshold</a></h4>
+    <h4><a name="cvssScoreThreshold"><i class="fas fa-code"></i> cvssScoreThreshold</a></h4>
 
     
     <p class="parameter-description">
@@ -291,7 +291,7 @@ Vulnerabilities with lower scores will be excluded.
   
   
   <div class="parameter-detail">
-    <h4><a name="excludeCoordinates"><i class="fas fa-splotch"></i> excludeCoordinates</a></h4>
+    <h4><a name="excludeCoordinates"><i class="fas fa-code"></i> excludeCoordinates</a></h4>
 
     
     <p class="parameter-description">
@@ -316,7 +316,7 @@ Vulnerabilities with lower scores will be excluded.
   
   
   <div class="parameter-detail">
-    <h4><a name="excludeCoordinatesCsv"><i class="fas fa-splotch"></i> excludeCoordinatesCsv</a></h4>
+    <h4><a name="excludeCoordinatesCsv"><i class="fas fa-code"></i> excludeCoordinatesCsv</a></h4>
 
     
     <p class="parameter-description">
@@ -344,7 +344,7 @@ Vulnerabilities with lower scores will be excluded.
   
   
   <div class="parameter-detail">
-    <h4><a name="excludeVulnerabilityIds"><i class="fas fa-splotch"></i> excludeVulnerabilityIds</a></h4>
+    <h4><a name="excludeVulnerabilityIds"><i class="fas fa-code"></i> excludeVulnerabilityIds</a></h4>
 
     
     <p class="parameter-description">
@@ -370,7 +370,7 @@ vulnerability identifiers to exclude from matching.
   
   
   <div class="parameter-detail">
-    <h4><a name="excludeVulnerabilityIdsCsv"><i class="fas fa-splotch"></i> excludeVulnerabilityIdsCsv</a></h4>
+    <h4><a name="excludeVulnerabilityIdsCsv"><i class="fas fa-code"></i> excludeVulnerabilityIdsCsv</a></h4>
 
     
     <p class="parameter-description">
@@ -398,7 +398,7 @@ vulnerability identifiers to exclude from matching.
   
   
   <div class="parameter-detail">
-    <h4><a name="fail"><i class="fas fa-splotch"></i> fail</a></h4>
+    <h4><a name="fail"><i class="fas fa-code"></i> fail</a></h4>
 
     
     <p class="parameter-description">
@@ -429,7 +429,7 @@ vulnerability identifiers to exclude from matching.
   
   
   <div class="parameter-detail">
-    <h4><a name="reportFile"><i class="fas fa-splotch"></i> reportFile</a></h4>
+    <h4><a name="reportFile"><i class="fas fa-code"></i> reportFile</a></h4>
 
     
     <p class="parameter-description">
@@ -459,7 +459,7 @@ Supports {@code .json}, {@code .xml} and {@code .txt} extensions.
   
   
   <div class="parameter-detail">
-    <h4><a name="scope"><i class="fas fa-splotch"></i> scope</a></h4>
+    <h4><a name="scope"><i class="fas fa-code"></i> scope</a></h4>
 
     
     <p class="parameter-description">
@@ -487,7 +487,7 @@ Supports {@code .json}, {@code .xml} and {@code .txt} extensions.
   
   
   <div class="parameter-detail">
-    <h4><a name="skip"><i class="fas fa-splotch"></i> skip</a></h4>
+    <h4><a name="skip"><i class="fas fa-code"></i> skip</a></h4>
 
     
     <p class="parameter-description">
@@ -518,7 +518,7 @@ Supports {@code .json}, {@code .xml} and {@code .txt} extensions.
   
   
   <div class="parameter-detail">
-    <h4><a name="transitive"><i class="fas fa-splotch"></i> transitive</a></h4>
+    <h4><a name="transitive"><i class="fas fa-code"></i> transitive</a></h4>
 
     
     <p class="parameter-description">
@@ -562,32 +562,48 @@ Supports {@code .json}, {@code .xml} and {@code .txt} extensions.
         <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
       </div>
 
-      <div class="section">
-        <h5 class="section-title">About</h5>
-        <ul class="section-list">
-          <li>
-            <a class="section-entry" href="/ossindex-maven/about">Sonatype OSS Index: Maven</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h5 class="section-title">Resources</h5>
-        <ul class="section-list">
-          <li>
-            <a class="section-entry" href="/ossindex-maven/contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h5 class="section-title">Legal</h5>
-        <ul class="section-list">
-          <li>
-            <a class="section-entry" href="/ossindex-maven/tos">Terms of Service</a>
-          </li>
-        </ul>
-      </div>
+      
+        <div class="section">
+          <h5 class="section-title">About</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/ossindex-maven/about/">
+              
+              Sonatype OSS Index: Maven</a></li>
+            
+            <li><a class="section-entry" href="/ossindex-maven/source-repository/">
+              
+              Source Repository</a></li>
+            
+          </ul>
+        </div>
+      
+        <div class="section">
+          <h5 class="section-title">Resources</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/ossindex-maven/categories/">
+              
+              Categories</a></li>
+            
+            <li><a class="section-entry" href="/ossindex-maven/tags/">
+              
+              Tags</a></li>
+            
+          </ul>
+        </div>
+      
+        <div class="section">
+          <h5 class="section-title">Legal</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/ossindex-maven/license/">
+              
+              License</a></li>
+            
+          </ul>
+        </div>
+      
     </div>
   </div>
 </footer>
