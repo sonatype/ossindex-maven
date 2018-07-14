@@ -17,7 +17,9 @@ tags:
   - ossindex-maven-plugin
 ---
 
+{{% tag class="lead" %}}
 Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org).
+{{% /tag %}}
 
 ## Requirements
 

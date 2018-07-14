@@ -14,9 +14,11 @@ categories:
 tags:
   - ossindex-maven-enforcer-rules
 ---
-# Excludes
 
+{{% tag class="lead" %}}
 Sometimes `BanVulnerableDependencies` may detect vulnerabilities which are not relevant.
+{{% /tag %}}
+
 In those cases *exclusions* can be configured to prevent from vulnerabilities from matching.
 
 ## Exclude Specific Vulnerabilities

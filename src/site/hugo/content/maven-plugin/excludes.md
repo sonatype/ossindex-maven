@@ -14,7 +14,10 @@ categories:
 tags:
   - ossindex-maven-plugin
 ---
+{{% tag class="lead" %}}
 Sometimes audit may detect vulnerabilities which are not relevant.
+{{% /tag %}}
+
 In those cases audit can be configured to *exclude* from vulnerabilities from matching.
 
 ## Exclude Specific Vulnerabilities

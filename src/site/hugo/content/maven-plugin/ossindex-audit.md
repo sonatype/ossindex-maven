@@ -1,6 +1,6 @@
 ---
 title: "ossindex:audit"
-glyph: fas fa-puzzle-piece
+glyph: fas fa-bullseye
 
 draft: false
 

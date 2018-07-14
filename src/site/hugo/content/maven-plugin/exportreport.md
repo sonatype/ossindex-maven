@@ -14,8 +14,10 @@ categories:
 tags:
   - ossindex-maven-plugin
 ---
+{{% tag class="lead" %}}
 The [ossindex:audit](../ossindex-audit/) can optionally record a report file which contains the details about the
 component reports that are used to determine if a dependency is vulnerable or not.
+{{% /tag %}}
 
 To enable this feature configure the [reportFile](../ossindex-audit#reportFile) parameter to the location where
 the report will be written.

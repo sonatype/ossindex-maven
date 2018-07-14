@@ -14,7 +14,9 @@ categories:
 tags:
   - ossindex-maven-plugin
 ---
+{{% tag class="lead" %}}
 By default [ossindex:audit](../ossindex-audit/) will cause `BUILD FAILURE` if any vulnerabilities are detected:
+{{% /tag %}}
 
 Example build output:
 
