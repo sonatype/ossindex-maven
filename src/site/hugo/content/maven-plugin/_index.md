@@ -48,7 +48,7 @@ Add an invocation of the [ossindex:audit](ossindex-audit/) goal via POM executio
 </build>
 {{</ highlight >}}
 
-## Command-line
+## Command Line
 
 If you can not change the POM, run the [ossindex:audit](ossindex-audit/) goal directly on the command-line
 with a project:

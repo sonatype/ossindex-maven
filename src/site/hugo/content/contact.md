@@ -5,8 +5,9 @@ glyph: far fa-envelope
 draft: false
 
 menu:
-  bottomnav:
-    identifier: Contact
+  footer_sections:
+    parent: footer_resources
+    weight: 1
 ---
 
 BLAH

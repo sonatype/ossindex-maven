@@ -1,6 +1,5 @@
 ---
-title: Terms of Service
-subtitle: Legal mumbo-jumbo
+title: License
 glyph: far fa-handshake
 
 draft: false
@@ -8,7 +7,7 @@ draft: false
 menu:
   footer_sections:
     parent: footer_legal
-    weight: 2
+    weight: 1
 ---
 
-BLAH
+TODO
