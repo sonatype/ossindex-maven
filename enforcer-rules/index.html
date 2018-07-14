@@ -106,7 +106,7 @@
 
 <p>To ban vulnerable dependencies from being consumed by builds:</p>
 
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;build&gt;</span>
+<p><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;build&gt;</span>
   <span style="color:#309;font-weight:bold">&lt;plugins&gt;</span>
     <span style="color:#309;font-weight:bold">&lt;plugin&gt;</span>
       <span style="color:#309;font-weight:bold">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#309;font-weight:bold">&lt;/groupId&gt;</span>
@@ -133,14 +133,17 @@
       <span style="color:#309;font-weight:bold">&lt;/executions&gt;</span>
     <span style="color:#309;font-weight:bold">&lt;/plugin&gt;</span>
   <span style="color:#309;font-weight:bold">&lt;/plugins&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/build&gt;</span></code></pre></div>
+<span style="color:#309;font-weight:bold">&lt;/build&gt;</span></code></pre></div></p>
 
-<h3 id="optional-parameters">Optional Parameters</h3>
+<h3 id="parameters">Parameters</h3>
 
-<table>
+<p>
+
+<div class="table table-striped table-header-nowrap">
+  <table>
 <thead>
 <tr>
-<th>Paramemter</th>
+<th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 <th>Default Value</th>
@@ -152,7 +155,7 @@
 <td><strong>scope</strong></td>
 <td>String</td>
 <td>Limit <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Dependency_Scope">scope</a> of dependency resolution.</td>
-<td></td>
+<td><i class="missing-data"></i></td>
 </tr>
 
 <tr>
@@ -173,14 +176,14 @@
 <td><strong>excludeCoordinates</strong></td>
 <td>Set of MavenCoordinates</td>
 <td>Set of <a href="https://sonatype.github.io/ossindex-maven/apidocs/org/sonatype/ossindex/maven/common/MavenCoordinates.html">coordinates</a> to exclude from vulnerability matching.</td>
-<td></td>
+<td><i class="missing-data"></i></td>
 </tr>
 
 <tr>
 <td><strong>excludeVulnerabilityIds</strong></td>
 <td>Set of String</td>
 <td>Set of vulnerability identifiers to exclude from matching.</td>
-<td></td>
+<td><i class="missing-data"></i></td>
 </tr>
 
 <tr>
@@ -194,10 +197,13 @@
 <td><strong>clientConfiguration</strong></td>
 <td>OssindexClientConfiguration</td>
 <td><a href="https://sonatype.github.io/ossindex-public/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html">Client configuration</a>.</td>
-<td></td>
+<td><i class="missing-data"></i></td>
 </tr>
 </tbody>
 </table>
+
+</div>
+</p>
 
 <h2 id="features">Features</h2>
 
