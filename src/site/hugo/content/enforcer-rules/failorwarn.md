@@ -15,8 +15,10 @@ tags:
   - ossindex-maven-enforcer-rules
 ---
 {{% tag class="lead" %}}
-By default `BanVulnerableDependencies` will cause failures will cause `BUILD FAILURE` if any vulnerabilities are detected.
+Rules may fail or produce warnings.
 {{% /tag %}}
+
+By default `BanVulnerableDependencies` will cause failures will cause `BUILD FAILURE` if any vulnerabilities are detected.
 
 Example build output:
 
