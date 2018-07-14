@@ -42,9 +42,10 @@ For example to exclude commons-fileupload:commons-fileupload:1.3:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/enforcer-rules/failorwarn/</guid>
-      <description>By default BanVulnerableDependencies will cause failures will cause BUILD FAILURE if any vulnerabilities are detected.
- Example build output:
-[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [WARNING] Rule 0: org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies failed with message: Detected 1 vulnerable components: commons-fileupload:commons-fileupload:jar:1.3:compile; https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3 * [CVE-2014-0050] Permissions, Privileges, and Access Controls (7.5); https://ossindex.sonatype.org/vuln/43e6c5a5-b586-4b31-9244-b62b6e36f2d0 * Arbitrary file upload via deserialization (0.</description>
+      <description>Rules may fail or produce warnings.
+ By default BanVulnerableDependencies will cause failures will cause BUILD FAILURE if any vulnerabilities are detected.
+Example build output:
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [WARNING] Rule 0: org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies failed with message: Detected 1 vulnerable components: commons-fileupload:commons-fileupload:jar:1.3:compile; https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3 * [CVE-2014-0050] Permissions, Privileges, and Access Controls (7.</description>
     </item>
     
     <item>
@@ -91,9 +92,10 @@ Formats The file extension is used to inform which format the report will be wri
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/failorwarn/</guid>
-      <description>By default ossindex:audit will cause BUILD FAILURE if any vulnerabilities are detected:
- Example build output:
-[INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T12:54:10-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) on project vulnerable-fail: Detected 1 vulnerable components: [ERROR] commons-fileupload:commons-fileupload:jar:1.</description>
+      <description>Execution may fail or produce warnings.
+ By default ossindex:audit will cause BUILD FAILURE if any vulnerabilities are detected:
+Example build output:
+[INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T12:54:10-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.</description>
     </item>
     
     <item>
