@@ -16,7 +16,18 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/about/</guid>
-      <description>Vestibulum vel sollicitudin diam. Nulla hendrerit sapien mauris, in consequat turpis ornare vel. Nunc condimentum nunc ante, sit amet porta nunc cursus suscipit. Pellentesque erat metus, scelerisque sit amet euismod et, eleifend a est. Etiam quis congue ante. Sed suscipit enim placerat condimentum malesuada. Nam vitae metus fermentum, ullamcorper nibh vitae, ultricies purus. Cras nec efficitur felis, eleifend sodales mauris. Sed accumsan ligula ut libero porta, non blandit nulla suscipit. Etiam id posuere ante.</description>
+      <description> Provides support for using Apache Maven to audit project dependencies using Sonatype OSS Index.
+ </description>
+    </item>
+    
+    <item>
+      <title>Development</title>
+      <link>https://sonatype.github.io/ossindex-maven/development/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://sonatype.github.io/ossindex-maven/development/</guid>
+      <description> Open Source on  Github.
+ Source  Organization Repository  References  Issue Tracker  </description>
     </item>
     
     <item>
@@ -92,15 +103,6 @@ Formats The file extension is used to inform which format the report will be wri
  By default ossindex:audit will cause BUILD FAILURE if any vulnerabilities are detected:
 Example build output:
 [INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T12:54:10-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.</description>
-    </item>
-    
-    <item>
-      <title>Source Repository</title>
-      <link>https://sonatype.github.io/ossindex-maven/source-repository/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sonatype.github.io/ossindex-maven/source-repository/</guid>
-      <description>Vestibulum vel sollicitudin diam. Nulla hendrerit sapien mauris, in consequat turpis ornare vel. Nunc condimentum nunc ante, sit amet porta nunc cursus suscipit. Pellentesque erat metus, scelerisque sit amet euismod et, eleifend a est. Etiam quis congue ante. Sed suscipit enim placerat condimentum malesuada. Nam vitae metus fermentum, ullamcorper nibh vitae, ultricies purus. Cras nec efficitur felis, eleifend sodales mauris. Sed accumsan ligula ut libero porta, non blandit nulla suscipit. Etiam id posuere ante.</description>
     </item>
     
     <item>

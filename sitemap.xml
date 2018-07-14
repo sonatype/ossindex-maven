@@ -11,6 +11,10 @@
   </url>
   
   <url>
+    <loc>https://sonatype.github.io/ossindex-maven/development/</loc>
+  </url>
+  
+  <url>
     <loc>https://sonatype.github.io/ossindex-maven/categories/enforcer-rules/</loc>
     <priority>0</priority>
   </url>
@@ -65,10 +69,6 @@
   <url>
     <loc>https://sonatype.github.io/ossindex-maven/tags/ossindex-maven-plugin/</loc>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://sonatype.github.io/ossindex-maven/source-repository/</loc>
   </url>
   
   <url>

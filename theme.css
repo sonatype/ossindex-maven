@@ -9868,6 +9868,16 @@ readers do not read off random characters that represent icons */
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; }
 
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/fa-brands-400.eot");
+  src: url("fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("fonts/fa-brands-400.woff2") format("woff2"), url("fonts/fa-brands-400.woff") format("woff"), url("fonts/fa-brands-400.ttf") format("truetype"), url("fonts/fa-brands-400.svg#fontawesome") format("svg"); }
+
+.fab {
+  font-family: 'Font Awesome 5 Brands'; }
+
 #site-root {
   position: relative;
   min-height: 100%; }
@@ -9920,4 +9930,4 @@ a.anchor {
 
 
 /*# sourceMappingURL=theme.css.map*/
-/*67cd28cb-18c2-4064-96b8-39114ac668a1/*
+/*8dd1d635-8404-4f1c-8ff6-c94c0846f5a3/*
