@@ -17,8 +17,10 @@ tags:
   - ossindex-maven-enforcer-rules
 ---
 
+{{% tag class="lead" %}}
 Audit a project dependencies using [Sonatype OSS Index](https://ossindex.sonatype.org) invoked via
 [Apache Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/).
+{{% /tag %}}
 
 ## Requirements
 
