@@ -65,7 +65,10 @@
 
 <p>Example build output:</p>
 
-<pre><code>[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail ---
+<div class="command-output">
+  <div class="body">
+    <pre class="text">
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
 [INFO]   commons-io:commons-io:jar:2.2:compile
@@ -86,30 +89,35 @@ Detected 1 vulnerable components:
 [INFO] Total time: 1.292 s
 [INFO] Finished at: 2018-07-02T12:53:21-07:00
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M1:enforce (checks) on project vulnerable-fail: Some Enforcer rules have failed. Look above for specific messages explaining why the rule failed. -&gt; [Help 1]
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-enforcer-plugin:3.0.0-M1:enforce (checks) on project vulnerable-fail: Some Enforcer rules have failed. Look above for specific messages explaining why the rule failed. -> [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
 [ERROR] Re-run Maven using the -X switch to enable full debug logging.
 [ERROR] 
 [ERROR] For more information about the errors and possible solutions, please read the following articles:
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
-</code></pre>
+</pre>
+  </div>
+</div>
 
 <h2 id="warn">Warn</h2>
 
 <p>To prevent build failure configure the <code>level</code> parameter to <code>WARN</code>:</p>
 
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;configuration&gt;</span>
+<p><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#309;font-weight:bold">&lt;configuration&gt;</span>
   <span style="color:#309;font-weight:bold">&lt;rules&gt;</span>
     <span style="color:#309;font-weight:bold">&lt;banVulnerable</span> <span style="color:#309">implementation=</span><span style="color:#c30">&#34;org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies&#34;</span><span style="color:#309;font-weight:bold">&gt;</span>
       <span style="color:#309;font-weight:bold">&lt;level&gt;</span>WARN<span style="color:#309;font-weight:bold">&lt;/level&gt;</span>
     <span style="color:#309;font-weight:bold">&lt;/banVulnerable&gt;</span>
   <span style="color:#309;font-weight:bold">&lt;/rules&gt;</span>
-<span style="color:#309;font-weight:bold">&lt;/configuration&gt;</span></code></pre></div>
+<span style="color:#309;font-weight:bold">&lt;/configuration&gt;</span></code></pre></div></p>
 
 <p>Example build output:</p>
 
-<pre><code>[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-warn ---
+<p><div class="command-output">
+  <div class="body">
+    <pre class="text">
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-warn ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
 [INFO]   commons-io:commons-io:jar:2.2:compile
@@ -130,7 +138,9 @@ Detected 1 vulnerable components:
 [INFO] Total time: 1.209 s
 [INFO] Finished at: 2018-07-02T12:53:19-07:00
 [INFO] ------------------------------------------------------------------------
-</code></pre>
+</pre>
+  </div>
+</div></p>
 
 
 

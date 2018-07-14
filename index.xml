@@ -63,7 +63,7 @@ Example build output:
 Exclude Specific Vulnerabilities Specific vulnerabilities can be excluded by vulnerability-id.
 For example to exclude 39d74cc8-457a-4e57-89ef-a258420138c5:
 &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;excludeVulnerabilityIds&amp;gt; &amp;lt;exclude&amp;gt;39d74cc8-457a-4e57-89ef-a258420138c5&amp;lt;/exclude&amp;gt; &amp;lt;/excludeVulnerabilityIds&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; This exclusion can also be configured via CLI property as a comma-separated list of ids:
-mvn ossindex:audit -Dossindex.excludeVulnerabilityIds=39d74cc8-457a-4e57-89ef-a258420138c5  Exclude Specific Components Specific components can be excluded by coordinates.</description>
+mvn ossindex:audit -Dossindex.excludeVulnerabilityIds=39d74cc8-457a-4e57-89ef-a258420138c5    Exclude Specific Components Specific components can be excluded by coordinates.</description>
     </item>
     
     <item>
@@ -75,7 +75,8 @@ mvn ossindex:audit -Dossindex.excludeVulnerabilityIds=39d74cc8-457a-4e57-89ef-a2
       <description>The ossindex:audit can optionally record a report file which contains the details about the component reports that are used to determine if a dependency is vulnerable or not.
 To enable this feature configure the reportFile parameter to the location where the report will be written.
 &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;reportFile&amp;gt;${project.build.directory}/audit-report.json&amp;lt;/reportFile&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; or via CLI:
-mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json  Formats The file extension is used to inform which format the report will be written as.</description>
+mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json   
+Formats The file extension is used to inform which format the report will be written as.</description>
     </item>
     
     <item>
