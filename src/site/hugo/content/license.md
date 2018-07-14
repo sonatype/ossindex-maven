@@ -10,4 +10,4 @@ menu:
     weight: 1
 ---
 
-TODO
+{{< maven-licenses >}}
