@@ -1,5 +1,6 @@
 ---
 title: Development
+subtitle: Project development information
 glyph: fas fa-code-branch
 
 draft: false
@@ -14,9 +15,8 @@ menu:
 Open Source on <i class="fab fa-github"></i> Github.
 {{% /tag %}}
 
-## Source
+## Source Code
 
-* [Organization](https://github.com/sonatype)
 * [Repository](https://github.com/sonatype/ossindex-maven)
 
 ## References
