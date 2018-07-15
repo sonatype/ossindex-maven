@@ -30,13 +30,6 @@ menu:
       name: Legal
       weight: 3
 
-outputs:
-  # configure specific outputs for home page to include rss feeds and search index
-  home:
-   - html
-   - rss
-   - json
-
 # Blackfriday options; see https://gohugo.io/content-management/formats/
 
 # see https://www.webpagefx.com/tools/emoji-cheat-sheet/
