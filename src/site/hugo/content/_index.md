@@ -17,5 +17,5 @@ For information about auditing with Maven enforcer rules see:
 
 ## Reference
 
-* [Javadoc](apidocs/)
-* [Source](xref/)
+* [Javadoc](maven/apidocs/)
+* [Source](maven/xref/)
