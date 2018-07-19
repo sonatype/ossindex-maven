@@ -19,7 +19,7 @@ tags:
 Sometimes `BanVulnerableDependencies` may detect vulnerabilities which are not relevant.
 {{% /tag %}}
 
-In those cases *exclusions* can be configured to prevent from vulnerabilities from matching.
+In those cases *exclusions* can be configured to prevent vulnerabilities from matching.
 
 ## Exclude Specific Vulnerabilities
 
