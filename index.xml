@@ -37,7 +37,7 @@
       
       <guid>https://sonatype.github.io/ossindex-maven/enforcer-rules/excludes/</guid>
       <description>Sometimes BanVulnerableDependencies may detect vulnerabilities which are not relevant.
- In those cases exclusions can be configured to prevent from vulnerabilities from matching.
+ In those cases exclusions can be configured to prevent vulnerabilities from matching.
 Exclude Specific Vulnerabilities Specific vulnerabilities can be excluded by vulnerability-id.
 For example to exclude 39d74cc8-457a-4e57-89ef-a258420138c5:
 &amp;lt;configuration&amp;gt; &amp;lt;rules&amp;gt; &amp;lt;banVulnerable implementation=&amp;#34;org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies&amp;#34;&amp;gt; &amp;lt;excludeVulnerabilityIds&amp;gt; &amp;lt;exclude&amp;gt;39d74cc8-457a-4e57-89ef-a258420138c5&amp;lt;/exclude&amp;gt; &amp;lt;/excludeVulnerabilityIds&amp;gt; &amp;lt;/banVulnerable&amp;gt; &amp;lt;/rules&amp;gt; &amp;lt;/configuration&amp;gt; Exclude Specific Components Specific components can be excluded by coordinates.
@@ -73,7 +73,7 @@ Example build output:
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/excludes/</guid>
       <description>Sometimes audit may detect vulnerabilities which are not relevant.
- In those cases audit can be configured to exclude from vulnerabilities from matching.
+ In those cases audit can be configured to exclude vulnerabilities from matching.
 Exclude Specific Vulnerabilities Specific vulnerabilities can be excluded by vulnerability-id.
 For example to exclude 39d74cc8-457a-4e57-89ef-a258420138c5:
 &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;excludeVulnerabilityIds&amp;gt; &amp;lt;exclude&amp;gt;39d74cc8-457a-4e57-89ef-a258420138c5&amp;lt;/exclude&amp;gt; &amp;lt;/excludeVulnerabilityIds&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; This exclusion can also be configured via CLI property as a comma-separated list of ids:

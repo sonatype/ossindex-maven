@@ -28,7 +28,7 @@
       
       <guid>https://sonatype.github.io/ossindex-maven/enforcer-rules/excludes/</guid>
       <description>Sometimes BanVulnerableDependencies may detect vulnerabilities which are not relevant.
- In those cases exclusions can be configured to prevent from vulnerabilities from matching.
+ In those cases exclusions can be configured to prevent vulnerabilities from matching.
 Exclude Specific Vulnerabilities Specific vulnerabilities can be excluded by vulnerability-id.
 For example to exclude 39d74cc8-457a-4e57-89ef-a258420138c5:
 &amp;lt;configuration&amp;gt; &amp;lt;rules&amp;gt; &amp;lt;banVulnerable implementation=&amp;#34;org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies&amp;#34;&amp;gt; &amp;lt;excludeVulnerabilityIds&amp;gt; &amp;lt;exclude&amp;gt;39d74cc8-457a-4e57-89ef-a258420138c5&amp;lt;/exclude&amp;gt; &amp;lt;/excludeVulnerabilityIds&amp;gt; &amp;lt;/banVulnerable&amp;gt; &amp;lt;/rules&amp;gt; &amp;lt;/configuration&amp;gt; Exclude Specific Components Specific components can be excluded by coordinates.
