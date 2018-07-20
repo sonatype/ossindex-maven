@@ -47,12 +47,3 @@ def envFile = new File(basedir, 'target/environment.properties')
 envFile.withWriter { output ->
   env.store(output, '')
 }
-
-/*
-    def filters = [
-        'project.version'              : '1-SNAPSHOT',
-        'ossindex.baseUrl'             : 'https://ossindex.sonatype.org',
-        'apache-maven-invoker.version' : '3.1.0',
-        'apache-maven-enforcer.version': '3.0.0-M1'
-    ]
- */

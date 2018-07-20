@@ -23,7 +23,7 @@ By default [ossindex:audit](../ossindex-audit/) will cause `BUILD FAILURE` if an
 Example build output:
 
 {{< command-output >}}
-[INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-fail ---
+[INFO] --- ossindex-maven-plugin:1.0.0:audit (default-cli) @ vulnerable-fail ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
 [INFO]   commons-io:commons-io:jar:2.2:compile
@@ -36,7 +36,7 @@ Example build output:
 [INFO] Total time: 1.491 s
 [INFO] Finished at: 2018-07-02T12:54:10-07:00
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) on project vulnerable-fail: Detected 1 vulnerable components:
+[ERROR] Failed to execute goal org.sonatype.ossindex.maven:ossindex-maven-plugin:1.0.0:audit (default-cli) on project vulnerable-fail: Detected 1 vulnerable components:
 [ERROR]   commons-fileupload:commons-fileupload:jar:1.3:compile; https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3
 [ERROR]     * [CVE-2014-0050]  Permissions, Privileges, and Access Controls (7.5); https://ossindex.sonatype.org/vuln/43e6c5a5-b586-4b31-9244-b62b6e36f2d0
 [ERROR]     * Arbitrary file upload via deserialization (0.0); https://ossindex.sonatype.org/vuln/fb810cbf-d8fb-4f30-b79b-82652ae7192a
@@ -74,7 +74,7 @@ mvn ossindex:audit -Dossindex.fail=false
 Example build output:
 
 {{< command-output >}}
-[INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-warn ---
+[INFO] --- ossindex-maven-plugin:1.0.0:audit (default-cli) @ vulnerable-warn ---
 [INFO] Checking for vulnerabilities:
 [INFO]   commons-fileupload:commons-fileupload:jar:1.3:compile
 [INFO]   commons-io:commons-io:jar:2.2:compile
