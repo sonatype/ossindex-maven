@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.sonatype.ossindex.maven.enforcer.it</groupId>
     <artifactId>multimodule-warn</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1-TEST</version>
   </parent>
 
   <artifactId>baz</artifactId>

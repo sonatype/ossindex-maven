@@ -7,6 +7,6 @@
   <artifactId>skip-pom</artifactId>
   <packaging>pom</packaging>
 
-  <version>1-SNAPSHOT</version>
+  <version>1-TEST</version>
 
 </project>

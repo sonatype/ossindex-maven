@@ -7,7 +7,7 @@
   <artifactId>exclude-vuln-cvss-score</artifactId>
   <packaging>jar</packaging>
 
-  <version>1-SNAPSHOT</version>
+  <version>1-TEST</version>
 
   <dependencies>
     <dependency>

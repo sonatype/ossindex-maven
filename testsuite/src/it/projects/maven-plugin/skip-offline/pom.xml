@@ -7,7 +7,7 @@
   <artifactId>skip-offline</artifactId>
   <packaging>jar</packaging>
 
-  <version>1-SNAPSHOT</version>
+  <version>1-TEST</version>
 
   <dependencies>
     <dependency>
