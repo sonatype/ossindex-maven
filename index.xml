@@ -102,7 +102,7 @@ Formats The file extension is used to inform which format the report will be wri
       <description>Execution may fail or produce warnings.
  By default ossindex:audit will cause BUILD FAILURE if any vulnerabilities are detected:
 Example build output:
-[INFO] --- ossindex-maven-plugin:1-SNAPSHOT:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T12:54:10-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.</description>
+[INFO] --- ossindex-maven-plugin:1.0.0:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T12:54:10-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.</description>
     </item>
     
     <item>
@@ -120,7 +120,7 @@ Example build output:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit/</guid>
-      <description>Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:audit Since ??? Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 12 parameters   Name Type Since Description      baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.    cvssScoreThreshold float  CVSS-score threshold. Vulnerabilities with lower scores will be excluded.</description>
+      <description>Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:1.0.0:audit Since 1.0.0 Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 12 parameters   Name Type Since Description      baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.    cvssScoreThreshold float  CVSS-score threshold. Vulnerabilities with lower scores will be excluded.</description>
     </item>
     
     <item>
@@ -130,7 +130,7 @@ Example build output:
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</guid>
       <description>Display help information on ossindex-maven-plugin.
-Call mvn ossindex:help -Ddetail=true -Dgoal=&amp;lt;goal-name&amp;gt; to display parameter details. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:1-SNAPSHOT:help Requires Project false Requires Online false Requires Direct Invocation false Thread-safe true  Parameters 4 parameters   Name Type Since Description      detail boolean  If true, display all settable properties for each goal.    goal java.lang.String  The name of the goal for which to show help.</description>
+Call mvn ossindex:help -Ddetail=true -Dgoal=&amp;lt;goal-name&amp;gt; to display parameter details. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:1.0.0:help Requires Project false Requires Online false Requires Direct Invocation false Thread-safe true  Parameters 4 parameters   Name Type Since Description      detail boolean  If true, display all settable properties for each goal.    goal java.lang.String  The name of the goal for which to show help.</description>
     </item>
     
   </channel>
