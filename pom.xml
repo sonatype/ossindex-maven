@@ -278,6 +278,7 @@
           <artifactId>license-maven-plugin</artifactId>
           <configuration>
             <excludes combine.children="append">
+              <exclude>src/site/hugo/**</exclude>
               <exclude>*/src/it/projects/**</exclude>
             </excludes>
           </configuration>
