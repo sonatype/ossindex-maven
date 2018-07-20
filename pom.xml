@@ -95,8 +95,6 @@
     <maven.compiler.target>1.7</maven.compiler.target>
 
     <apache-maven.version>3.5.2</apache-maven.version>
-    <apache-maven-plugin-plugin.version>3.5.2</apache-maven-plugin-plugin.version>
-    <apache-maven-javadoc-plugin.version>3.0.1</apache-maven-javadoc-plugin.version>
     <jackson.version>2.9.0</jackson.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
@@ -120,7 +118,7 @@
       <dependency>
         <groupId>org.sonatype.ossindex</groupId>
         <artifactId>ossindex-service-client</artifactId>
-        <version>1-SNAPSHOT</version>
+        <version>1.0.0</version>
       </dependency>
 
       <dependency>
@@ -235,7 +233,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
-          <version>${apache-maven-plugin-plugin.version}</version>
+          <version>3.5.2</version>
         </plugin>
 
         <!--<plugin>-->
@@ -252,23 +250,8 @@
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.7.1</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-scm-publish-plugin</artifactId>
-          <version>3.0.0</version>
-          <configuration>
-            <scmBranch>gh-pages</scmBranch>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>${apache-maven-javadoc-plugin.version}</version>
+          <version>3.0.1</version>
           <configuration>
             <source>${maven.compiler.source}</source>
             <additionalOptions>
@@ -276,6 +259,12 @@
               <option>-Xdoclint:none</option>
             </additionalOptions>
           </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>2.5</version>
         </plugin>
 
         <plugin>
@@ -289,8 +278,32 @@
           <artifactId>license-maven-plugin</artifactId>
           <configuration>
             <excludes combine.children="append">
+              <exclude>src/site/hugo/**</exclude>
               <exclude>*/src/it/projects/**</exclude>
             </excludes>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.sonatype.goodies.dionysus</groupId>
+          <artifactId>dionysus-maven-plugin</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <theme>
+              <groupId>org.sonatype.goodies.dionysus</groupId>
+              <artifactId>dionysus-hugo-theme</artifactId>
+              <version>1.0.0</version>
+            </theme>
+            <mavenGoals>
+              <goal>javadoc:aggregate</goal>
+              <goal>jxr:aggregate</goal>
+            </mavenGoals>
+            <generators>
+              <mavenLicenses/>
+              <mavenModules/>
+              <mavenPom/>
+              <mavenPlugin/>
+            </generators>
           </configuration>
         </plugin>
       </plugins>
@@ -407,86 +420,8 @@
           </execution>
         </executions>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-descriptor</id>
-            <goals>
-              <goal>attach-descriptor</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.9</version>
-        <!--<reportSets>-->
-          <!--<reportSet>-->
-            <!--<reports>-->
-              <!--<report>team</report>-->
-              <!--<report>licenses</report>-->
-              <!--<report>scm</report>-->
-              <!--<report>dependencies</report>-->
-              <!--<report>dependency-info</report>-->
-            <!--</reports>-->
-          <!--</reportSet>-->
-        <!--</reportSets>-->
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.5</version>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${apache-maven-javadoc-plugin.version}</version>
-        <configuration>
-          <source>${maven.compiler.source}</source>
-          <additionalOptions>
-            <!-- Turn off strict javadoc checks in Java-8 -->
-            <option>-Xdoclint:none</option>
-          </additionalOptions>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.10.0</version>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.22.0</version>
-      </plugin>
-
-      <!--<plugin>-->
-      <!--<groupId>org.apache.maven.plugins</groupId>-->
-      <!--<artifactId>maven-changelog-plugin</artifactId>-->
-      <!--<version>2.3</version>-->
-      <!--<inherited>false</inherited>-->
-      <!--</plugin>-->
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.5</version>
-      </plugin>
-    </plugins>
-  </reporting>
 
   <profiles>
     <profile>
@@ -517,11 +452,13 @@
     </profile>
 
     <profile>
-      <id>site-stage</id>
+      <id>dionysus-generate-data</id>
+    </profile>
+
+    <profile>
+      <id>dionysus-generate-maven-site</id>
 
       <build>
-        <defaultGoal>clean install site:site site:stage</defaultGoal>
-
         <pluginManagement>
           <plugins>
             <plugin>
