@@ -57,31 +57,31 @@
     <url>https://jenkins.zion.aws.s/job/ossindex/job/ossindex-maven/</url>
   </ciManagement>
 
-  <repositories>
-    <repository>
-      <id>sonatype-public</id>
-      <url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+  <!--<repositories>-->
+    <!--<repository>-->
+      <!--<id>sonatype-public</id>-->
+      <!--<url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>-->
+      <!--<releases>-->
+        <!--<enabled>true</enabled>-->
+      <!--</releases>-->
+      <!--<snapshots>-->
+        <!--<enabled>true</enabled>-->
+      <!--</snapshots>-->
+    <!--</repository>-->
+  <!--</repositories>-->
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>sonatype-public</id>
-      <url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
+  <!--<pluginRepositories>-->
+    <!--<pluginRepository>-->
+      <!--<id>sonatype-public</id>-->
+      <!--<url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>-->
+      <!--<releases>-->
+        <!--<enabled>true</enabled>-->
+      <!--</releases>-->
+      <!--<snapshots>-->
+        <!--<enabled>true</enabled>-->
+      <!--</snapshots>-->
+    <!--</pluginRepository>-->
+  <!--</pluginRepositories>-->
 
   <distributionManagement>
     <site>
