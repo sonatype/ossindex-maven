@@ -25,7 +25,7 @@ import org.codehaus.plexus.component.repository.exception.ComponentLookupExcepti
 /**
  * Support for {@link EnforcerRule} implementations.
  *
- * @since ???
+ * @since 1.0.0
  */
 public abstract class EnforcerRuleSupport
     implements EnforcerRule2

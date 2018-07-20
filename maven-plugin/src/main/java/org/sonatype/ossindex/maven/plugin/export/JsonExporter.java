@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * JSON report {@link Exporter}.
  *
- * @since ???
+ * @since 1.0.0
  */
 @Named
 @Singleton

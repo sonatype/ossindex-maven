@@ -34,7 +34,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Text report {@link Exporter}.
  *
- * @since ???
+ * @since 1.0.0
  */
 @Named
 @Singleton

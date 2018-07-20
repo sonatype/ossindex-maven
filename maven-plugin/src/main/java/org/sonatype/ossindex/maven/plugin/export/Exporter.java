@@ -20,7 +20,7 @@ import org.sonatype.ossindex.maven.common.ComponentReportResult;
 /**
  * Report exporter.
  *
- * @since ???
+ * @since 1.0.0
  */
 public interface Exporter
 {

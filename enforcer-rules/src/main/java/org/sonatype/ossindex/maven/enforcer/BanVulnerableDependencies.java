@@ -46,7 +46,7 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 /**
  * Enforcer rule to ban vulnerable dependencies.
  *
- * @since ???
+ * @since 1.0.0
  */
 public class BanVulnerableDependencies
     extends EnforcerRuleSupport

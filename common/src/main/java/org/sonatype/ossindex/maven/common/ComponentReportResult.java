@@ -25,7 +25,7 @@ import org.apache.maven.artifact.Artifact;
 /**
  * Component-report result.
  *
- * @since ???
+ * @since 1.0.0
  */
 public class ComponentReportResult
 {
