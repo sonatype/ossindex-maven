@@ -118,7 +118,7 @@
       <dependency>
         <groupId>org.sonatype.ossindex</groupId>
         <artifactId>ossindex-service-client</artifactId>
-        <version>1-SNAPSHOT</version>
+        <version>1.0.0</version>
       </dependency>
 
       <dependency>
@@ -286,12 +286,12 @@
         <plugin>
           <groupId>org.sonatype.goodies.dionysus</groupId>
           <artifactId>dionysus-maven-plugin</artifactId>
-          <version>1-SNAPSHOT</version>
+          <version>1.0.0</version>
           <configuration>
             <theme>
               <groupId>org.sonatype.goodies.dionysus</groupId>
               <artifactId>dionysus-hugo-theme</artifactId>
-              <version>1-SNAPSHOT</version>
+              <version>1.0.0</version>
             </theme>
             <mavenGoals>
               <goal>javadoc:aggregate</goal>
