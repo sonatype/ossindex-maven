@@ -39,7 +39,7 @@ Add an invocation of the [ossindex:audit](ossindex-audit/) goal via POM executio
       <executions>
         <execution>
           <id>audit-dependencies</id>
-          <phase>validate</verify>
+          <phase>validate</phase>
           <goals>
             <goal>audit</goal>
           </goals>
