@@ -56,7 +56,7 @@ import static org.apache.maven.plugins.annotations.ResolutionScope.TEST;
 /**
  * Vulnerability audit of project dependencies via <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
  *
- * @since 1.0.0
+ * @since 3.0.0
  */
 @Mojo(name = "audit", requiresDependencyResolution = TEST)
 public class AuditMojo

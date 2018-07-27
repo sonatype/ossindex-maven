@@ -23,7 +23,7 @@ import org.apache.maven.artifact.Artifact;
 /**
  * Component-report request.
  *
- * @since 1.0.0
+ * @since 3.0.0
  */
 public class ComponentReportRequest
 {

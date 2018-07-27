@@ -30,7 +30,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Maven coordinates.
  *
- * @since 1.0.0
+ * @since 3.0.0
  */
 public class MavenCoordinates
 {

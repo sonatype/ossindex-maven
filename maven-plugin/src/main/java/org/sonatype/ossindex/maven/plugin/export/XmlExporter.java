@@ -22,7 +22,7 @@ import javax.xml.bind.Marshaller;
 /**
  * XML report {@link Exporter}.
  *
- * @since 1.0.0
+ * @since 3.0.0
  */
 @Named
 @Singleton

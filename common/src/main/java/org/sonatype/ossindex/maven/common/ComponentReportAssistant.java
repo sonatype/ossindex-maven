@@ -45,7 +45,7 @@ import static com.google.common.base.Preconditions.checkState;
 /**
  * Component-report assistant.
  *
- * @since 1.0.0
+ * @since 3.0.0
  */
 @Named
 @Singleton

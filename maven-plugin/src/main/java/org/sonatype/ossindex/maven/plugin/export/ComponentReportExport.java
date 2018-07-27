@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * We have to provide some pre-rendered types for {@link org.apache.maven.artifact.Artifact}
  * and {@link org.sonatype.ossindex.maven.common.MavenCoordinates}.
  *
- * @since 1.0.0
+ * @since 3.0.0
  * @see org.sonatype.ossindex.maven.common.ComponentReportResult
  */
 @XmlRootElement
