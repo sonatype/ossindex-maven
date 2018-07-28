@@ -14,7 +14,9 @@
 -->
 # Sonatype OSS Index - Maven Integrations
 
-![License](https://img.shields.io/github/license/sonatype/ossindex-maven.svg?label=License)
+![license](https://img.shields.io/github/license/sonatype/ossindex-maven.svg)
+
+![maven-central](https://img.shields.io/maven-central/v/org.sonatype.ossindex.maven/ossindex-maven.svg)
 
 [Sonatype OSS Index](https://ossindex.sonatype.org/) integrations for [Apache Maven](https://maven.apache.org/).
 
