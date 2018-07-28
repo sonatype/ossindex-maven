@@ -79,6 +79,7 @@ Parameter                   | Type                        | Description | Defaul
 **excludeVulnerabilityIds** | Set of String               | Set of vulnerability identifiers to exclude from matching. | <i class="missing-data"></i>
 **level**                   | String                      | Levels steering whether a rule should fail a build (`ERROR`) or just display a warning (`WARN`). | `ERROR`
 **clientConfiguration**     | OssindexClientConfiguration | [Client configuration](https://sonatype.github.io/ossindex-public/maven/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html). | <i class="missing-data"></i>
+**authId**                  | String                      | Set client authentication from Maven settings server configuration. | <i class="missing-data"></i>
 {{% /tag %}}
 
 ## Features
