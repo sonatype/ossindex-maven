@@ -222,7 +222,14 @@ public class BanVulnerableDependencies
           log.warn("Missing configuration for server-id: " + serverId);
         }
         else {
-          clientConfiguration.setAuthConfiguration(new AuthConfiguration(server.getUsername(), server.getPassword()));
+          String username = Strings.emptyToNull(server.getUsername());
+          String password = Strings.emptyToNull(server.getPassword());
+          if (username != null && password != null) {
+            clientConfiguration.setAuthConfiguration(new AuthConfiguration(server.getUsername(), server.getPassword()));
+          }
+          else {
+            log.warn("Configuration for server-id: " + serverId + "; missing username and/or password");
+          }
         }
       }
     }
