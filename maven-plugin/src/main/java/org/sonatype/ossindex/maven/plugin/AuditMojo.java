@@ -123,15 +123,15 @@ public class AuditMojo
   /**
    * Set of coordinates to exclude from vulnerability matching.
    */
-  @Parameter
+  @Parameter(property = "ossindex.excludeCoordinates")
   private Set<MavenCoordinates> excludeCoordinates = new HashSet<>();
 
   /**
-   * Set {@link #excludeCoordinates} from a comma-separated list.
+   * Apply {@link #excludeCoordinates} from comma-separated list.
    */
-  @Nullable
-  @Parameter(property = "ossindex.excludeCoordinates")
-  private String excludeCoordinatesCsv;
+  public void setExcludeCoordinates(final String csv) {
+    excludeCoordinates.addAll(MavenCoordinates.parseList(csv));
+  }
 
   /**
    * CVSS-score threshold.
@@ -145,15 +145,16 @@ public class AuditMojo
    * Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
    * vulnerability identifiers to exclude from matching.
    */
-  @Parameter
+  @Parameter(property = "ossindex.excludeVulnerabilityIds")
   private Set<String> excludeVulnerabilityIds = new HashSet<>();
 
   /**
-   * Set {@link #excludeVulnerabilityIds} from a comma-separated list.
+   * Apply {@link #excludeVulnerabilityIds} from comma-separated list.
    */
-  @Nullable
-  @Parameter(property = "ossindex.excludeVulnerabilityIds")
-  private String excludeVulnerabilityIdsCsv;
+  public void setExcludeVulnerabilityIds(final String csv) {
+    List<String> ids = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(csv);
+    excludeVulnerabilityIds.addAll(ids);
+  }
 
   /**
    * Export component-report to file.
@@ -197,15 +198,6 @@ public class AuditMojo
     // adapt client configuration
     if (baseUrl != null) {
       clientConfiguration.setBaseUrl(baseUrl);
-    }
-
-    // adapt string-list configuration forms
-    if (excludeCoordinatesCsv != null) {
-      excludeCoordinates.addAll(MavenCoordinates.parseList(excludeCoordinatesCsv));
-    }
-    if (excludeVulnerabilityIdsCsv != null) {
-      List<String> ids = Splitter.on(',').trimResults().omitEmptyStrings().splitToList(excludeVulnerabilityIdsCsv);
-      excludeVulnerabilityIds.addAll(ids);
     }
 
     // adapt maven http-proxy settings to client configuration
