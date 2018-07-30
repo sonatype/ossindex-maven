@@ -38,6 +38,7 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Proxy;
+import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
@@ -52,6 +53,8 @@ public class BanVulnerableDependencies
     extends EnforcerRuleSupport
 {
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
+
+  private String authId;
 
   private String scope;
 
@@ -69,6 +72,13 @@ public class BanVulnerableDependencies
   @SuppressWarnings("unused")
   public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
     this.clientConfiguration = clientConfiguration;
+  }
+
+  /**
+   * Set client authentication from Maven settings server configuration.
+   */
+  public void setAuthId(final String authId) {
+    this.authId = authId;
   }
 
   /**
@@ -173,6 +183,9 @@ public class BanVulnerableDependencies
         return;
       }
 
+      // adapt client authentication
+      maybeApplyAuth(authId, clientConfiguration);
+
       // adapt maven http-proxy settings to client configuration
       maybeApplyProxy(clientConfiguration);
 
@@ -195,6 +208,30 @@ public class BanVulnerableDependencies
      */
     private String skipReason(final String reason) {
       return String.format("Skipping %s; %s", BanVulnerableDependencies.class.getSimpleName(), reason);
+    }
+
+    //
+    // Client auth from settings; some duplication due to maven-version mismatch
+    //
+
+    @SuppressWarnings("Duplicates")
+    private void maybeApplyAuth(@Nullable final String serverId, final OssindexClientConfiguration clientConfiguration) {
+      if (serverId != null) {
+        Server server = settings.getServer(serverId);
+        if (server == null) {
+          log.warn("Missing configuration for server-id: " + serverId);
+        }
+        else {
+          String username = Strings.emptyToNull(server.getUsername());
+          String password = Strings.emptyToNull(server.getPassword());
+          if (username != null && password != null) {
+            clientConfiguration.setAuthConfiguration(new AuthConfiguration(server.getUsername(), server.getPassword()));
+          }
+          else {
+            log.warn("Configuration for server-id: " + serverId + "; missing username and/or password");
+          }
+        }
+      }
     }
 
     //

@@ -46,6 +46,7 @@ import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.settings.Proxy;
+import org.apache.maven.settings.Server;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
@@ -119,6 +120,13 @@ public class AuditMojo
   @Nullable
   @Parameter(property = "ossindex.baseUrl")
   private URI baseUrl;
+
+  /**
+   * Set client authentication from Maven settings server configuration.
+   */
+  @Nullable
+  @Parameter(property = "ossindex.authId")
+  private String authId;
 
   /**
    * Set of coordinates to exclude from vulnerability matching.
@@ -199,6 +207,9 @@ public class AuditMojo
       clientConfiguration.setBaseUrl(baseUrl);
     }
 
+    // adapt client authentication
+    maybeApplyAuth(authId, clientConfiguration);
+
     // adapt string-list configuration forms
     if (excludeCoordinatesCsv != null) {
       excludeCoordinates.addAll(MavenCoordinates.parseList(excludeCoordinatesCsv));
@@ -237,6 +248,30 @@ public class AuditMojo
       }
       else {
         getLog().warn(reportResult.explain());
+      }
+    }
+  }
+
+  //
+  // Client auth from settings; some duplication due to maven-version mismatch
+  //
+
+  @SuppressWarnings("Duplicates")
+  private void maybeApplyAuth(@Nullable final String serverId, final OssindexClientConfiguration clientConfiguration) {
+    if (serverId != null) {
+      Server server = settings.getServer(serverId);
+      if (server == null) {
+        getLog().warn("Missing configuration for server-id: " + serverId);
+      }
+      else {
+        String username = Strings.emptyToNull(server.getUsername());
+        String password = Strings.emptyToNull(server.getPassword());
+        if (username != null && password != null) {
+          clientConfiguration.setAuthConfiguration(new AuthConfiguration(server.getUsername(), server.getPassword()));
+        }
+        else {
+          getLog().warn("Configuration for server-id: " + serverId + "; missing username and/or password");
+        }
       }
     }
   }
