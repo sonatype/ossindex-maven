@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.sonatype.ossindex.maven.plugin.it</groupId>
-  <artifactId>exclude-vuln-cvss-score</artifactId>
+  <artifactId>exclude-vuln-cvss-score-2</artifactId>
   <packaging>jar</packaging>
 
   <version>1-TEST</version>
@@ -16,5 +16,20 @@
       <version>1.3</version>
     </dependency>
   </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.sonatype.ossindex.maven</groupId>
+          <artifactId>ossindex-maven-plugin</artifactId>
+          <version>@project.version@</version>
+          <configuration>
+            <cvssScoreThreshold>7.6</cvssScoreThreshold>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
 </project>
