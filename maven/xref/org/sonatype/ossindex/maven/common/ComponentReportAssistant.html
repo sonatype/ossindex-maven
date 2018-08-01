@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * Component-report assistant.</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> *</em>
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> * @since 1.0.0</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> * @since 3.0.0</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  @Named
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  @Singleton
@@ -69,12 +69,12 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      checkState(request.getComponents() != <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"Missing: components"</span>);
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      checkState(request.getClientConfiguration() != <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"Missing: client-configuration"</span>);
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      log.info(<span class="jxr_string">"Checking for vulnerabilities:"</span>);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      log.info(<span class="jxr_string">"Checking for vulnerabilities; {} artifacts"</span>, request.getComponents());
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      <em class="jxr_comment">// generate package-url and map back to artifacts for result handling</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      Map&lt;PackageUrl, Artifact&gt; purlArtifacts = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      <strong class="jxr_keyword">for</strong> (Artifact artifact : request.getComponents()) {
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>        log.info(<span class="jxr_string">"  "</span> + artifact);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>        log.debug(<span class="jxr_string">"  "</span> + artifact);
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>        purlArtifacts.put(packageUrl(artifact), artifact);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  

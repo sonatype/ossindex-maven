@@ -91,11 +91,11 @@ href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
 
   <dl class="goal-metadata">
     <dt class="name">Full name</dt>
-    <dd class="value monospace">org.sonatype.ossindex.maven:ossindex-maven-plugin:1.0.0:audit</dd>
+    <dd class="value monospace">org.sonatype.ossindex.maven:ossindex-maven-plugin:3.0.0:audit</dd>
 
     
     <dt class="name">Since</dt>
-    <dd class="value monospace">1.0.0</dd>
+    <dd class="value monospace">3.0.0</dd>
     
 
     
@@ -117,7 +117,7 @@ href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
 
   
   <table class="parameters-table">
-    <caption>12 parameters</caption>
+    <caption>13 parameters</caption>
     <thead>
       <tr>
         <th scope="col">Name</th>
@@ -127,6 +127,13 @@ href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
       </tr>
     </thead>
     <tbody>
+      
+      <tr>
+        <td class="name"><a href="#authId"><i class="fas fa-code"></i> authId</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set client authentication from Maven settings server configuration.</td>
+      </tr>
       
       <tr>
         <td class="name"><a href="#baseUrl"><i class="fas fa-code"></i> baseUrl</a></td>
@@ -221,6 +228,35 @@ list.</td>
     </tbody>
   </table>
 
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="authId"></a>
+    <h4><i class="fas fa-code"></i> authId</h4>
+
+    
+    <p class="parameter-description">
+      Set client authentication from Maven settings server configuration.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.lang.String</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.authId}</dd>
+      
+    </dl>
+  </div>
   
   
   <div class="parameter-detail">
