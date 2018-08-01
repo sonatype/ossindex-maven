@@ -66,7 +66,7 @@ public class ComponentReportAssistant
     // generate package-url and map back to artifacts for result handling
     Map<PackageUrl, Artifact> purlArtifacts = new HashMap<>();
     for (Artifact artifact : request.getComponents()) {
-      log.debug("  " + artifact);
+      log.debug("  {}", artifact);
       purlArtifacts.put(packageUrl(artifact), artifact);
     }
 
