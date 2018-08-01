@@ -61,12 +61,12 @@ public class ComponentReportAssistant
     checkState(request.getComponents() != null, "Missing: components");
     checkState(request.getClientConfiguration() != null, "Missing: client-configuration");
 
-    log.info("Checking for vulnerabilities:");
+    log.info("Checking for vulnerabilities; {} artifacts", request.getComponents());
 
     // generate package-url and map back to artifacts for result handling
     Map<PackageUrl, Artifact> purlArtifacts = new HashMap<>();
     for (Artifact artifact : request.getComponents()) {
-      log.info("  " + artifact);
+      log.debug("  " + artifact);
       purlArtifacts.put(packageUrl(artifact), artifact);
     }
 
