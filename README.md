@@ -24,12 +24,12 @@
 
 ### Requirements
 
-* Apache Maven 3.3+
+* [Apache Maven](https://maven.apache.org/) 3.3+ (prefer to use included `mvnw`)
 * JDK 7+ (10 is **NOT** supported)
 
 ### Build
 
-    mvn clean install
+    ./mvnw clean install
 
 ## Site 
 
