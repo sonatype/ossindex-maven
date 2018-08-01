@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.sonatype.ossindex.maven.plugin.it</groupId>
-  <artifactId>exclude-coordinates</artifactId>
+  <artifactId>exclude-coordinates-1</artifactId>
   <packaging>jar</packaging>
 
   <version>1-TEST</version>
