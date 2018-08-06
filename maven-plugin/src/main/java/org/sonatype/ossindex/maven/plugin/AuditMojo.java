@@ -25,6 +25,7 @@ import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.maven.common.Version;
 import org.sonatype.ossindex.maven.plugin.export.Exporter;
 import org.sonatype.ossindex.service.client.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
@@ -82,6 +83,9 @@ public class AuditMojo
 
   @Parameter(defaultValue = "${settings}", readonly = true)
   private Settings settings;
+
+  @Parameter(defaultValue = "${maven.version}", readonly = true)
+  private String mavenVersion;
 
   /**
    * Skip execution.
@@ -226,8 +230,8 @@ public class AuditMojo
 
     ComponentReportRequest reportRequest = new ComponentReportRequest();
     reportRequest.setProducts(ImmutableList.of(
-        new Product("Maven"),
-        new Product("Maven-Plugin")
+        new Product("Maven", mavenVersion),
+        new Product("Maven-Plugin", Version.get().getVersion())
     ));
     reportRequest.setClientConfiguration(clientConfiguration);
     reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
