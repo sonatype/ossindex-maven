@@ -29,6 +29,7 @@ import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
 import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
 import org.sonatype.ossindex.service.client.internal.VersionSupplier;
+import org.sonatype.ossindex.service.client.transport.DefaultUserAgentSupplier;
 import org.sonatype.ossindex.service.client.transport.HttpClientTransport;
 import org.sonatype.ossindex.service.client.transport.Marshaller;
 import org.sonatype.ossindex.service.client.transport.Transport;
@@ -117,7 +118,7 @@ public class ComponentReportAssistant
    */
   @VisibleForTesting
   OssindexClient createClient(final OssindexClientConfiguration config) {
-    UserAgentSupplier userAgent = new UserAgentSupplier(new VersionSupplier().get());
+    UserAgentSupplier userAgent = new DefaultUserAgentSupplier(new VersionSupplier().get());
     Transport transport = new HttpClientTransport(userAgent);
     Marshaller marshaller = new GsonMarshaller();
     return new OssindexClientImpl(config, transport, marshaller);
