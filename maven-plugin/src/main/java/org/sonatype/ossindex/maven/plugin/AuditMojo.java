@@ -29,9 +29,11 @@ import org.sonatype.ossindex.maven.plugin.export.Exporter;
 import org.sonatype.ossindex.service.client.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.ProxyConfiguration;
+import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
@@ -223,6 +225,10 @@ public class AuditMojo
     maybeApplyProxy(clientConfiguration);
 
     ComponentReportRequest reportRequest = new ComponentReportRequest();
+    reportRequest.setProducts(ImmutableList.of(
+        new Product("Maven"),
+        new Product("Maven-Plugin")
+    ));
     reportRequest.setClientConfiguration(clientConfiguration);
     reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
     reportRequest.setExcludeCoordinates(excludeCoordinates);

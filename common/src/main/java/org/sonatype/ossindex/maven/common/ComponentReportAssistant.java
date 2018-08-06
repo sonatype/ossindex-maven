@@ -25,7 +25,6 @@ import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 import org.sonatype.ossindex.service.client.OssindexClient;
-import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
 import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
 import org.sonatype.ossindex.service.client.internal.VersionSupplier;
@@ -33,6 +32,8 @@ import org.sonatype.ossindex.service.client.transport.DefaultUserAgentSupplier;
 import org.sonatype.ossindex.service.client.transport.HttpClientTransport;
 import org.sonatype.ossindex.service.client.transport.Marshaller;
 import org.sonatype.ossindex.service.client.transport.Transport;
+import org.sonatype.ossindex.service.client.transport.UserAgentBuilder;
+import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -75,7 +76,7 @@ public class ComponentReportAssistant
     log.info("Exclude vulnerability identifiers: {}", request.getExcludeVulnerabilityIds());
     log.info("CVSS-score threshold: {}", request.getCvssScoreThreshold());
 
-    OssindexClient client = createClient(request.getClientConfiguration());
+    OssindexClient client = createClient(request);
     ComponentReportResult result = new ComponentReportResult();
     try {
       Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(purlArtifacts.keySet()));
@@ -117,11 +118,22 @@ public class ComponentReportAssistant
    * Create client to communicate with OSS Index.
    */
   @VisibleForTesting
-  OssindexClient createClient(final OssindexClientConfiguration config) {
-    UserAgentSupplier userAgent = new DefaultUserAgentSupplier(new VersionSupplier().get());
+  OssindexClient createClient(final ComponentReportRequest request) {
+    UserAgentSupplier userAgent = new DefaultUserAgentSupplier(new VersionSupplier().get())
+    {
+      @Override
+      protected void customize(final UserAgentBuilder builder) {
+        List<Product> products = request.getProducts();
+        if (products != null) {
+          for (Product product : products) {
+            builder.product(product);
+          }
+        }
+      }
+    };
     Transport transport = new HttpClientTransport(userAgent);
     Marshaller marshaller = new GsonMarshaller();
-    return new OssindexClientImpl(config, transport, marshaller);
+    return new OssindexClientImpl(request.getClientConfiguration(), transport, marshaller);
   }
 
   /**
