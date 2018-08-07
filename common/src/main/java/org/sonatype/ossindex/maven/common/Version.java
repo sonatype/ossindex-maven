@@ -29,7 +29,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @SuppressWarnings("Duplicates")
 public class Version
 {
-
   private static final Logger log = LoggerFactory.getLogger(Version.class);
 
   public static final String RESOURCE = "version.properties";
