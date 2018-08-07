@@ -37,7 +37,7 @@ public class Version
 
   private final Class owner;
 
-  public Version(final Class owner) {
+  Version(final Class owner) {
     this.owner = checkNotNull(owner);
   }
 
