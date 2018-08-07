@@ -28,13 +28,12 @@ import org.sonatype.ossindex.service.client.OssindexClient;
 import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
 import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
 import org.sonatype.ossindex.service.client.internal.VersionSupplier;
-import org.sonatype.ossindex.service.client.transport.DefaultUserAgentSupplier;
+import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 import org.sonatype.ossindex.service.client.transport.HttpClientTransport;
 import org.sonatype.ossindex.service.client.transport.Marshaller;
 import org.sonatype.ossindex.service.client.transport.Transport;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
-import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.artifact.Artifact;
@@ -119,7 +118,7 @@ public class ComponentReportAssistant
    */
   @VisibleForTesting
   OssindexClient createClient(final ComponentReportRequest request) {
-    UserAgentSupplier userAgent = new DefaultUserAgentSupplier(new VersionSupplier().get())
+    UserAgentSupplier userAgent = new UserAgentSupplier(new VersionSupplier().get())
     {
       @Override
       protected void customize(final UserAgentBuilder builder) {
