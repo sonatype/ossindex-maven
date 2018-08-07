@@ -120,6 +120,9 @@ public class ComponentReportAssistant
   OssindexClient createClient(final ComponentReportRequest request) {
     UserAgentSupplier userAgent = new UserAgentSupplier(new VersionSupplier().get())
     {
+      /**
+       * Customize with details from request if present.
+       */
       @Override
       protected void customize(final UserAgentBuilder builder) {
         List<Product> products = request.getProducts();
