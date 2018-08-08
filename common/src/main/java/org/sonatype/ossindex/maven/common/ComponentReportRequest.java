@@ -14,9 +14,13 @@ package org.sonatype.ossindex.maven.common;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
+import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 
 import org.apache.maven.artifact.Artifact;
 
@@ -48,6 +52,12 @@ public class ComponentReportRequest
    * Vulnerability identifiers to exclude from matching.
    */
   private Set<String> excludeVulnerabilityIds;
+
+  /**
+   * Additional {@code User-Agent} products.
+   */
+  @Nullable
+  private List<Product> products;
 
   public OssindexClientConfiguration getClientConfiguration() {
     return clientConfiguration;
@@ -93,5 +103,20 @@ public class ComponentReportRequest
 
   public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
     this.excludeVulnerabilityIds = excludeVulnerabilityIds;
+  }
+
+  /**
+   * @since ???
+   */
+  @Nullable
+  public List<Product> getProducts() {
+    return products;
+  }
+
+  /**
+   * @since ???
+   */
+  public void setProducts(@Nullable final List<Product> products) {
+    this.products = products;
   }
 }

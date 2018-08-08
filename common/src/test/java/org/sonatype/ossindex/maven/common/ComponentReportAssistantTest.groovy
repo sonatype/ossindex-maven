@@ -41,7 +41,7 @@ class ComponentReportAssistantTest
     // sub-class to override client creation to use mock
     underTest = new ComponentReportAssistant() {
       @Override
-      OssindexClient createClient(final OssindexClientConfiguration config) {
+      OssindexClient createClient(final ComponentReportRequest request) {
         return client
       }
     }

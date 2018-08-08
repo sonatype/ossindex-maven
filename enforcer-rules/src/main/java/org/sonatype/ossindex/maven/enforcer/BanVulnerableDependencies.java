@@ -23,12 +23,15 @@ import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.maven.common.Version;
 import org.sonatype.ossindex.service.client.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.ProxyConfiguration;
+import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
@@ -142,6 +145,8 @@ public class BanVulnerableDependencies
 
     private final Settings settings;
 
+    private final String mavenVersion;
+
     private final DependencyGraphBuilder graphBuilder;
 
     private final ComponentReportAssistant reportAssistant;
@@ -151,6 +156,7 @@ public class BanVulnerableDependencies
       this.session = lookup(helper, "${session}", MavenSession.class);
       this.project = lookup(helper, "${project}", MavenProject.class);
       this.settings = lookup(helper, "${settings}", Settings.class);
+      this.mavenVersion = lookup(helper, "${maven.version}", String.class);
       this.graphBuilder = lookup(helper, DependencyGraphBuilder.class);
       this.reportAssistant = lookup(helper, ComponentReportAssistant.class);
     }
@@ -190,6 +196,10 @@ public class BanVulnerableDependencies
       maybeApplyProxy(clientConfiguration);
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
+      reportRequest.setProducts(ImmutableList.of(
+          new Product("Maven", mavenVersion),
+          new Product("Enforcer-Rule", Version.get().getVersion())
+      ));
       reportRequest.setClientConfiguration(clientConfiguration);
       reportRequest.setExcludeCoordinates(excludeCoordinates);
       reportRequest.setExcludeVulnerabilityIds(excludeVulnerabilityIds);

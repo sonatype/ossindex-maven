@@ -25,13 +25,16 @@ import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.maven.common.Version;
 import org.sonatype.ossindex.maven.plugin.export.Exporter;
 import org.sonatype.ossindex.service.client.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.ProxyConfiguration;
+import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableList;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
@@ -80,6 +83,9 @@ public class AuditMojo
 
   @Parameter(defaultValue = "${settings}", readonly = true)
   private Settings settings;
+
+  @Parameter(defaultValue = "${maven.version}", readonly = true)
+  private String mavenVersion;
 
   /**
    * Skip execution.
@@ -223,6 +229,10 @@ public class AuditMojo
     maybeApplyProxy(clientConfiguration);
 
     ComponentReportRequest reportRequest = new ComponentReportRequest();
+    reportRequest.setProducts(ImmutableList.of(
+        new Product("Maven", mavenVersion),
+        new Product("Maven-Plugin", Version.get().getVersion())
+    ));
     reportRequest.setClientConfiguration(clientConfiguration);
     reportRequest.setCvssScoreThreshold(cvssScoreThreshold);
     reportRequest.setExcludeCoordinates(excludeCoordinates);

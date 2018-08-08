@@ -118,7 +118,7 @@
       <dependency>
         <groupId>org.sonatype.ossindex</groupId>
         <artifactId>ossindex-service-client</artifactId>
-        <version>1.0.0</version>
+        <version>1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
@@ -403,6 +403,23 @@
               <goal>main-index</goal>
               <goal>test-index</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+            <configuration>
+              <buildNumberPropertyName>build.tag</buildNumberPropertyName>
+              <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+            </configuration>
           </execution>
         </executions>
       </plugin>
