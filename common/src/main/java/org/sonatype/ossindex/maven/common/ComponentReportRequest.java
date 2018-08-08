@@ -105,11 +105,17 @@ public class ComponentReportRequest
     this.excludeVulnerabilityIds = excludeVulnerabilityIds;
   }
 
+  /**
+   * @since ???
+   */
   @Nullable
   public List<Product> getProducts() {
     return products;
   }
 
+  /**
+   * @since ???
+   */
   public void setProducts(@Nullable final List<Product> products) {
     this.products = products;
   }
