@@ -6,4 +6,4 @@ assert report.exists()
 
 String text = report.text
 assert text.contains('"commons-fileupload:commons-fileupload:jar:1.3:compile" : {')
-assert text.contains('"coordinates" : "maven:commons-fileupload/commons-fileupload@1.3",')
+assert text.contains('"coordinates" : "pkg:maven/commons-fileupload/commons-fileupload@1.3",')

@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
-  <!-- default settings -->
+  <mirrors>
+    <mirror>
+      <id>rso</id>
+      <mirrorOf>external:*</mirrorOf>
+      <url>https://repository.sonatype.org/content/groups/sonatype-public-grid</url>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>isolated</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>isolated</activeProfile>
+  </activeProfiles>
 </settings>
