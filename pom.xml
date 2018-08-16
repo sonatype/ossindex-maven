@@ -96,6 +96,7 @@
 
     <apache-maven.version>3.5.2</apache-maven.version>
     <jackson.version>2.9.0</jackson.version>
+    <dionysus.version>1.0.1</dionysus.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
   </properties>
@@ -287,12 +288,12 @@
         <plugin>
           <groupId>org.sonatype.goodies.dionysus</groupId>
           <artifactId>dionysus-maven-plugin</artifactId>
-          <version>1.0.0</version>
+          <version>${dionysus.version}</version>
           <configuration>
             <theme>
               <groupId>org.sonatype.goodies.dionysus</groupId>
               <artifactId>dionysus-hugo-theme</artifactId>
-              <version>1.0.0</version>
+              <version>${dionysus.version}</version>
             </theme>
             <mavenGoals>
               <goal>javadoc:aggregate</goal>
