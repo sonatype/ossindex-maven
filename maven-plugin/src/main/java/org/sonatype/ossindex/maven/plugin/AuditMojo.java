@@ -113,7 +113,8 @@ public class AuditMojo
   private boolean fail = true;
 
   /**
-   * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
+   * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>
+   * <a href="https://sonatype.github.io/ossindex-public/maven/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html">client configuration</a>.
    */
   @Parameter
   private OssindexClientConfiguration clientConfiguration = new OssindexClientConfiguration();
