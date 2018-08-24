@@ -106,7 +106,7 @@ public class ComponentReportRequest
   }
 
   /**
-   * @since ???
+   * @since 3.0.1
    */
   @Nullable
   public List<Product> getProducts() {
@@ -114,7 +114,7 @@ public class ComponentReportRequest
   }
 
   /**
-   * @since ???
+   * @since 3.0.1
    */
   public void setProducts(@Nullable final List<Product> products) {
     this.products = products;

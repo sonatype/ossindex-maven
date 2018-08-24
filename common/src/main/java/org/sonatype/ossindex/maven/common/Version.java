@@ -24,7 +24,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Helper to load version information from build via {@link #RESOURCE} resource.
  *
- * @since ???
+ * @since 3.0.1
  */
 @SuppressWarnings("Duplicates")
 public class Version
