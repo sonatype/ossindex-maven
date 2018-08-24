@@ -60,6 +60,7 @@ public class ComponentReportAssistant
   public ComponentReportResult request(final ComponentReportRequest request) {
     checkNotNull(request);
     checkState(request.getComponents() != null, "Missing: components");
+    checkState(!request.getComponents().isEmpty(), "At least one component must be specified");
     checkState(request.getClientConfiguration() != null, "Missing: client-configuration");
 
     log.info("Checking for vulnerabilities; {} artifacts", request.getComponents().size());
