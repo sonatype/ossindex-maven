@@ -120,7 +120,7 @@ Example build output:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit/</guid>
-      <description>Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.0.0:audit Since 3.0.0 Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 13 parameters   Name Type Since Description      authId java.lang.String  Set client authentication from Maven settings server configuration.    baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.</description>
+      <description>Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.0.1:audit Since 3.0.0 Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 13 parameters   Name Type Since Description      authId java.lang.String  Set client authentication from Maven settings server configuration.    baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.</description>
     </item>
     
     <item>
@@ -130,7 +130,7 @@ Example build output:
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</guid>
       <description>Display help information on ossindex-maven-plugin.
-Call mvn ossindex:help -Ddetail=true -Dgoal=&amp;lt;goal-name&amp;gt; to display parameter details. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.0.0:help Requires Project false Requires Online false Requires Direct Invocation false Thread-safe true  Parameters 4 parameters   Name Type Since Description      detail boolean  If true, display all settable properties for each goal.    goal java.lang.String  The name of the goal for which to show help.</description>
+Call mvn ossindex:help -Ddetail=true -Dgoal=&amp;lt;goal-name&amp;gt; to display parameter details. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.0.1:help Requires Project false Requires Online false Requires Direct Invocation false Thread-safe true  Parameters 4 parameters   Name Type Since Description      detail boolean  If true, display all settable properties for each goal.    goal java.lang.String  The name of the goal for which to show help.</description>
     </item>
     
   </channel>
