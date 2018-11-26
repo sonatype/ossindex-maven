@@ -49,11 +49,15 @@ class MavenInstallation
     File dir = project.parentFile
     File logFile = new File(dir, 'build.log')
 
+    File localRepo = new File(System.getProperty('maven.repo.local')).canonicalFile
+    log.info("Local repository: $localRepo")
+
     try {
       ant.exec(executable: "$basedir/bin/mvn", dir: dir, output: logFile, failonerror: true) {
         arg(value: '--show-version')
         arg(value: '--batch-mode')
         arg(value: '--errors')
+        arg(value: "-Dmaven.repo.local=${localRepo.absolutePath}")
 
         arg(value: '--file')
         arg(file: project)
