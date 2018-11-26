@@ -52,6 +52,8 @@
               <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
               <preBuildHookScript>setup</preBuildHookScript>
               <postBuildHookScript>verify</postBuildHookScript>
+              <showVersion>true</showVersion>
+              <showErrors>true</showErrors>
             </configuration>
           </execution>
         </executions>
