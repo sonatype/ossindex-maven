@@ -69,6 +69,10 @@ pipeline {
   }
 
   post {
+    always {
+      // capture testsuite reports and logs
+      archiveArtifacts artifacts: 'testsuite/target/failsafe-reports/*,testsuite/target/it-workspace/**/build.log', fingerprint: false
+    }
     cleanup {
       // purge workspace after build finishes
       deleteDir()
