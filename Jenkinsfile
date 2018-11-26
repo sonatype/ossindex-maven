@@ -4,7 +4,7 @@ String mavenVersion = 'Maven 3.3.x'
 String mavenSettings = 'public-settings.xml'
 String mavenRepo = '.repo'
 String mavenOptions = '-V -B -e'
-String buildOptions = '-Dit -Dbuild.notes="b:${BRANCH_NAME}, j:${JOB_NAME}, n:#${BUILD_NUMBER}"'
+String buildOptions = '-Dit -Dbuild.notes="b:${BRANCH_NAME}, j:${JOB_NAME}, n:#${BUILD_NUMBER}" -Dorg.jenkinsci.plugins.pipeline.maven.eventspy.JenkinsMavenEventSpy.disabled=true'
 
 String deployBranch = 'master'
 
