@@ -41,7 +41,7 @@ pipeline {
         withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
             // disable automatic artifact publisher
             options: [ artifactsPublisher(disabled: true) ]) {
-          sh "export JENKINS_MAVEN_AGENT_DISABLED=true; mvn $mavenOptions clean install $buildOptions"
+          sh "mvn $mavenOptions clean install $buildOptions"
         }
       }
     }
@@ -54,7 +54,7 @@ pipeline {
         withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
             // disable automatic artifact publisher
             options: [ artifactsPublisher(disabled: true) ]) {
-          sh "export JENKINS_MAVEN_AGENT_DISABLED=true; mvn $mavenOptions clean deploy $buildOptions"
+          sh "mvn $mavenOptions clean deploy $buildOptions"
         }
       }
     }
