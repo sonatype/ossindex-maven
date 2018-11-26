@@ -99,6 +99,8 @@
     <dionysus.version>1.0.1</dionysus.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
+
+    <build.notes>t:local, u:${user.name}</build.notes>
   </properties>
 
   <modules>

@@ -4,6 +4,7 @@ String mavenVersion = 'Maven 3.3.x'
 String mavenSettings = 'public-settings.xml'
 String mavenRepo = '.repo'
 String mavenOptions = '-V -B -e'
+String buildOptions = '-Dit -Dbuild.notes="b:${BRANCH_NAME}, j:${JOB_NAME}, n:#${BUILD_NUMBER}"'
 
 String deployBranch = 'master'
 
@@ -40,7 +41,7 @@ pipeline {
         withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
             // disable automatic artifact publisher
             options: [ artifactsPublisher(disabled: true) ]) {
-          sh "mvn $mavenOptions clean install"
+          sh "mvn $mavenOptions clean install $buildOptions"
         }
       }
     }
@@ -53,7 +54,7 @@ pipeline {
         withMaven(maven: mavenVersion, jdk: jdkVersion, mavenSettingsConfig: mavenSettings, mavenLocalRepo: mavenRepo,
             // disable automatic artifact publisher
             options: [ artifactsPublisher(disabled: true) ]) {
-          sh "mvn $mavenOptions clean deploy"
+          sh "mvn $mavenOptions clean deploy $buildOptions"
         }
       }
     }
@@ -68,7 +69,7 @@ pipeline {
   }
 
   post {
-    always {
+    cleanup {
       // purge workspace after build finishes
       deleteDir()
     }
