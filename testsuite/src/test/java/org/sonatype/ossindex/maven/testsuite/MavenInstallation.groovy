@@ -38,6 +38,8 @@ class MavenInstallation
     assert basedir.exists()
 
     ant.exec(executable: "$basedir/bin/mvn", failonerror: true) {
+      env(key: 'M2_HOME', file: basedir)
+      env(key: 'JAVA_TOOL_OPTIONS', value: '')
       arg(value: '--version')
     }
   }
@@ -54,7 +56,7 @@ class MavenInstallation
 
     try {
       ant.exec(executable: "$basedir/bin/mvn", dir: dir, output: logFile, failonerror: true) {
-        // avoid passing along Jenkins eventspy or other configuration which may break child invocation
+        env(key: 'M2_HOME', file: basedir)
         env(key: 'JAVA_TOOL_OPTIONS', value: '')
 
         arg(value: '--show-version')
