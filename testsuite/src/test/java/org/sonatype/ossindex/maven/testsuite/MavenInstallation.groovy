@@ -12,6 +12,8 @@
  */
 package org.sonatype.ossindex.maven.testsuite
 
+import javax.annotation.Nullable
+
 import groovy.util.logging.Slf4j
 import org.apache.tools.ant.BuildException
 
@@ -30,7 +32,7 @@ class MavenInstallation
   MavenInstallation(final String version, final File basedir) {
     this.version = version
     this.basedir = basedir
-    ant = new AntBuilder()
+    this.ant = new AntBuilder()
   }
 
   void test() {
@@ -44,6 +46,15 @@ class MavenInstallation
     }
   }
 
+  @Nullable
+  private static File detectLocalRepo() {
+    String path = System.getProperty('maven.repo.local')
+    if (path != null) {
+      return new File(path).canonicalFile
+    }
+    return null
+  }
+
   void build(final File project, final String... arguments) {
     log.info "Building: $project"
     assert project.exists()
@@ -51,7 +62,7 @@ class MavenInstallation
     File dir = project.parentFile
     File logFile = new File(dir, 'build.log')
 
-    File localRepo = new File(System.getProperty('maven.repo.local')).canonicalFile
+    File localRepo = detectLocalRepo()
     log.info("Local repository: $localRepo")
 
     try {
@@ -62,7 +73,10 @@ class MavenInstallation
         arg(value: '--show-version')
         arg(value: '--batch-mode')
         arg(value: '--errors')
-        arg(value: "-Dmaven.repo.local=${localRepo.absolutePath}")
+
+        if (localRepo != null) {
+          arg(value: "-Dmaven.repo.local=${localRepo.absolutePath}")
+        }
 
         arg(value: '--file')
         arg(file: project)
