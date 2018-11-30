@@ -94,7 +94,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
 
-    <apache-maven.version>3.5.2</apache-maven.version>
+    <apache-maven.version>3.0</apache-maven.version>
     <jackson.version>2.9.5</jackson.version>
     <dionysus.version>1.0.1</dionysus.version>
 
@@ -112,6 +112,13 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Guava 20.x is the latest which supports Java 1.7 -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>20.0</version>
+      </dependency>
+
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>jsr305</artifactId>
