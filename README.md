@@ -20,6 +20,12 @@
 
 [Sonatype OSS Index](https://ossindex.sonatype.org/) integrations for [Apache Maven](https://maven.apache.org/).
 
+## Usage
+
+For information on how to use the integrations see the project documentation:
+
+* https://sonatype.github.io/ossindex-maven/
+
 ## Building
 
 ### Requirements
