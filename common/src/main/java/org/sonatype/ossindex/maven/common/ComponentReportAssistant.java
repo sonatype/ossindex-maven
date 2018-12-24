@@ -78,8 +78,8 @@ public class ComponentReportAssistant
     log.info("Exclude vulnerability identifiers: {}", request.getExcludeVulnerabilityIds());
     log.info("CVSS-score threshold: {}", request.getCvssScoreThreshold());
 
-    OssindexClient client = createClient(request);
     ComponentReportResult result = new ComponentReportResult();
+    OssindexClient client = createClient(request);
     try {
       Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(purlArtifacts.keySet()));
       log.trace("Fetched {} component-reports", reports.size());
@@ -98,6 +98,14 @@ public class ComponentReportAssistant
     }
     catch (Exception e) {
       log.warn("Failed to fetch component-reports", e);
+    }
+    finally {
+      try {
+        client.close();
+      }
+      catch (Exception e) {
+        log.warn("Failed to close client", e);
+      }
     }
 
     return result;
