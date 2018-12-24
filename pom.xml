@@ -128,7 +128,7 @@
       <dependency>
         <groupId>org.sonatype.ossindex</groupId>
         <artifactId>ossindex-service-client</artifactId>
-        <version>1.0.3</version>
+        <version>1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
