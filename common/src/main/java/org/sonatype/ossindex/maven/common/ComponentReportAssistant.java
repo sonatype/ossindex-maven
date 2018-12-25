@@ -27,12 +27,12 @@ import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerab
 import org.sonatype.ossindex.service.client.OssindexClient;
 import org.sonatype.ossindex.service.client.cache.ComponentReportCache;
 import org.sonatype.ossindex.service.client.cache.MemoryCache;
-import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
+import org.sonatype.ossindex.service.client.marshal.GsonMarshaller;
 import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
 import org.sonatype.ossindex.service.client.internal.VersionSupplier;
 import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 import org.sonatype.ossindex.service.client.transport.HttpClientTransport;
-import org.sonatype.ossindex.service.client.transport.Marshaller;
+import org.sonatype.ossindex.service.client.marshal.Marshaller;
 import org.sonatype.ossindex.service.client.transport.Transport;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
