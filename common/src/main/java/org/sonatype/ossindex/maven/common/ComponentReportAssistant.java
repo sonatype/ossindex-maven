@@ -146,7 +146,10 @@ public class ComponentReportAssistant
     };
     Transport transport = new HttpClientTransport(userAgent);
     Marshaller marshaller = new GsonMarshaller();
+
+    // TODO: expose cache for configuration
     ComponentReportCache reportCache = new MemoryComponentReportCache();
+
     return new OssindexClientImpl(request.getClientConfiguration(), transport, marshaller, reportCache);
   }
 
