@@ -26,7 +26,7 @@ import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 import org.sonatype.ossindex.service.client.OssindexClient;
 import org.sonatype.ossindex.service.client.cache.ComponentReportCache;
-import org.sonatype.ossindex.service.client.cache.MemoryComponentReportCache;
+import org.sonatype.ossindex.service.client.cache.MemoryCache;
 import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
 import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
 import org.sonatype.ossindex.service.client.internal.VersionSupplier;
@@ -148,7 +148,7 @@ public class ComponentReportAssistant
     Marshaller marshaller = new GsonMarshaller();
 
     // TODO: expose cache for configuration
-    ComponentReportCache reportCache = new MemoryComponentReportCache();
+    ComponentReportCache reportCache = new MemoryCache();
 
     return new OssindexClientImpl(request.getClientConfiguration(), transport, marshaller, reportCache);
   }
