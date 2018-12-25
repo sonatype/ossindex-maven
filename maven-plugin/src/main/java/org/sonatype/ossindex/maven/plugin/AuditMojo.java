@@ -27,9 +27,9 @@ import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.maven.common.Version;
 import org.sonatype.ossindex.maven.plugin.export.Exporter;
-import org.sonatype.ossindex.service.client.AuthConfiguration;
+import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
-import org.sonatype.ossindex.service.client.ProxyConfiguration;
+import org.sonatype.ossindex.service.client.transport.ProxyConfiguration;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 
 import com.google.common.base.Splitter;
