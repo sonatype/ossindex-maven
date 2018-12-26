@@ -27,8 +27,10 @@ import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.maven.common.Version;
 import org.sonatype.ossindex.maven.plugin.export.Exporter;
-import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
+import org.sonatype.ossindex.service.client.cache.CacheConfiguration;
+import org.sonatype.ossindex.service.client.cache.DirectoryCache;
+import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.transport.ProxyConfiguration;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 
@@ -179,6 +181,15 @@ public class AuditMojo
   @Parameter(property = "ossindex.reportFile")
   private File reportFile;
 
+  /**
+   * Report cache directory.
+   *
+   * @since ???
+   */
+  @Nullable
+  @Parameter(property = "ossindex.reportCacheDirectory")
+  private File reportCacheDir;
+
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
     if (skip) {
@@ -228,6 +239,12 @@ public class AuditMojo
 
     // adapt maven http-proxy settings to client configuration
     maybeApplyProxy(clientConfiguration);
+
+    // adapt cache directory
+    if (reportCacheDir != null) {
+      CacheConfiguration cacheConfiguration = new DirectoryCache.Configuration(reportCacheDir.toPath(), null);
+      clientConfiguration.setCacheConfiguration(cacheConfiguration);
+    }
 
     ComponentReportRequest reportRequest = new ComponentReportRequest();
     reportRequest.setProducts(ImmutableList.of(

@@ -12,6 +12,7 @@
  */
 package org.sonatype.ossindex.maven.enforcer;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,8 @@ import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.maven.common.Version;
+import org.sonatype.ossindex.service.client.cache.CacheConfiguration;
+import org.sonatype.ossindex.service.client.cache.DirectoryCache;
 import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.transport.ProxyConfiguration;
@@ -68,6 +71,14 @@ public class BanVulnerableDependencies
   private float cvssScoreThreshold = 0;
 
   private Set<String> excludeVulnerabilityIds = new HashSet<>();
+
+  /**
+   * Report cache directory.
+   *
+   * @since ???
+   */
+  @Nullable
+  private File reportCacheDir;
 
   /**
    * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
@@ -125,6 +136,13 @@ public class BanVulnerableDependencies
   @SuppressWarnings("unused")
   public void setExcludeVulnerabilityIds(final Set<String> excludeVulnerabilityIds) {
     this.excludeVulnerabilityIds = excludeVulnerabilityIds;
+  }
+
+  /**
+   * @since ???
+   */
+  public void setReportCacheDir(@Nullable final File reportCacheDir) {
+    this.reportCacheDir = reportCacheDir;
   }
 
   @Override
@@ -194,6 +212,12 @@ public class BanVulnerableDependencies
 
       // adapt maven http-proxy settings to client configuration
       maybeApplyProxy(clientConfiguration);
+
+      // adapt cache directory
+      if (reportCacheDir != null) {
+        CacheConfiguration cacheConfiguration = new DirectoryCache.Configuration(reportCacheDir.toPath(), null);
+        clientConfiguration.setCacheConfiguration(cacheConfiguration);
+      }
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
       reportRequest.setProducts(ImmutableList.of(
