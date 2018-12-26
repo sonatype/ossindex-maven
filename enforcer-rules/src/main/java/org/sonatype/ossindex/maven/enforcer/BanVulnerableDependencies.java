@@ -139,6 +139,8 @@ public class BanVulnerableDependencies
   }
 
   /**
+   * Report cache directory.
+   *
    * @since ???
    */
   public void setReportCacheDir(@Nullable final File reportCacheDir) {
