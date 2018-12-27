@@ -25,8 +25,6 @@ import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.maven.common.Version;
-import org.sonatype.ossindex.service.client.cache.CacheConfiguration;
-import org.sonatype.ossindex.service.client.cache.DirectoryCache;
 import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.transport.ProxyConfiguration;
@@ -138,15 +136,6 @@ public class BanVulnerableDependencies
     this.excludeVulnerabilityIds = excludeVulnerabilityIds;
   }
 
-  /**
-   * Report cache directory.
-   *
-   * @since ???
-   */
-  public void setReportCacheDir(@Nullable final File reportCacheDir) {
-    this.reportCacheDir = reportCacheDir;
-  }
-
   @Override
   public void execute(@Nonnull final EnforcerRuleHelper helper) throws EnforcerRuleException {
     new Task(helper).run();
@@ -214,12 +203,6 @@ public class BanVulnerableDependencies
 
       // adapt maven http-proxy settings to client configuration
       maybeApplyProxy(clientConfiguration);
-
-      // adapt cache directory
-      if (reportCacheDir != null) {
-        CacheConfiguration cacheConfiguration = new DirectoryCache.Configuration(reportCacheDir.toPath(), null);
-        clientConfiguration.setCacheConfiguration(cacheConfiguration);
-      }
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
       reportRequest.setProducts(ImmutableList.of(
