@@ -25,6 +25,7 @@ import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.maven.common.Version;
+import org.sonatype.ossindex.service.client.cache.DirectoryCache;
 import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
 import org.sonatype.ossindex.service.client.transport.ProxyConfiguration;
@@ -203,6 +204,11 @@ public class BanVulnerableDependencies
 
       // adapt maven http-proxy settings to client configuration
       maybeApplyProxy(clientConfiguration);
+
+      // adapt cache directory
+      if (clientConfiguration.getCacheConfiguration() == null) {
+        clientConfiguration.setCacheConfiguration(new DirectoryCache.Configuration());
+      }
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
       reportRequest.setProducts(ImmutableList.of(
