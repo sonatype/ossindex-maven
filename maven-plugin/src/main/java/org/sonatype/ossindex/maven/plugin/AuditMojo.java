@@ -28,7 +28,6 @@ import org.sonatype.ossindex.maven.common.MavenCoordinates;
 import org.sonatype.ossindex.maven.common.Version;
 import org.sonatype.ossindex.maven.plugin.export.Exporter;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
-import org.sonatype.ossindex.service.client.cache.DirectoryCache;
 import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.transport.ProxyConfiguration;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
@@ -229,11 +228,6 @@ public class AuditMojo
 
     // adapt maven http-proxy settings to client configuration
     maybeApplyProxy(clientConfiguration);
-
-    // adapt cache directory
-    if (clientConfiguration.getCacheConfiguration() == null) {
-      clientConfiguration.setCacheConfiguration(new DirectoryCache.Configuration());
-    }
 
     ComponentReportRequest reportRequest = new ComponentReportRequest();
     reportRequest.setProducts(ImmutableList.of(

@@ -25,6 +25,8 @@ import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 import org.sonatype.ossindex.service.client.OssindexClient;
+import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
+import org.sonatype.ossindex.service.client.cache.DirectoryCache;
 import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
 import org.sonatype.ossindex.service.client.internal.VersionSupplier;
 import org.sonatype.ossindex.service.client.marshal.GsonMarshaller;
@@ -145,7 +147,14 @@ public class ComponentReportAssistant
     Transport transport = new HttpClientTransport(userAgent);
     Marshaller marshaller = new GsonMarshaller();
 
-    return new OssindexClientImpl(request.getClientConfiguration(), transport, marshaller);
+    OssindexClientConfiguration config = request.getClientConfiguration();
+
+    // maybe adapt cache
+    if (config.getCacheConfiguration() == null) {
+      config.setCacheConfiguration(new DirectoryCache.Configuration());
+    }
+
+    return new OssindexClientImpl(config, transport, marshaller);
   }
 
   /**
