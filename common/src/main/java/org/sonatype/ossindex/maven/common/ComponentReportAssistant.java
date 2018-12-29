@@ -149,6 +149,8 @@ public class ComponentReportAssistant
 
     OssindexClientConfiguration config = request.getClientConfiguration();
 
+    // TODO: allow cache to be disabled?  or select type from property?
+
     // maybe adapt cache
     if (config.getCacheConfiguration() == null) {
       config.setCacheConfiguration(new DirectoryCache.Configuration());
