@@ -12,6 +12,7 @@
  */
 package org.sonatype.ossindex.maven.common;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -149,11 +150,23 @@ public class ComponentReportAssistant
 
     OssindexClientConfiguration config = request.getClientConfiguration();
 
-    // TODO: allow cache to be disabled?  or select type from property?
+    // maybe disable persistent cache
+    boolean cacheDisabled = PropertyHelper.getBoolean(request.getProperties(), "ossindex.cache.disable", false);
+    if (cacheDisabled) {
+      // null will default to memory cache
+      config.setCacheConfiguration(null);
+    }
+    else if (config.getCacheConfiguration() == null) {
+      // if cache not otherwise configured, then prepare directory cache
+      DirectoryCache.Configuration cacheConfig = new DirectoryCache.Configuration();
 
-    // maybe adapt cache
-    if (config.getCacheConfiguration() == null) {
-      config.setCacheConfiguration(new DirectoryCache.Configuration());
+      // allow user to change the default location of the cache
+      File cacheDir = PropertyHelper.getFile(request.getProperties(), "ossindex.cache.directory");
+      if (cacheDir != null) {
+        cacheConfig.setBaseDir(cacheDir.toPath());
+      }
+
+      config.setCacheConfiguration(cacheConfig);
     }
 
     return new OssindexClientImpl(config, transport, marshaller);

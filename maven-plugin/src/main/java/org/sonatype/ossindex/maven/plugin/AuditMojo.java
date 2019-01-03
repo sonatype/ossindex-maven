@@ -25,6 +25,7 @@ import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.maven.common.PropertyHelper;
 import org.sonatype.ossindex.maven.common.Version;
 import org.sonatype.ossindex.maven.plugin.export.Exporter;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
@@ -230,6 +231,8 @@ public class AuditMojo
     maybeApplyProxy(clientConfiguration);
 
     ComponentReportRequest reportRequest = new ComponentReportRequest();
+    reportRequest.setProperties(PropertyHelper.merge(project.getProperties(), session.getUserProperties()));
+
     reportRequest.setProducts(ImmutableList.of(
         new Product("Maven", mavenVersion),
         new Product("Maven-Plugin", Version.get().getVersion())
