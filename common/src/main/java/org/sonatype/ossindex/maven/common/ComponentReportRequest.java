@@ -15,6 +15,7 @@ package org.sonatype.ossindex.maven.common;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -32,6 +33,9 @@ import org.apache.maven.artifact.Artifact;
 public class ComponentReportRequest
 {
   private OssindexClientConfiguration clientConfiguration;
+
+  @Nullable
+  private Properties properties;
 
   /**
    * Artifact (components) to analyze.
@@ -65,6 +69,21 @@ public class ComponentReportRequest
 
   public void setClientConfiguration(final OssindexClientConfiguration clientConfiguration) {
     this.clientConfiguration = clientConfiguration;
+  }
+
+  /**
+   * @since ???
+   */
+  @Nullable
+  public Properties getProperties() {
+    return properties;
+  }
+
+  /**
+   * @since ???
+   */
+  public void setProperties(@Nullable final Properties properties) {
+    this.properties = properties;
   }
 
   public Collection<Artifact> getComponents() {

@@ -12,6 +12,7 @@
  */
 package org.sonatype.ossindex.maven.common;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,15 +26,17 @@ import org.sonatype.goodies.packageurl.PackageUrl;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReport;
 import org.sonatype.ossindex.service.api.componentreport.ComponentReportVulnerability;
 import org.sonatype.ossindex.service.client.OssindexClient;
-import org.sonatype.ossindex.service.client.internal.GsonMarshaller;
+import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
+import org.sonatype.ossindex.service.client.cache.DirectoryCache;
 import org.sonatype.ossindex.service.client.internal.OssindexClientImpl;
 import org.sonatype.ossindex.service.client.internal.VersionSupplier;
-import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
+import org.sonatype.ossindex.service.client.marshal.GsonMarshaller;
+import org.sonatype.ossindex.service.client.marshal.Marshaller;
 import org.sonatype.ossindex.service.client.transport.HttpClientTransport;
-import org.sonatype.ossindex.service.client.transport.Marshaller;
 import org.sonatype.ossindex.service.client.transport.Transport;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
+import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.artifact.Artifact;
@@ -76,8 +79,8 @@ public class ComponentReportAssistant
     log.info("Exclude vulnerability identifiers: {}", request.getExcludeVulnerabilityIds());
     log.info("CVSS-score threshold: {}", request.getCvssScoreThreshold());
 
-    OssindexClient client = createClient(request);
     ComponentReportResult result = new ComponentReportResult();
+    OssindexClient client = createClient(request);
     try {
       Map<PackageUrl, ComponentReport> reports = client.requestComponentReports(new ArrayList<>(purlArtifacts.keySet()));
       log.trace("Fetched {} component-reports", reports.size());
@@ -96,6 +99,14 @@ public class ComponentReportAssistant
     }
     catch (Exception e) {
       log.warn("Failed to fetch component-reports", e);
+    }
+    finally {
+      try {
+        client.close();
+      }
+      catch (Exception e) {
+        log.warn("Failed to close client", e);
+      }
     }
 
     return result;
@@ -136,7 +147,29 @@ public class ComponentReportAssistant
     };
     Transport transport = new HttpClientTransport(userAgent);
     Marshaller marshaller = new GsonMarshaller();
-    return new OssindexClientImpl(request.getClientConfiguration(), transport, marshaller);
+
+    OssindexClientConfiguration config = request.getClientConfiguration();
+
+    // maybe disable persistent cache
+    boolean cacheDisabled = PropertyHelper.getBoolean(request.getProperties(), "ossindex.cache.disable", false);
+    if (cacheDisabled) {
+      // null will default to memory cache
+      config.setCacheConfiguration(null);
+    }
+    else if (config.getCacheConfiguration() == null) {
+      // if cache not otherwise configured, then prepare directory cache
+      DirectoryCache.Configuration cacheConfig = new DirectoryCache.Configuration();
+
+      // allow user to change the default location of the cache
+      File cacheDir = PropertyHelper.getFile(request.getProperties(), "ossindex.cache.directory");
+      if (cacheDir != null) {
+        cacheConfig.setBaseDir(cacheDir.toPath());
+      }
+
+      config.setCacheConfiguration(cacheConfig);
+    }
+
+    return new OssindexClientImpl(config, transport, marshaller);
   }
 
   /**

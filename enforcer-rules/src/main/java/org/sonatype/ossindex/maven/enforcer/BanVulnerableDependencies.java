@@ -12,6 +12,7 @@
  */
 package org.sonatype.ossindex.maven.enforcer;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,10 +24,11 @@ import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
 import org.sonatype.ossindex.maven.common.MavenCoordinates;
+import org.sonatype.ossindex.maven.common.PropertyHelper;
 import org.sonatype.ossindex.maven.common.Version;
-import org.sonatype.ossindex.service.client.AuthConfiguration;
+import org.sonatype.ossindex.service.client.transport.AuthConfiguration;
 import org.sonatype.ossindex.service.client.OssindexClientConfiguration;
-import org.sonatype.ossindex.service.client.ProxyConfiguration;
+import org.sonatype.ossindex.service.client.transport.ProxyConfiguration;
 import org.sonatype.ossindex.service.client.transport.UserAgentBuilder.Product;
 
 import com.google.common.base.Splitter;
@@ -68,6 +70,14 @@ public class BanVulnerableDependencies
   private float cvssScoreThreshold = 0;
 
   private Set<String> excludeVulnerabilityIds = new HashSet<>();
+
+  /**
+   * Report cache directory.
+   *
+   * @since ???
+   */
+  @Nullable
+  private File reportCacheDir;
 
   /**
    * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> client configuration.
@@ -196,6 +206,7 @@ public class BanVulnerableDependencies
       maybeApplyProxy(clientConfiguration);
 
       ComponentReportRequest reportRequest = new ComponentReportRequest();
+      reportRequest.setProperties(PropertyHelper.merge(project.getProperties(), session.getUserProperties()));
       reportRequest.setProducts(ImmutableList.of(
           new Product("Maven", mavenVersion),
           new Product("Enforcer-Rule", Version.get().getVersion())
