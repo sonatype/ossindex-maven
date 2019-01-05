@@ -74,7 +74,7 @@ public class BanVulnerableDependencies
   /**
    * Report cache directory.
    *
-   * @since ???
+   * @since 3.0.3
    */
   @Nullable
   private File reportCacheDir;

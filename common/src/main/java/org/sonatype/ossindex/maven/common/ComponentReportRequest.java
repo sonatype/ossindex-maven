@@ -72,7 +72,7 @@ public class ComponentReportRequest
   }
 
   /**
-   * @since ???
+   * @since 3.0.3
    */
   @Nullable
   public Properties getProperties() {
@@ -80,7 +80,7 @@ public class ComponentReportRequest
   }
 
   /**
-   * @since ???
+   * @since 3.0.3
    */
   public void setProperties(@Nullable final Properties properties) {
     this.properties = properties;

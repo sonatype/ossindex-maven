@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Property helper.
  *
- * @since ???
+ * @since 3.0.3
  */
 public class PropertyHelper
 {
