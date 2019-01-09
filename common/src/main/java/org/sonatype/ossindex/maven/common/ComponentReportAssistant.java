@@ -40,6 +40,7 @@ import org.sonatype.ossindex.service.client.transport.UserAgentSupplier;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.artifact.Artifact;
+import org.joda.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -164,6 +165,12 @@ public class ComponentReportAssistant
       File cacheDir = PropertyHelper.getFile(request.getProperties(), "ossindex.cache.directory");
       if (cacheDir != null) {
         cacheConfig.setBaseDir(cacheDir.toPath());
+      }
+
+      // allow user to change the default cache expiration
+      Duration expiration = PropertyHelper.getDuration(request.getProperties(), "ossindex.cache.expiration");
+      if (expiration != null) {
+        cacheConfig.setExpireAfter(expiration);
       }
 
       config.setCacheConfiguration(cacheConfig);

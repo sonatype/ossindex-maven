@@ -17,6 +17,7 @@ import java.util.Properties;
 
 import javax.annotation.Nullable;
 
+import org.joda.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,6 +78,25 @@ public class PropertyHelper
     String value = getString(properties, name);
     if (value != null) {
       return new File(value);
+    }
+    return null;
+  }
+
+  /**
+   * Get duration property.
+   *
+   * @since ???
+   */
+  @Nullable
+  public static Duration getDuration(final Properties properties, final String name) {
+    String value = getString(properties, name);
+    if (value != null) {
+      try {
+        return Duration.parse(value);
+      }
+      catch (IllegalArgumentException e) {
+        log.warn("Invalid duration property: {}={}", name, value);
+      }
     }
     return null;
   }
