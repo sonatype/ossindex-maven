@@ -89,13 +89,13 @@ public class ComponentReportAssistant
         PackageUrl purl = entry.getKey();
         Artifact artifact = purlArtifacts.get(purl);
         ComponentReport report = entry.getValue();
-        result.getReports().put(artifact, report);
 
         // FIXME: figure out why we have null values; this shouldn't normally happen
         if (report == null) {
           log.warn("Missing report for: {}", purl);
           continue;
         }
+        result.getReports().put(artifact, report);
 
         // filter and maybe record vulnerable mapping
         if (match(request, result, report)) {
