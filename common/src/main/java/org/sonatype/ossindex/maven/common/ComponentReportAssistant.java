@@ -91,6 +91,12 @@ public class ComponentReportAssistant
         ComponentReport report = entry.getValue();
         result.getReports().put(artifact, report);
 
+        // FIXME: figure out why we have null values; this shouldn't normally happen
+        if (report == null) {
+          log.warn("Missing report for: {}", purl);
+          continue;
+        }
+
         // filter and maybe record vulnerable mapping
         if (match(request, result, report)) {
           result.getVulnerable().put(artifact, report);
