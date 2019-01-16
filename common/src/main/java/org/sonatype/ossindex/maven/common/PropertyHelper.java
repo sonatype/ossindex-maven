@@ -85,7 +85,7 @@ public class PropertyHelper
   /**
    * Get duration property.
    *
-   * @since ???
+   * @since 3.0.4
    */
   @Nullable
   public static Duration getDuration(final Properties properties, final String name) {
