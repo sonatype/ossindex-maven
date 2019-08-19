@@ -21,6 +21,7 @@
     <groupId>org.sonatype.buildsupport</groupId>
     <artifactId>public-parent</artifactId>
     <version>13</version>
+    <relativePath/>
   </parent>
 
   <groupId>org.sonatype.ossindex.maven</groupId>
