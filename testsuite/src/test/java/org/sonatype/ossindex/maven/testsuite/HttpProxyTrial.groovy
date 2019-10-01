@@ -24,8 +24,7 @@ class HttpProxyTrial
         '-Dinvoker.test=*/http-proxy'
     ]
     overrides = [
-        // send requests to dev instance
-        'ossindex.baseUrl': 'http://10.20.5.63:8080/'
+        'ossindex.baseUrl': 'https://stage.ossindex.sonatype.org'
     ]
   }
 
