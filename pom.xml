@@ -112,11 +112,36 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- Guava 20.x is the latest which supports Java 1.7 -->
+      <!--
+        Starting with Guava 23.1 two flavors of the library are released:
+        the "-jre" and the "-android" flavor. The former is for usage in
+        any Java Project with a Java version of 8 or above while the latter
+        is not only for Android projects but for any project that requires
+        Java 7 compatibility.
+        For details see the Guava project wiki:
+        https://github.com/google/guava/wiki/ReleasePolicy
+       -->
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>20.0</version>
+        <version>28.1-android</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-annotations</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <!--
+        Guava 28.1-android has a dependency on animal-sniffer-annotations 1.18
+        which breaks the org.owasp.maven.enforcer.rule.ClassFileFormatRule
+        due to a too high JVM class file format, hence the manual override.
+       -->
+      <dependency>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-annotations</artifactId>
+        <version>1.17</version>
       </dependency>
 
       <dependency>
