@@ -21,6 +21,7 @@
     <groupId>org.sonatype.buildsupport</groupId>
     <artifactId>public-parent</artifactId>
     <version>13</version>
+    <relativePath/>
   </parent>
 
   <groupId>org.sonatype.ossindex.maven</groupId>
@@ -95,8 +96,8 @@
     <maven.compiler.target>1.7</maven.compiler.target>
 
     <apache-maven.version>3.0</apache-maven.version>
-    <jackson.version>2.9.8</jackson.version>
-    <dionysus.version>1.0.1</dionysus.version>
+    <jackson.version>2.9.10</jackson.version>
+    <dionysus.version>1.0.3-SNAPSHOT</dionysus.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
 

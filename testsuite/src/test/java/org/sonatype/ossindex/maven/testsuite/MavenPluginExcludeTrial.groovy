@@ -24,8 +24,7 @@ class MavenPluginExcludeTrial
         '-Dinvoker.test=maven-plugin/exclude-*'
     ]
     overrides = [
-        // send requests to dev instance
-        'ossindex.baseUrl': 'http://10.20.5.63:8080/'
+        'ossindex.baseUrl': 'https://stage.ossindex.sonatype.org'
     ]
   }
 }

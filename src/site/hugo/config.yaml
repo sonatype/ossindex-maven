@@ -1,7 +1,7 @@
 ---
 baseURL: https://sonatype.github.io/ossindex-maven/
 languageCode: en-us
-title: "Sonatype OSS Index: Maven"
+title: "OSS Index: Maven"
 theme: dionysus
 
 # Publish content to maven-standard-ish location for generated content

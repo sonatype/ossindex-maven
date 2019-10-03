@@ -12,36 +12,41 @@
  */
 package org.sonatype.ossindex.maven.plugin;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 
 import static org.apache.maven.plugins.annotations.ResolutionScope.TEST;
 
 /**
- * Vulnerability audit of project dependencies via
+ * Vulnerability audit of aggregate project dependencies via
  * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
  *
- * @since 3.0.0
+ * @since ???
  */
-@Mojo(name = "audit", requiresDependencyResolution = TEST)
-public class AuditMojo
+@Mojo(name = "audit-aggregate", requiresDependencyResolution = TEST, aggregator = true)
+public class AuditAggregateMojo
     extends AuditMojoSupport
 {
-  @Override
-  protected boolean isSkipped() {
-    if ("pom".equals(project.getPackaging())) {
-      getLog().info("Skipping; POM module");
-      return true;
-    }
-    return super.isSkipped();
-  }
+  @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
+  private List<MavenProject> reactorProjects;
 
   @Override
   protected Set<Artifact> resolveDependencies(final MavenSession session) throws DependencyGraphBuilderException {
-    return resolveDependencies(session, project);
+    Set<Artifact> dependencies = new HashSet<>();
+
+    for (MavenProject project : reactorProjects) {
+      Set<Artifact> resolved = resolveDependencies(session, project);
+      dependencies.addAll(resolved);
+    }
+
+    return dependencies;
   }
 }

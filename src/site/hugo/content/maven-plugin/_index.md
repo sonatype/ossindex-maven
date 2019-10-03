@@ -59,6 +59,12 @@ with a project:
 mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml
 {{< /command >}}
 
+Or run the [ossindex:audit-aggregate](ossindex-audit-aggregate/) goal:
+
+{{< command >}}
+mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit-aggregate -f pom.xml
+{{< /command >}}
+
 ## Goals
 
 Goals available for this plugin:
