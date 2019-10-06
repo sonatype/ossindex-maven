@@ -29,7 +29,7 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>pom</packaging>
 
-  <version>3.1.0</version>
+  <version>3.1.1-SNAPSHOT</version>
 
   <url>https://sonatype.github.io/ossindex-maven/</url>
 
@@ -229,19 +229,19 @@
       <dependency>
         <groupId>org.sonatype.ossindex.maven</groupId>
         <artifactId>ossindex-maven-common</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.sonatype.ossindex.maven</groupId>
         <artifactId>ossindex-maven-enforcer-rules</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.sonatype.ossindex.maven</groupId>
         <artifactId>ossindex-maven-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.1-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
