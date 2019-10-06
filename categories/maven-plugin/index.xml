@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Maven Plugin on Sonatype OSS Index: Maven</title>
+    <title>maven-plugin on OSS Index: Maven</title>
     <link>https://sonatype.github.io/ossindex-maven/categories/maven-plugin/</link>
-    <description>Recent content in Maven Plugin on Sonatype OSS Index: Maven</description>
+    <description>Recent content in maven-plugin on OSS Index: Maven</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
 	<atom:link href="https://sonatype.github.io/ossindex-maven/categories/maven-plugin/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Maven Plugin</title>
-      <link>https://sonatype.github.io/ossindex-maven/maven-plugin/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/</guid>
-      <description>Audit a project dependencies using Sonatype OSS Index.
- Requirements  Java 7+ (version 10 is NOT supported) Apache Maven 3.1+  POM execution Add an invocation of the ossindex:audit goal via POM execution:
-&amp;lt;build&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;executions&amp;gt; &amp;lt;execution&amp;gt; &amp;lt;id&amp;gt;audit-dependencies&amp;lt;/id&amp;gt; &amp;lt;phase&amp;gt;validate&amp;lt;/phase&amp;gt; &amp;lt;goals&amp;gt; &amp;lt;goal&amp;gt;audit&amp;lt;/goal&amp;gt; &amp;lt;/goals&amp;gt; &amp;lt;/execution&amp;gt; &amp;lt;/executions&amp;gt; &amp;lt;/plugin&amp;gt; &amp;lt;plugins&amp;gt; &amp;lt;/build&amp;gt; Command Line If you can not change the POM, run the ossindex:audit goal directly on the command-line with a project:</description>
-    </item>
     
     <item>
       <title>Maven Plugin: Excludes</title>
@@ -44,8 +33,7 @@ mvn ossindex:audit -Dossindex.excludeVulnerabilityIds=39d74cc8-457a-4e57-89ef-a2
       <description>The ossindex:audit can optionally record a report file which contains the details about the component reports that are used to determine if a dependency is vulnerable or not.
  To enable this feature configure the reportFile parameter to the location where the report will be written.
 &amp;lt;plugin&amp;gt; &amp;lt;groupId&amp;gt;org.sonatype.ossindex.maven&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;ossindex-maven-plugin&amp;lt;/artifactId&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;reportFile&amp;gt;${project.build.directory}/audit-report.json&amp;lt;/reportFile&amp;gt; &amp;lt;/configuration&amp;gt; &amp;lt;/plugin&amp;gt; or via CLI:
-mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json   
-Formats The file extension is used to inform which format the report will be written as.</description>
+mvn ossindex:audit -Dossindex.reportFile=target/audit-report.json    Formats The file extension is used to inform which format the report will be written as.</description>
     </item>
     
     <item>
@@ -57,7 +45,7 @@ Formats The file extension is used to inform which format the report will be wri
       <description>Execution may fail or produce warnings.
  By default ossindex:audit will cause BUILD FAILURE if any vulnerabilities are detected:
 Example build output:
-[INFO] --- ossindex-maven-plugin:3.0.0:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T12:54:10-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.</description>
+[INFO] --- ossindex-maven-plugin:3.0.0:audit (default-cli) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileuploadjar:1.3:compile [INFO] commons-iojar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [INFO] ------------------------------------------------------------------------ [INFO] BUILD FAILURE [INFO] ------------------------------------------------------------------------ [INFO] Total time: 1.491 s [INFO] Finished at: 2018-07-02T1210-07:00 [INFO] ------------------------------------------------------------------------ [ERROR] Failed to execute goal org.</description>
     </item>
     
     <item>
@@ -66,7 +54,7 @@ Example build output:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit/</guid>
-      <description>Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.0.4:audit Since 3.0.0 Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 13 parameters   Name Type Since Description      authId java.lang.String  Set client authentication from Maven settings server configuration.    baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.</description>
+      <description>Vulnerability audit of project dependencies via Sonatype OSS Index. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.1.0:audit Since 3.0.0 Requires Project true Requires Online false Requires Direct Invocation false Thread-safe false  Parameters 13 parameters   Name Type Since Description      authId java.lang.String  Set client authentication from Maven settings server configuration.    baseUrl java.net.URI  Override Sonatype OSS Index service base-URL.    clientConfiguration org.sonatype.ossindex.service.client.OssindexClientConfiguration  Sonatype OSS Index client configuration.</description>
     </item>
     
     <item>
@@ -76,7 +64,7 @@ Example build output:
       
       <guid>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</guid>
       <description>Display help information on ossindex-maven-plugin.
-Call mvn ossindex:help -Ddetail=true -Dgoal=&amp;lt;goal-name&amp;gt; to display parameter details. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.0.4:help Requires Project false Requires Online false Requires Direct Invocation false Thread-safe true  Parameters 4 parameters   Name Type Since Description      detail boolean  If true, display all settable properties for each goal.    goal java.lang.String  The name of the goal for which to show help.</description>
+Call mvn ossindex:help -Ddetail=true -Dgoal=&amp;lt;goal-name&amp;gt; to display parameter details. Full name org.sonatype.ossindex.maven:ossindex-maven-plugin:3.1.0:help Requires Project false Requires Online false Requires Direct Invocation false Thread-safe true  Parameters 4 parameters   Name Type Since Description      detail boolean  If true, display all settable properties for each goal.    goal java.lang.String  The name of the goal for which to show help.</description>
     </item>
     
   </channel>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Sonatype OSS Index: Maven</title>
+    <title>Tags on OSS Index: Maven</title>
     <link>https://sonatype.github.io/ossindex-maven/tags/</link>
-    <description>Recent content in Tags on Sonatype OSS Index: Maven</description>
+    <description>Recent content in Tags on OSS Index: Maven</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -11,7 +11,7 @@
     
     
     <item>
-      <title>Ossindex Maven Enforcer Rules</title>
+      <title>ossindex-maven-enforcer-rules</title>
       <link>https://sonatype.github.io/ossindex-maven/tags/ossindex-maven-enforcer-rules/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -20,7 +20,7 @@
     </item>
     
     <item>
-      <title>Ossindex Maven Plugin</title>
+      <title>ossindex-maven-plugin</title>
       <link>https://sonatype.github.io/ossindex-maven/tags/ossindex-maven-plugin/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

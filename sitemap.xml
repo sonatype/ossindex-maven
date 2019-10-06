@@ -15,11 +15,6 @@
   </url>
   
   <url>
-    <loc>https://sonatype.github.io/ossindex-maven/categories/enforcer-rules/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://sonatype.github.io/ossindex-maven/enforcer-rules/</loc>
   </url>
   
@@ -32,17 +27,15 @@
   </url>
   
   <url>
+    <loc>https://sonatype.github.io/ossindex-maven/categories/enforcer-rules/</loc>
+  </url>
+  
+  <url>
     <loc>https://sonatype.github.io/ossindex-maven/license/</loc>
   </url>
   
   <url>
     <loc>https://sonatype.github.io/ossindex-maven/categories/maven/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://sonatype.github.io/ossindex-maven/categories/maven-plugin/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -62,13 +55,27 @@
   </url>
   
   <url>
+    <loc>https://sonatype.github.io/ossindex-maven/categories/maven-plugin/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/</loc>
+  </url>
+  
+  <url>
     <loc>https://sonatype.github.io/ossindex-maven/tags/ossindex-maven-enforcer-rules/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://sonatype.github.io/ossindex-maven/tags/ossindex-maven-plugin/</loc>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit/</loc>
+  </url>
+  
+  <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</loc>
   </url>
   
   <url>
@@ -78,18 +85,6 @@
   
   <url>
     <loc>https://sonatype.github.io/ossindex-maven/tags/</loc>
-  </url>
-  
-  <url>
-    <loc>https://sonatype.github.io/ossindex-maven/</loc>
-  </url>
-  
-  <url>
-    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit/</loc>
-  </url>
-  
-  <url>
-    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</loc>
   </url>
   
 </urlset>

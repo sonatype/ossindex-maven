@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Enforcer Rules on Sonatype OSS Index: Maven</title>
+    <title>Enforcer Rules on OSS Index: Maven</title>
     <link>https://sonatype.github.io/ossindex-maven/enforcer-rules/</link>
-    <description>Recent content in Enforcer Rules on Sonatype OSS Index: Maven</description>
+    <description>Recent content in Enforcer Rules on OSS Index: Maven</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -34,7 +34,7 @@ For example to exclude commons-fileupload:commons-fileupload:1.3:
       <description>Rules may fail or produce warnings.
  By default BanVulnerableDependencies will cause failures will cause BUILD FAILURE if any vulnerabilities are detected.
 Example build output:
-[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileupload:commons-fileupload:jar:1.3:compile [INFO] commons-io:commons-io:jar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [WARNING] Rule 0: org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies failed with message: Detected 1 vulnerable components: commons-fileupload:commons-fileupload:jar:1.3:compile; https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3 * [CVE-2014-0050] Permissions, Privileges, and Access Controls (7.</description>
+[INFO] --- maven-enforcer-plugin:3.0.0-M1:enforce (checks) @ vulnerable-fail --- [INFO] Checking for vulnerabilities: [INFO] commons-fileuploadjar:1.3:compile [INFO] commons-iojar:2.2:compile [INFO] Exclude coordinates: [] [INFO] Exclude vulnerability identifiers: [] [INFO] CVSS-score threshold: 0.0 [WARNING] Rule 0: org.sonatype.ossindex.maven.enforcer.BanVulnerableDependencies failed with message: Detected 1 vulnerable components: commons-fileuploadjar:1.3:compile; https://ossindex.sonatype.org/component/maven:commons-fileupload/commons-fileupload@1.3 * [CVE-2014-0050] Permissions, Privileges, and Access Controls (7.</description>
     </item>
     
   </channel>
