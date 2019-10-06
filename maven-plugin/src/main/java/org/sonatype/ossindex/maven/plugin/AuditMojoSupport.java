@@ -60,7 +60,7 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 /**
  * Support for vulnerability auditing {@link Mojo}.
  *
- * @since ???
+ * @since 3.1.0
  */
 public abstract class AuditMojoSupport
     extends AbstractMojo

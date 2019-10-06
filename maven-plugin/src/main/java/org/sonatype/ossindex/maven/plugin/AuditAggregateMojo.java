@@ -29,7 +29,7 @@ import static org.apache.maven.plugins.annotations.ResolutionScope.TEST;
  * Vulnerability audit of aggregate project dependencies via
  * <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
  *
- * @since ???
+ * @since 3.1.0
  */
 @Mojo(name = "audit-aggregate", requiresDependencyResolution = TEST, aggregator = true)
 public class AuditAggregateMojo
