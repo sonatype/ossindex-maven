@@ -113,11 +113,19 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- Guava 20.x is the latest which supports Java 1.7 -->
+      <!--
+      Using "android" flavor for Java-7 compatibility; https://github.com/google/guava/wiki/Compatibility#older-jdks
+      -->
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>20.0</version>
+        <version>28.1-android</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-annotations</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <dependency>
