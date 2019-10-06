@@ -97,7 +97,7 @@
 
     <apache-maven.version>3.0</apache-maven.version>
     <jackson.version>2.9.10</jackson.version>
-    <dionysus.version>1.0.3-SNAPSHOT</dionysus.version>
+    <dionysus.version>1.0.3</dionysus.version>
 
     <ossindex.baseUrl>https://ossindex.sonatype.org</ossindex.baseUrl>
 
