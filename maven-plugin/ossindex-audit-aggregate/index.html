@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html id="site-root" lang="en-us">
+<head>
+  
+<meta charset="UTF-8"/>
+<meta name="author" content="Sonatype, Inc."/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>ossindex:audit-aggregate &ndash; OSS Index: Maven</title>
+
+<link rel="shortcut icon" href="/ossindex-maven/favicon.ico">
+<link rel="icon" type="image/x-icon" href="/ossindex-maven/favicon.ico"/>
+<link rel="icon" type="image/png" href="/ossindex-maven/images/favicon.png" sizes="16x16"/>
+<link rel="icon" type="image/png" href="/ossindex-maven/images/favicon.png" sizes="32x32"/>
+
+<link rel="stylesheet" href="/ossindex-maven/theme.css">
+
+
+  
+  <script>
+    var site_BaseURL = "https:\/\/sonatype.github.io\/ossindex-maven\/";
+    var site_BasePath = "\/ossindex-maven";
+  </script>
+
+  
+</head>
+<body id="site-body">
+  <wrapper id="site-wrapper">
+    
+<header id="site-header">
+  <nav id="site-topnav">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/ossindex-maven/">
+        <img class="d-inline-block" src="/ossindex-maven/images/sonatype-brand-dark.png" height="24" alt="Sonatype">
+        <span class="navbar-brand-app-name align-left ml-2">OSS Index: Maven</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar-toggle">
+        <ul class="navbar-nav mr-auto">
+          
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="/ossindex-maven/maven-plugin/" title="Maven Plugin">Maven Plugin</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/ossindex-maven/enforcer-rules/" title="Enforcer Rules">Enforcer Rules</a>
+            </li>
+          
+        </ul>
+
+        <form class="form-inline d-flex flex-nowrap" action="https://sonatype.github.io/ossindex-maven/search" method="get">
+          <div class="input-group" data-toggle="tooltip" data-placement="bottom" title="Search">
+            <input class="form-control border-right-0 border-dark bg-dark text-light" type="search" name="q"
+                   placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-secondary" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+    <main id="site-content">
+      
+<div id="page-description">
+  <h1 class="title"><i class="fas fa-bullseye"></i> ossindex:audit-aggregate</h1>
+  
+</div>
+
+
+
+
+
+
+<div class="mavenplugin-goal">
+  
+  <p class="goal-description">
+    Vulnerability audit of aggregate project dependencies via <a
+href="https://ossindex.sonatype.org/">Sonatype OSS Index</a>.
+  </p>
+  
+
+  <dl class="goal-metadata">
+    <dt class="name">Full name</dt>
+    <dd class="value monospace">org.sonatype.ossindex.maven:ossindex-maven-plugin:3.1.0:audit-aggregate</dd>
+
+    
+    <dt class="name">Since</dt>
+    <dd class="value monospace">3.1.0</dd>
+    
+
+    
+
+    <dt class="name">Requires Project</dt>
+    <dd class="value monospace">true</dd>
+
+    <dt class="name">Requires Online</dt>
+    <dd class="value monospace">false</dd>
+
+    <dt class="name">Requires Direct Invocation</dt>
+    <dd class="value monospace">false</dd>
+
+    <dt class="name">Thread-safe</dt>
+    <dd class="value monospace">false</dd>
+  </dl>
+
+  <h3>Parameters</h3>
+
+  
+  <table class="parameters-table">
+    <caption>13 parameters</caption>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Since</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td class="name"><a href="#authId"><i class="fas fa-code"></i> authId</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set client authentication from Maven settings server configuration.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#baseUrl"><i class="fas fa-code"></i> baseUrl</a></td>
+        <td class="type">java.net.URI</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Override <a href="https://ossindex.sonatype.org/">Sonatype OSS
+Index</a> service base-URL.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#clientConfiguration"><i class="fas fa-code"></i> clientConfiguration</a></td>
+        <td class="type">org.sonatype.ossindex.service.client.OssindexClientConfiguration</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description"><a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> <a
+href="https://sonatype.github.io/ossindex-public/maven/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html">client
+configuration</a>.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#cvssScoreThreshold"><i class="fas fa-code"></i> cvssScoreThreshold</a></td>
+        <td class="type">float</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">CVSS-score threshold. Vulnerabilities with lower scores will be
+excluded.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#excludeCoordinates"><i class="fas fa-code"></i> excludeCoordinates</a></td>
+        <td class="type">java.util.Set</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set of coordinates to exclude from vulnerability matching.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#excludeCoordinatesCsv"><i class="fas fa-code"></i> excludeCoordinatesCsv</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set <code>excludeCoordinates</code> from a comma-separated list.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#excludeVulnerabilityIds"><i class="fas fa-code"></i> excludeVulnerabilityIds</a></td>
+        <td class="type">java.util.Set</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS
+Index</a> vulnerability identifiers to exclude from matching.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#excludeVulnerabilityIdsCsv"><i class="fas fa-code"></i> excludeVulnerabilityIdsCsv</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Set <code>excludeVulnerabilityIds</code> from a comma-separated
+list.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#fail"><i class="fas fa-code"></i> fail</a></td>
+        <td class="type">boolean</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">When vulnerable components are found; fail the build.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#reportFile"><i class="fas fa-code"></i> reportFile</a></td>
+        <td class="type">java.io.File</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Export component-report to file. Supports <code>.json</code>,
+<code>.xml</code> and <code>.txt</code> extensions.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#scope"><i class="fas fa-code"></i> scope</a></td>
+        <td class="type">java.lang.String</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Limit scope of dependency resolution.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#skip"><i class="fas fa-code"></i> skip</a></td>
+        <td class="type">boolean</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Skip execution.</td>
+      </tr>
+      
+      <tr>
+        <td class="name"><a href="#transitive"><i class="fas fa-code"></i> transitive</a></td>
+        <td class="type">boolean</td>
+        <td class="since"><i class="missing-data"></i></td>
+        <td class="description">Include transitive dependencies.</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="authId"></a>
+    <h4><i class="fas fa-code"></i> authId</h4>
+
+    
+    <p class="parameter-description">
+      Set client authentication from Maven settings server configuration.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.lang.String</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.authId}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="baseUrl"></a>
+    <h4><i class="fas fa-code"></i> baseUrl</h4>
+
+    
+    <p class="parameter-description">
+      Override <a href="https://ossindex.sonatype.org/">Sonatype OSS
+Index</a> service base-URL.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.net.URI</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.baseUrl}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="clientConfiguration"></a>
+    <h4><i class="fas fa-code"></i> clientConfiguration</h4>
+
+    
+    <p class="parameter-description">
+      <a href="https://ossindex.sonatype.org/">Sonatype OSS Index</a> <a
+href="https://sonatype.github.io/ossindex-public/maven/apidocs/org/sonatype/ossindex/service/client/OssindexClientConfiguration.html">client
+configuration</a>.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">org.sonatype.ossindex.service.client.OssindexClientConfiguration</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="cvssScoreThreshold"></a>
+    <h4><i class="fas fa-code"></i> cvssScoreThreshold</h4>
+
+    
+    <p class="parameter-description">
+      CVSS-score threshold. Vulnerabilities with lower scores will be
+excluded.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">float</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+      <dt class="name">Default Value</dt>
+      <dd class="value monospace">0</dd>
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.cvssScoreThreshold}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="excludeCoordinates"></a>
+    <h4><i class="fas fa-code"></i> excludeCoordinates</h4>
+
+    
+    <p class="parameter-description">
+      Set of coordinates to exclude from vulnerability matching.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.util.Set</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="excludeCoordinatesCsv"></a>
+    <h4><i class="fas fa-code"></i> excludeCoordinatesCsv</h4>
+
+    
+    <p class="parameter-description">
+      Set <code>excludeCoordinates</code> from a comma-separated list.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.lang.String</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.excludeCoordinates}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="excludeVulnerabilityIds"></a>
+    <h4><i class="fas fa-code"></i> excludeVulnerabilityIds</h4>
+
+    
+    <p class="parameter-description">
+      Set of <a href="https://ossindex.sonatype.org/">Sonatype OSS
+Index</a> vulnerability identifiers to exclude from matching.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.util.Set</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="excludeVulnerabilityIdsCsv"></a>
+    <h4><i class="fas fa-code"></i> excludeVulnerabilityIdsCsv</h4>
+
+    
+    <p class="parameter-description">
+      Set <code>excludeVulnerabilityIds</code> from a comma-separated
+list.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.lang.String</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.excludeVulnerabilityIds}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="fail"></a>
+    <h4><i class="fas fa-code"></i> fail</h4>
+
+    
+    <p class="parameter-description">
+      When vulnerable components are found; fail the build.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">boolean</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+      <dt class="name">Default Value</dt>
+      <dd class="value monospace">true</dd>
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.fail}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="reportFile"></a>
+    <h4><i class="fas fa-code"></i> reportFile</h4>
+
+    
+    <p class="parameter-description">
+      Export component-report to file. Supports <code>.json</code>,
+<code>.xml</code> and <code>.txt</code> extensions.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.io.File</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.reportFile}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="scope"></a>
+    <h4><i class="fas fa-code"></i> scope</h4>
+
+    
+    <p class="parameter-description">
+      Limit scope of dependency resolution.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">java.lang.String</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.scope}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="skip"></a>
+    <h4><i class="fas fa-code"></i> skip</h4>
+
+    
+    <p class="parameter-description">
+      Skip execution.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">boolean</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+      <dt class="name">Default Value</dt>
+      <dd class="value monospace">false</dd>
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.skip}</dd>
+      
+    </dl>
+  </div>
+  
+  
+  <div class="parameter-detail">
+    <a class="anchor" name="transitive"></a>
+    <h4><i class="fas fa-code"></i> transitive</h4>
+
+    
+    <p class="parameter-description">
+      Include transitive dependencies.
+    </p>
+    
+
+    <dl class="parameter-metadata">
+      <dt class="name">Type</dt>
+      <dd class="value monospace">boolean</dd>
+
+      
+
+      <dt class="name">Required</dt>
+      <dd class="value monospace">false</dd>
+
+      
+      <dt class="name">Default Value</dt>
+      <dd class="value monospace">true</dd>
+      
+
+      
+      <dt class="name">User Property</dt>
+      <dd class="value monospace">${ossindex.transitive}</dd>
+      
+    </dl>
+  </div>
+  
+</div>
+
+
+
+
+    </main>
+    
+<footer id="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="section-brand">
+        <h5 class="section-title">
+          <a href="https://sonatype.com"><img src="/ossindex-maven/images/sonatype-brand.svg" height="24" alt=""></a>
+        </h5>
+        <small class="section-entry">&copy; 2018-present, Sonatype Inc.</small>
+      </div>
+
+      
+        <div class="section">
+          <h5 class="section-title">About</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/ossindex-maven/about/">
+              
+              OSS Index: Maven</a></li>
+            
+            <li><a class="section-entry" href="/ossindex-maven/development/">
+              
+              Development</a></li>
+            
+          </ul>
+        </div>
+      
+        <div class="section">
+          <h5 class="section-title">Resources</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/ossindex-maven/categories/">
+              
+              Categories</a></li>
+            
+            <li><a class="section-entry" href="/ossindex-maven/tags/">
+              
+              Tags</a></li>
+            
+          </ul>
+        </div>
+      
+        <div class="section">
+          <h5 class="section-title">Legal</h5>
+          <ul class="section-list">
+            
+            <li><a class="section-entry" href="/ossindex-maven/license/">
+              
+              License</a></li>
+            
+          </ul>
+        </div>
+      
+    </div>
+  </div>
+</footer>
+    
+<script src="/ossindex-maven/theme.js"></script>
+  </wrapper>
+</body>
+</html>

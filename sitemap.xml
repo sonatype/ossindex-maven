@@ -75,6 +75,10 @@
   </url>
   
   <url>
+    <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-audit-aggregate/</loc>
+  </url>
+  
+  <url>
     <loc>https://sonatype.github.io/ossindex-maven/maven-plugin/ossindex-help/</loc>
   </url>
   

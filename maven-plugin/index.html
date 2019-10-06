@@ -123,10 +123,12 @@
 <p>If you can not change the POM, run the <a href="ossindex-audit/">ossindex:audit</a> goal directly on the command-line
 with a project:</p>
 
+
+
 <div class="command">
   <div class="body">
     <pre class="text">
-mvn org.sonatype.ossindex.mavenaudit -f pom.xml
+mvn org.sonatype.ossindex.maven&colon;ossindex-maven-plugin&colon;audit -f pom.xml
 </pre>
   </div>
 </div>
@@ -136,7 +138,7 @@ mvn org.sonatype.ossindex.mavenaudit -f pom.xml
 <div class="command">
   <div class="body">
     <pre class="text">
-mvn org.sonatype.ossindex.mavenaudit-aggregate -f pom.xml
+mvn org.sonatype.ossindex.maven&colon;ossindex-maven-plugin&colon;audit-aggregate -f pom.xml
 </pre>
   </div>
 </div>
@@ -267,6 +269,16 @@ Call <code>mvn ossindex:help -Ddetail=true
     </td>
     <td class="title">
       <a href="/ossindex-maven/maven-plugin/ossindex-audit/">ossindex:audit</a>
+      
+    </td>
+  </tr>
+  
+  <tr>
+    <td class="glyph">
+      <i class="fas fa-bullseye"></i>
+    </td>
+    <td class="title">
+      <a href="/ossindex-maven/maven-plugin/ossindex-audit-aggregate/">ossindex:audit-aggregate</a>
       
     </td>
   </tr>
