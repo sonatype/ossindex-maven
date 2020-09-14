@@ -28,7 +28,7 @@
   <packaging>jar</packaging>
 
   <properties>
-    <apache-ant.version>1.9.9</apache-ant.version>
+    <apache-ant.version>1.10.8</apache-ant.version>
   </properties>
 
   <dependencies>
