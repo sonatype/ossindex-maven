@@ -12,9 +12,12 @@
  */
 package org.sonatype.ossindex.maven.testsuite
 
+import org.junit.Ignore
+
 /**
  * Maven 3.1 testsuite.
  */
+@Ignore("Maven 3.1.x is not supported")
 class Maven31IT
     extends TestsuiteSupport
 {
