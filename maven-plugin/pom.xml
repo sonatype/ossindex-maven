@@ -26,7 +26,8 @@
   <artifactId>ossindex-maven-plugin</artifactId>
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>maven-plugin</packaging>
-
+  <url>https://sonatype.github.io/ossindex-maven/maven-plugin/</url>
+    
   <dependencies>
     <dependency>
       <groupId>org.sonatype.ossindex.maven</groupId>
