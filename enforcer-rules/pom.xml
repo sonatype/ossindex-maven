@@ -27,11 +27,6 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
-  <properties>
-    <!-- maven-enforcer-plugin relies on older maven implementations -->
-    <apache-maven.version>3.0</apache-maven.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.sonatype.ossindex.maven</groupId>
