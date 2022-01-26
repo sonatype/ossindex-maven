@@ -122,7 +122,7 @@ class ComponentReportAssistantTest
   }
 
   @Test
-  void 'inclusion matching; no vulnerabilities'() {
+  void 'inclusion matching, no vulnerabilities'() {
     def request = new ComponentReportRequest()
     def result = new ComponentReportResult()
     def report = new ComponentReport(
@@ -134,7 +134,7 @@ class ComponentReportAssistantTest
   }
 
   @Test
-  void 'inclusion matching; exclude by id'() {
+  void 'inclusion matching, exclude by id'() {
     def request = new ComponentReportRequest()
     def result = new ComponentReportResult()
 
@@ -165,7 +165,7 @@ class ComponentReportAssistantTest
   }
 
   @Test
-  void 'inclusion matching; exclude by cvss score'() {
+  void 'inclusion matching, exclude by cvss score'() {
     def request = new ComponentReportRequest()
     def result = new ComponentReportResult()
 
@@ -193,7 +193,7 @@ class ComponentReportAssistantTest
   }
 
   @Test
-  void 'inclusion matching; exclude by coordinates'() {
+  void 'inclusion matching, exclude by coordinates'() {
     def request = new ComponentReportRequest()
     def result = new ComponentReportResult()
 
