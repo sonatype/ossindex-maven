@@ -31,7 +31,7 @@ For information on how to use the integrations see the project documentation:
 ### Requirements
 
 * [Apache Maven](https://maven.apache.org/) 3.3+ (prefer to use included `mvnw`)
-* JDK 7+ (10 is **NOT** supported)
+* JDK 8+ (10 is **NOT** supported)
 
 ### Build
 

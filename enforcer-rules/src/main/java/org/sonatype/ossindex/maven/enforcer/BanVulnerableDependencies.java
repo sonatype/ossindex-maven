@@ -20,6 +20,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.maven.project.DefaultProjectBuildingRequest;
+import org.apache.maven.project.ProjectBuildingRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportAssistant;
 import org.sonatype.ossindex.maven.common.ComponentReportRequest;
 import org.sonatype.ossindex.maven.common.ComponentReportResult;
@@ -312,7 +314,11 @@ public class BanVulnerableDependencies
         artifactFilter = new CumulativeScopeArtifactFilter(scopes);
       }
 
-      DependencyNode node = graphBuilder.buildDependencyGraph(project, artifactFilter);
+      ProjectBuildingRequest buildingRequest =
+              new DefaultProjectBuildingRequest( session.getProjectBuildingRequest() );
+      buildingRequest.setProject( project );
+
+      DependencyNode node = graphBuilder.buildDependencyGraph(buildingRequest, artifactFilter);
       collectArtifacts(result, node);
 
       return result;

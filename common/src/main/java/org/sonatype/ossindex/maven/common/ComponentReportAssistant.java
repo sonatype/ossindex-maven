@@ -124,7 +124,7 @@ public class ComponentReportAssistant
    */
   @VisibleForTesting
   static PackageUrl packageUrl(final Artifact artifact) {
-    return new PackageUrl.Builder()
+    return PackageUrl.builder()
         .type("maven")
         .namespace(artifact.getGroupId())
         .name(artifact.getArtifactId())
