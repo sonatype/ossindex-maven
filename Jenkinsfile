@@ -11,5 +11,5 @@ mavenPipeline(
     nexusPolicyEvaluation iqStage: stage, iqApplication: 'ossindex-maven',
       iqScanPatterns: [[scanPattern: 'no-such-path/*']]
   },
-  testResults: [ '**/target/*-reports/*.xml', '**/target/it-workspace/**/build.log' ]
+  testResults: [ '**/target/*-reports/*.xml' ]
 )
