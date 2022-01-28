@@ -1,6 +1,6 @@
 String jdkVersion = 'Java 8'
 
-String mavenVersion = 'Maven 3.3.x'
+String mavenVersion = 'Maven 3.5.x'
 String mavenSettings = 'public-settings.xml'
 String mavenRepo = '.repo'
 String mavenOptions = '-V -B -e'
@@ -61,7 +61,7 @@ pipeline {
 
     stage('Evaluate Policy') {
       steps {
-        nexusPolicyEvaluation iqApplication: 'oss-index-website', iqStage: 'build',
+        nexusPolicyEvaluation iqApplication: 'ossindex-maven', iqStage: 'build',
             // HACK: bogus path here to only scan indexed modules
             iqScanPatterns: [[scanPattern: 'no-such-path/*']]
       }

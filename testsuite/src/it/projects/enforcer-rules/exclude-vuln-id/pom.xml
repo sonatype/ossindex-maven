@@ -45,7 +45,7 @@
                     <baseUrl>@ossindex.baseUrl@</baseUrl>
                   </clientConfiguration>
                   <excludeVulnerabilityIds>
-                    <vulnerabilityId>f20ae256-036e-4b0b-a2b1-ef80d904b245</vulnerabilityId>
+                    <vulnerabilityId>43e6c5a5-b586-4b31-9244-b62b6e36f2d0</vulnerabilityId>
                   </excludeVulnerabilityIds>
                 </banVunerableDependencies>
               </rules>

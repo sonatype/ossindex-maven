@@ -85,7 +85,7 @@ abstract class TestsuiteSupport
     // argument properties
     env.putAll([
         'apache-maven-invoker.version' : '3.1.0',
-        'apache-maven-enforcer.version': '3.0.0-M1',
+        'apache-maven-enforcer.version': '3.0.0',
         'http-proxy.port': proxy.port,
         'workspace.basedir': workspace.absolutePath
     ])
