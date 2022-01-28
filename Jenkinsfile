@@ -6,7 +6,7 @@ String mavenRepo = '.repo'
 String mavenOptions = '-V -B -e'
 String buildOptions = '-Dit -Dbuild.notes="b:${BRANCH_NAME}, j:${JOB_NAME}, n:#${BUILD_NUMBER}"'
 
-String deployBranch = 'master'
+String deployBranch = 'main'
 
 pipeline {
   options {
