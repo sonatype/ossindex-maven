@@ -95,7 +95,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
 
-    <apache-maven.version>3.8.4</apache-maven.version>
+    <apache-maven.version>3.6.3</apache-maven.version>
     <maven.plugin-annotations.version>3.6.4</maven.plugin-annotations.version>
     <jackson.version>2.9.10</jackson.version>
     <dionysus.version>1.0.3</dionysus.version>
