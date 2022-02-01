@@ -7,5 +7,9 @@ mavenPipeline(
   usePublicSettingsXmlFile: true,
   useEventSpy: false,
   runFeatureBranchPolicyEvaluations: true,
+  iqPolicyEvaluation: { stage ->
+    nexusPolicyEvaluation iqStage: stage, iqApplication: 'ossindex-maven',
+      iqScanPatterns: [[scanPattern: 'no-such-path/*']]
+  },
   testResults: [ '**/target/*-reports/*.xml' ]
 )
