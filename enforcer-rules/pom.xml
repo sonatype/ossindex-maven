@@ -27,6 +27,8 @@
   <name>${project.groupId}:${project.artifactId}</name>
   <packaging>jar</packaging>
 
+  <url>https://sonatype.github.io/ossindex-maven/enforcer-rules/</url>
+
   <dependencies>
     <dependency>
       <groupId>org.sonatype.ossindex.maven</groupId>
