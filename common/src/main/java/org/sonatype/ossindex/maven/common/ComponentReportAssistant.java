@@ -200,7 +200,7 @@ public class ComponentReportAssistant
     // do not include if component coordinates are excluded
     MavenCoordinates coordinates = MavenCoordinates.from(report.getCoordinates());
     if (request.getExcludeCoordinates().contains(coordinates)) {
-      log.warn("Excluding coordinates: {}", coordinates);
+      log.debug("Excluding coordinates: {}", coordinates);
       result.getExcludedCoordinates().add(coordinates);
       return false;
     }
@@ -219,12 +219,12 @@ public class ComponentReportAssistant
           include = true;
         }
         else {
-          log.warn("Excluding CVSS-score: {}", cvssScore);
+          log.debug("Excluding CVSS-score: {}", cvssScore);
         }
       }
 
       if (excludeVulnerabilityIds.contains(vulnerability.getId())) {
-        log.warn("Excluding vulnerability ID: {}", vulnerability.getId());
+        log.debug("Excluding vulnerability ID: {}", vulnerability.getId());
         include = false;
       }
 
