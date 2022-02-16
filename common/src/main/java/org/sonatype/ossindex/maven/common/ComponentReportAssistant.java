@@ -68,17 +68,20 @@ public class ComponentReportAssistant
     checkState(request.getClientConfiguration() != null, "Missing: client-configuration");
 
     log.info("Checking for vulnerabilities; {} artifacts", request.getComponents().size());
+    log.info("Exclude coordinates: {}", request.getExcludeCoordinates());
+    log.info("Exclude vulnerability identifiers: {}", request.getExcludeVulnerabilityIds());
+    log.info("CVSS-score threshold: {}", request.getCvssScoreThreshold());
 
     // generate package-url and map back to artifacts for result handling
     Map<PackageUrl, Artifact> purlArtifacts = new HashMap<>();
     for (Artifact artifact : request.getComponents()) {
-      log.debug("  {}", artifact);
-      purlArtifacts.put(packageUrl(artifact), artifact);
+      // only include artifacts that have not been configured for exclusion
+      boolean exclude = MavenCoordinates.isExcluded(request.getExcludeCoordinates(), artifact);
+      log.debug("{}: {}", exclude ? "Exclude" : "Include", artifact);
+      if (!exclude) {
+        purlArtifacts.put(packageUrl(artifact), artifact);
+      }
     }
-
-    log.info("Exclude coordinates: {}", request.getExcludeCoordinates());
-    log.info("Exclude vulnerability identifiers: {}", request.getExcludeVulnerabilityIds());
-    log.info("CVSS-score threshold: {}", request.getCvssScoreThreshold());
 
     ComponentReportResult result = new ComponentReportResult();
     OssindexClient client = createClient(request);
@@ -197,13 +200,14 @@ public class ComponentReportAssistant
       return false;
     }
 
-    // do not include if component coordinates are excluded
-    MavenCoordinates coordinates = MavenCoordinates.from(report.getCoordinates());
-    if (request.getExcludeCoordinates().contains(coordinates)) {
-      log.debug("Excluding coordinates: {}", coordinates);
-      result.getExcludedCoordinates().add(coordinates);
-      return false;
-    }
+// FIXME: this should not longer be applicable; report however may need to bridge request exclusions
+//    // do not include if component coordinates are excluded
+//    MavenCoordinates coordinates = MavenCoordinates.from(report.getCoordinates());
+//    if (request.getExcludeCoordinates().contains(coordinates)) {
+//      log.debug("Excluding coordinates: {}", coordinates);
+//      result.getExcludedCoordinates().add(coordinates);
+//      return false;
+//    }
 
     // else check each vulnerability for matches
     int matched = 0;
