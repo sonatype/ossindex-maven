@@ -15,11 +15,14 @@ package org.sonatype.ossindex.maven.common;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.handler.ArtifactHandler;
 import org.sonatype.goodies.packageurl.PackageUrl;
 
 import com.google.common.base.Splitter;
@@ -165,6 +168,35 @@ public class MavenCoordinates
    */
   static MavenCoordinates from(final PackageUrl purl) {
     return new MavenCoordinates(purl.getNamespaceAsString(), purl.getName(), purl.getVersion());
+  }
+
+  /**
+   * Convert {@link Artifact} to {@link MavenCoordinates}.
+   */
+  static MavenCoordinates from(final Artifact artifact, final boolean withClassifierAndExtension) {
+    if (withClassifierAndExtension) {
+      ArtifactHandler handler = artifact.getArtifactHandler();
+      String extension = handler.getExtension();
+      return new MavenCoordinates(
+              artifact.getGroupId(),
+              artifact.getArtifactId(),
+              artifact.getVersion(),
+              artifact.getClassifier(),
+              extension
+      );
+    }
+    else {
+      return new MavenCoordinates(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
+    }
+  }
+
+  //
+  // Helpers
+  //
+
+  static boolean isExcluded(final Set<MavenCoordinates> excluded, final Artifact artifact) {
+    return excluded.contains(from(artifact, false)) ||
+            excluded.contains(from(artifact, true));
   }
 
   //
