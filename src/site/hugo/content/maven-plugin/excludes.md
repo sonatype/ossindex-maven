@@ -22,7 +22,7 @@ In those cases audit can be configured to *exclude* vulnerabilities from matchin
 
 ## Exclude Specific Vulnerabilities
 
-Specific vulnerabilities can be excluded by *vulnerability-id*.
+Specific vulnerabilities can be excluded by *vulnerability-id*. You can also use the [CVE Number](https://cve.mitre.org/cve/identifiers/index.html) here.
 
 For example to exclude [39d74cc8-457a-4e57-89ef-a258420138c5](https://ossindex.sonatype.org/vuln/39d74cc8-457a-4e57-89ef-a258420138c5):
 
@@ -33,6 +33,20 @@ For example to exclude [39d74cc8-457a-4e57-89ef-a258420138c5](https://ossindex.s
   <configuration>
     <excludeVulnerabilityIds>
       <exclude>39d74cc8-457a-4e57-89ef-a258420138c5</exclude>
+    </excludeVulnerabilityIds>
+  </configuration>
+</plugin>
+{{< /highlight >}}
+
+Here is what this looks like when using a CVE number.
+
+{{< highlight "xml" >}}
+<plugin>
+  <groupId>org.sonatype.ossindex.maven</groupId>
+  <artifactId>ossindex-maven-plugin</artifactId>
+  <configuration>
+    <excludeVulnerabilityIds>
+      <exclude>CVE-2025-1234567</exclude>
     </excludeVulnerabilityIds>
   </configuration>
 </plugin>
